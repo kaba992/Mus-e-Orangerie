@@ -3,7 +3,7 @@
 
 class SceneManager {
     constructor() {
-        this.currentScene = null
+        this.currentScene = null 
         this.scenes = []
     }
 
@@ -25,10 +25,9 @@ class SceneManager {
         })
     }
 
+
     getCurrent() {
-        console.log(this.currentScene);
         return this.currentScene
-        
     }
     
  
