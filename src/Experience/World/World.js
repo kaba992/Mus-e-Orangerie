@@ -17,7 +17,7 @@ export default class World {
         this.home = new Home()
 
         this.sceneManager = new SceneManager()
-        console.log(this.sceneManager.getCurrent());
+        
        
       
         this.resources.on('ready', () => {
@@ -36,18 +36,18 @@ export default class World {
         if (this.fox) {
             this.fox.update()
         }
-        if (this.sceneManager.getCurrent() == SCENES.HOME) {
+        
             this.home.update()
 
-        }
+        
 
-        if (this.garage && this.sceneManager.getCurrent() == SCENES.GARAGE) {
+        if (this.garage ) {
             this.garage.update()
         }
-        if (this.laurencin && this.sceneManager.getCurrent() == SCENES.LAURENCIN) {
+        if (this.laurencin ) {
             this.laurencin.update()
         }
-        if (this.urtillo && this.sceneManager.getCurrent() == SCENES.URTILLO) {
+        if (this.urtillo ) {
             this.urtillo.update()
         }
 

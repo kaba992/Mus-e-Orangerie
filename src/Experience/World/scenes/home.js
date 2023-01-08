@@ -14,11 +14,13 @@ export default class Home {
         this.sceneManager = new SceneManager()
         this.renderer = new Renderer(this.scene)
         this.sceneManager.add(this)
-        this.sceneManager.switchTo(SCENES.HOME)
-      
+        // this.sceneManager.switchTo(SCENES.HOME)
+        
+
     }
     init() {
         this.addSphere()
+        this.canRender = false
     }
     addSphere() {
         const geometry = new THREE.SphereGeometry(1, 32, 32);
@@ -27,11 +29,14 @@ export default class Home {
         this.scene.add(this.sphere);
         console.log(this.sphere);
 
-
     }
+
     update() {
-        console.log("in Home Scene")
-        this.renderer.update()
+        if (this.canRender) {
+            this.renderer.update()
+            console.log("in Home Scene")
+
+        }
     }
 }
 

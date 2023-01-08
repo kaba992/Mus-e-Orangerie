@@ -9,15 +9,20 @@ import Renderer from "../../Renderer"
 export default class Garage {
     constructor() {
         // this.experience = new Experience()
-        this.GarageScene = new THREE.Scene();
+        this.scene = new THREE.Scene();
+        this.scene.name = "garage"
+
         this.sceneManager = new SceneManager()
-        this.renderer = new Renderer(this.GarageScene)
-        this.sceneManager.add(SCENES.GARAGE, this.GarageScene)
+        this.renderer = new Renderer(this.scene)
+        this.sceneManager.add(this)
+        // this.sceneManager.switchTo(SCENES.GARAGE)
 
     }
     init() {
         
         this.addCube()
+        this.canRender =false
+
       
     }
 
@@ -25,11 +30,16 @@ export default class Garage {
         const geometry = new THREE.BoxGeometry(1, 1, 1);
         const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
         this.cube = new THREE.Mesh(geometry, material);
-        this.GarageScene.add(this.cube);
+        this.scene.add(this.cube);
     }
     update() {
-        console.log("in Garage Scene")
-        this.renderer.update()
+        
+        if(this.canRender){
+            this.renderer.update()
+            console.log("in Garage Scene")
+
+        }
+       
     }
 
 }

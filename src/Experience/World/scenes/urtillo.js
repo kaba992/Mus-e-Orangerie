@@ -8,14 +8,17 @@ import Renderer from "../../Renderer"
 export default class Urtillo {
     constructor() {
         // this.experience = new Experience()
-        this.sceneUrtillo = new THREE.Scene()
+        this.scene = new THREE.Scene()
+        this.scene.name = "urtillo"
         this.sceneManager = new SceneManager()
-        this.renderer = new Renderer(this.sceneUrtillo)
-        this.sceneManager.add(SCENES.URTILLO, this.sceneUrtillo)
+        this.renderer = new Renderer(this.scene)
+        this.sceneManager.add(this)
+        this.sceneManager.switchTo(SCENES.HOME)
     }
     init() {
        
         this.addPlane()
+        this.canRender = false
 
     }
 
@@ -23,11 +26,14 @@ export default class Urtillo {
         const geometry = new THREE.PlaneGeometry(5, 20, 32);
         const material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
         this.plane = new THREE.Mesh(geometry, material);
-        this.sceneUrtillo.add(this.plane);
+        this.scene.add(this.plane);
     }
     update() {
+         if(this.canRender){
+            this.renderer.update()
        console.log("in Urtillo Scene")
-         this.renderer.update()
+
+         }
        
 
     }

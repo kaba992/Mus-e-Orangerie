@@ -3,13 +3,13 @@
 
 class SceneManager {
     constructor() {
-        this.currentScene = null 
+        this.currentScene = null
         this.scenes = []
     }
 
     add(scene) {
         this.scenes.push(scene)
-        if(this.currentScene === null){
+        if (this.currentScene === null) {
             this.currentScene = scene
         }
     }
@@ -20,7 +20,9 @@ class SceneManager {
             if (scene.scene.name == name) {
                 this.currentScene = scene
                 this.currentScene.init()
-
+                this.currentScene.canRender = true    
+            }else {
+                this.currentScene.canRender = false
             }
         })
     }
@@ -29,8 +31,8 @@ class SceneManager {
     getCurrent() {
         return this.currentScene
     }
-    
- 
+
+
 
 }
 
