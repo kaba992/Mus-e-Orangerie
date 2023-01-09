@@ -11,7 +11,7 @@ export default class Garage {
         this.scene = this.experience.scene
         this.resources = this.experience.resources
         this.camera = this.experience.camera.instance
-        this.camera.position.set(20.5,8.21,23)
+        this.camera.position.set(20.5,4.52,10.66)
         this.debug = this.experience.debug
         this.resource = this.resources.items.garage
         this.addGarage()
