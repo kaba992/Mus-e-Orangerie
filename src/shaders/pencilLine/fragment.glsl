@@ -1,4 +1,4 @@
-
+uniform sampler2D uDepth;
 uniform sampler2D tDiffuse;
 uniform vec2 uResolution;
 uniform sampler2D uNormals;
@@ -120,6 +120,9 @@ float combinedSobelValue() {
 }
 
 void main() {
+
+//    float depth = texture2D(uDepth, vUv).r;
+
     float sobelValue = combinedSobelValue();
     sobelValue = smoothstep(0.000000001, 0.03, sobelValue);
 

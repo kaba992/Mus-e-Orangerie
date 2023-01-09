@@ -30,6 +30,17 @@ export class PencilLinesPass extends Pass {
         this.normalBuffer = normalBuffer
 
         this.normalMaterial = new THREE.MeshNormalMaterial()
+
+
+        const depthBuffer = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight );
+        depthBuffer.texture.minFilter = THREE.NearestFilter;
+        depthBuffer.texture.magFilter = THREE.NearestFilter;
+        depthBuffer.stencilBuffer = false;
+        depthBuffer.depthTexture = new THREE.DepthTexture();
+        depthBuffer.depthTexture.format = THREE.DepthFormat;
+        depthBuffer.depthTexture.type = THREE.UnsignedShortType;
+
+        this.depthBuffer = depthBuffer;
     }
 
 
@@ -47,6 +58,9 @@ export class PencilLinesPass extends Pass {
 
         renderer.setRenderTarget(this.normalBuffer)
         const overrideMaterialValue = this.scene.overrideMaterial
+        renderer.setRenderTarget(this.depthBuffer)
+
+
 
         this.scene.overrideMaterial = this.normalMaterial
         renderer.render(this.scene, this.camera)
@@ -54,6 +68,7 @@ export class PencilLinesPass extends Pass {
 
         this.material.uniforms.uNormals.value = this.normalBuffer.texture
         this.material.uniforms.tDiffuse.value = readBuffer.texture
+        // this.material.uniforms.uDepth.value = this.depthBuffer.texture
 
 
         if (this.renderToScreen) {

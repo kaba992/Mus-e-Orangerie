@@ -22,6 +22,9 @@ export class PencilLinesMaterial extends THREE.ShaderMaterial {
                 },
                 uColor: {
                     value: new THREE.Color()
+                },
+                uDepth: {
+                    value: null
                 }
             },
             fragmentShader, // to be imported from another file

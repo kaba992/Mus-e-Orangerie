@@ -31,5 +31,10 @@ export default [
         name: 'garage',
         type: 'gltfModel',
         path: 'models/Garage/garage.glb'
+    },
+    {
+        name: 'mapColor',
+        type: 'texture',
+        path: 'textures/map/color.png'
     }
 ]
