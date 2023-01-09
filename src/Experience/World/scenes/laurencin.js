@@ -1,6 +1,5 @@
 import Experience from "../../Experience"
 import * as THREE from "three"
-import SceneManager from "./sceneManager"
 import SCENES from "../../Utils/SCENES"
 import Renderer from "../../Renderer"
 
@@ -8,21 +7,10 @@ import Renderer from "../../Renderer"
 export default class Laurencin {
     constructor() {
         // this.experience = new Experience()
-        this.scene = new THREE.Scene()
-        this.scene.name = "laurencin"
-        this.sceneManager = new SceneManager()
-        this.renderer = new Renderer(this.scene)
-        this.sceneManager.add(this)
-        // this.sceneManager.switchTo(SCENES.LAURENCIN)
+   
     }
 
-    init() {
-
-        this.addCylinder()
-        this.canRender = false
-
-
-    }
+   
 
     addCylinder() {
 
@@ -33,12 +21,7 @@ export default class Laurencin {
     }
 
     update() {
-        if (this.canRender) {
-            this.renderer.update()
-            console.log("in Laurencin Scene");
-
-
-        }
+    
 
     }
 }

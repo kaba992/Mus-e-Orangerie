@@ -26,5 +26,10 @@ export default [
         name: 'foxModel',
         type: 'gltfModel',
         path: 'models/Fox/glTF/Fox.gltf'
+    },
+    {
+        name: 'garage',
+        type: 'gltfModel',
+        path: 'models/Garage/garage.glb'
     }
 ]
