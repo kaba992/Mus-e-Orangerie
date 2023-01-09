@@ -19,7 +19,7 @@ import Composer from "./Composer";
 let instance = null
 
 export default class Experience {
-    composerEnable = true;
+    composerEnable = false;
 
     constructor(_canvas) {
         // Singleton

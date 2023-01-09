@@ -3,6 +3,8 @@ import Experience from '../Experience.js'
 
 export default class Environment
 {
+    lux = {value:10};
+
     constructor()
     {
         this.experience = new Experience()
@@ -22,7 +24,9 @@ export default class Environment
 
     setSunLight()
     {
-        this.sunLight = new THREE.DirectionalLight('#ffffff', 4)
+        this.sunLight = new THREE.DirectionalLight('#ffffff', this.lux.value)
+        this.debugFolder.add(this.sunLight,'intensity',0,20,0.1).name('lumière')
+
         this.sunLight.castShadow = true
         this.sunLight.shadow.camera.far = 15
         this.sunLight.shadow.mapSize.set(1024, 1024)
