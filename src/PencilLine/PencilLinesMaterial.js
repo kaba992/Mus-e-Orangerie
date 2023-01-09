@@ -1,7 +1,7 @@
 // PencilLinesMaterial.ts
 import * as THREE from "three";
-import vertexShader from '../shaders/pencilLine/vertex'
-import fragmentShader from '../shaders/pencilLine/fragment'
+import vertexShader from '../shaders/pencilLine/vertex.glsl'
+import fragmentShader from '../shaders/pencilLine/fragment.glsl'
 
 export class PencilLinesMaterial extends THREE.ShaderMaterial {
     constructor(texture) {
@@ -19,6 +19,9 @@ export class PencilLinesMaterial extends THREE.ShaderMaterial {
                 },
                 tCloud: {
                     value: texture
+                },
+                uColor: {
+                    value: new THREE.Color()
                 }
             },
             fragmentShader, // to be imported from another file
