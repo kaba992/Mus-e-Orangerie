@@ -11,6 +11,10 @@ import {PencilLinesPass} from "../PencilLine/PencilLinesPass";
 
 export default class Composer{
 
+    colors = {
+        pointColor: '#00FF00'
+    }
+
     constructor(){
         this.experience = new Experience();
         this.scene = this.experience.scene;
@@ -23,7 +27,12 @@ export default class Composer{
         this.instance = new EffectComposer(this.renderer.instance);
 
         this.renderPass = new RenderPass(this.scene,this.camera.instance);
-        this.pencilLinesPass = new PencilLinesPass([{width: this.renderer.sizes.width,height: this.renderer.sizes.height},this.scene,this.camera.instance])
+        this.pencilLinesPass = new PencilLinesPass(
+            [{width: this.renderer.sizes.width,height: this.renderer.sizes.height},
+                this.scene,
+                this.camera.instance,
+
+            ])
         this.instance.addPass(this.renderPass)
         this.instance.addPass(this.pencilLinesPass)
     }
