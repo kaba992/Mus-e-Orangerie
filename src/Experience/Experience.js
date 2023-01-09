@@ -14,10 +14,13 @@ import Resources from './Utils/Resources.js'
 import SCENES from './Utils/SCENES.js'
 
 import sources from './sources.js'
+import Composer from "./Composer";
 
 let instance = null
 
 export default class Experience {
+    composerEnable = true;
+
     constructor(_canvas) {
         // Singleton
         if (instance) {
@@ -39,7 +42,14 @@ export default class Experience {
         this.resources = new Resources(sources)
         this.camera = new Camera()
         this.renderer = new Renderer()
+        this.composer = new Composer()
         this.world = new World()
+
+        if(this.debug.active)
+        {
+            this.debugFolder = this.debug.ui.addFolder('composer')
+            this.debugFolder.add(this,'composerEnable')
+        }
 
         // Resize event
         this.sizes.on('resize', () => {
@@ -60,8 +70,13 @@ export default class Experience {
     update() {
         this.camera.update()
         this.world.update()
-        this.renderer.update()
+        if(this.composerEnable){
+            this.composer.update()
+        }
+        else{
+            this.renderer.update()
 
+        }
     }
 
     destroy() {
