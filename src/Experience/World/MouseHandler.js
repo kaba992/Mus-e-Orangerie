@@ -1,19 +1,20 @@
-import Entity from "./Entity";
+import Entity from "./scenes/Entity";
 import {
     Raycaster,
     Vector2,
-    Color, MeshStandardMaterial
+    Color, MeshStandardMaterial, Vector3
 } from "three";
-import keyObjects,{contentObjects} from "../../Utils/KeyObjets";
 
 export default class MouseHandler extends Entity{
+    static currentObjPost = null;
+    static currentObj = null;
     static instance = null;
     #raycaster;
     #mouse;
     #listObject = []
     #listMesh = []
     #intersects
-    targetCamera = null;
+
 
     constructor() {
         super();
@@ -21,6 +22,7 @@ export default class MouseHandler extends Entity{
             return MouseHandler.instance;
         this.#raycaster = new Raycaster();
         this.#mouse = new Vector2();
+        this.cameraObj = this.experience.camera;
         this.#raycaster.setFromCamera(this.#mouse, this.camera);
         this.#handleMouseMove();
         this.#handlePoseClick()
@@ -34,61 +36,74 @@ export default class MouseHandler extends Entity{
         this.#listMesh.push(mesh);
     }
 
+    addObjects(objects){
+        objects.forEach(object => this.addObject(object))
+    }
+
+    clearListObjects(){
+        this.#listObject = [];
+    }
+
     #handleMouseMove() {
         window.addEventListener('mousemove', (e) => {
 
-            this.#intersects = this.#raycaster.intersectObjects(this.#listMesh);
+            this.#intersects = this.#raycaster.intersectObjects(this.#listObject);
             this.#mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
             this.#mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
             this.#raycaster.setFromCamera(this.#mouse, this.camera);
+
+            // if(this.#intersects.length > 0) console.log(this.#intersects[0].object.name)
         })
     }
 
-    // #modifyHUD(object){
-    //     document.querySelectorAll(".graph").forEach(elt => {
-    //         if(elt.classList.contains(object.name)){
-    //             elt.classList.remove("hidden");
-    //         }
-    //         else{
-    //             elt.classList.add("hidden");
-    //         }
-    //     })
-    //     const subline = document.querySelector(".leftInfo .subline")
-    //     subline.querySelector("h1").innerHTML = contentObjects[object.name].title + " <span>?</span>";
-    //     subline.querySelector("p").innerHTML = contentObjects[object.name].content;
-    // }
+    targetCameraEvent(){
+        if(this.cameraObj.lookAtPosition.distanceTo(MouseHandler.currentObjPost) > 0.1){
+            this.cameraObj.lookAtPosition.lerp(MouseHandler.currentObjPost,0.05)
+            if( MouseHandler.currentObj){
+                if(this.camera.position.distanceTo(MouseHandler.currentObjPost) > 8)
+                    this.camera.position.lerp(MouseHandler.currentObjPost,0.01);
+            }
+            else {
+                this.camera.position.lerp(this.experience.camera.initPosition,0.1);
+                console.log("hihi")
+            }
+
+        }
+        else if(this.camera.position.distanceTo(this.experience.camera.initPosition) > 0.5 && !MouseHandler.currentObj) {
+            this.camera.position.lerp(this.experience.camera.initPosition,0.1);
+            console.log("hihi")
+        }
+
+        // else if(this.initialPosition.distanceTo(this.currentObjPost) <=  0.1 && this.currentObj ){
+        //     if(!this.animInFocus)
+        //         this.animFocus();
+        // }
+
+    }
 
     #handlePoseClick() {
         window.addEventListener('click', (e) => {
-            if (this.#intersects && this.#intersects.length > 0 && this.globalWorld.currentPart == 2 && !this.globalWorld.animInFocus) {
+            if (this.#intersects && this.#intersects.length > 0) {
                 this.experience.camera.controls.enabled = false;
-                if(!keyObjects.includes(this.#intersects[0].object.name)){
-                    this.globalWorld.targetCamera = this.#intersects[0].object.parent.position
-                    this.#modifyHUD(this.#intersects[0].object.parent)
-                }
-                else{
-                    this.globalWorld.targetCamera = this.#intersects[0].object.position
-                    this.globalWorld.currentObj =  this.#intersects[0].object
-                    this.#modifyHUD(this.#intersects[0].object)
-                }
+                MouseHandler.currentObjPost = this.#intersects[0].object.position
+                MouseHandler.currentObj =  this.#intersects[0].object
+                // this.#modifyHUD(this.#intersects[0].object)
             }
         })
     }
 
+    clearCurrentObj(initPos){
+        MouseHandler.currentObj = null;
+        // this.experience.camera.controls.enabled = true;
+        this.cameraObj.initPosition = new Vector3(initPos.x, initPos.y, initPos.z);
+        MouseHandler.currentObjPost =new Vector3(0,0,0)
+        console.log(this.camera.position.distanceTo(this.experience.camera.initPosition))
+    }
+
     update() {
-        // if (this.#intersects &&  this.#intersects.length > 0) {
-        //     if(this.globalWorld.currentPart == 2 && !this.globalWorld.currentObj){
-        //         if(!keyObjects.includes(this.#intersects[0].object.name)){
-        //             this.composer.addSelectedObject(this.#intersects[0].object.parent);
-        //         }
-        //         else{
-        //             this.composer.addSelectedObject(this.#intersects[0].object);
-        //         }
-        //     }
-        // }
-        // else if(this.composer.selectedObjectsEmpty()){
-        //     this.composer.removeSelectedObject();
-        // }
+        if(MouseHandler.currentObjPost){
+            this.targetCameraEvent()
+        }
     }
 
 
