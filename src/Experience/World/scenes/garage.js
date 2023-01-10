@@ -4,7 +4,8 @@ import SCENES from "../../Utils/SCENES"
 import Experience from "../../Experience"
 import { Vector2 } from "three"
 import gsap from "gsap"
-import { Howl} from 'Howler';
+import { Howl } from 'Howler';
+import { WebVTTParser } from 'webvtt-parser';
 
 
 export default class Garage {
@@ -25,11 +26,12 @@ export default class Garage {
         this.initialLookAt = new THREE.Vector3(0, 0, 0)
         this.currentLookAt = this.initialLookAt.clone()
         this.canBack = false
-        this.garageAudio = new Howl({ src: ['sounds/Son_Lettre_Garage.mp3']});
-        this.laurencinAudio = new Howl({ src: ['sounds/Son_Lettre_Laurencin.mp3']});
-        this.urtilloAudio = new Howl({ src: ['sounds/Son_Lettre_Utrillo.mp3']});
-          
-  
+        this.garageAudio = new Howl({ src: ['sounds/Son_Lettre_Garage.mp3'] });
+        this.laurencinAudio = new Howl({ src: ['sounds/Son_Lettre_Laurencin.mp3'] });
+        this.urtilloAudio = new Howl({ src: ['sounds/Son_Lettre_Utrillo.mp3'] });
+        this.subtitlesCues = []
+
+
         this.scene1 = true
         this.canLerp = true
         this.inLerp = false
@@ -48,12 +50,24 @@ export default class Garage {
     setDom() {
         this.camBack = document.querySelector(".camera-back")
         this.startAudio = document.querySelector(".start-audio")
+        this.subtitle = document.querySelector('.subtitle')
         this.startAudio.addEventListener("click", () => {
-            if(this.scene1) {
-                this.garageAudio.play()
+            if (this.scene1) {
+                
+                window.fetch('sounds/Son_Lettre_Garage.mp3.vtt')
+                    .then(response => response.text())
+                    .then(data => {
+                        const subtitles = new WebVTTParser().parse(data);
+                        this.subtitlesCues = subtitles.cues;
+                        this.garageAudio.play()
+
+
+                    })
+                    .catch(error => console.log(error));
+
             }
         })
-        
+
         gsap.set(
             this.camBack,
             {
@@ -102,8 +116,8 @@ export default class Garage {
             this.inLerp = true
 
 
-            
-           
+
+
         })
     }
 
@@ -111,6 +125,23 @@ export default class Garage {
 
     update() {
         this.raycaster.setFromCamera(this.mouse, this.camera);
+
+        if(this.garageAudio.playing()){
+            const time = this.garageAudio.seek()
+            const cues = this.subtitlesCues
+            for (let i = 0; i < cues.length; i++) {
+                // console.log(cues[i].text);
+
+                if (time > cues[i].startTime && time < cues[i].endTime) {
+                    this.subtitle.innerHTML = cues[i].text;
+                    return
+                }
+                this.subtitle.innerHTML = "";
+
+            }
+
+        }
+        
 
         const intersects = this.raycaster.intersectObjects(this.garageObjects, true);
         this.currentIntersect = intersects[0]
@@ -133,7 +164,7 @@ export default class Garage {
                     onComplete: () => {
                         this.canBack = false
                         this.inLerp = false
-                        
+
                         gsap.to(this.camBack, { opacity: 0, duration: 1 })
                     }
                 }
@@ -155,7 +186,7 @@ export default class Garage {
         if (intersects.length) {
             if (this.currentIntersect) {
                 this.garageObjects.forEach(object => {
-                    if (object.name === intersect.object.name ) {
+                    if (object.name === intersect.object.name) {
                         this.lerpPos(object)
                     }
                 })
