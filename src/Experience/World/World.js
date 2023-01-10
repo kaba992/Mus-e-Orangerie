@@ -18,12 +18,13 @@ export default class World {
             // this.home = new Home();
             this.garage= new Garage()
 
-
-
         })
     }
 
     update() {
+        if(this.garage){
+            this.garage.update()
+        }
 
     }
 }
