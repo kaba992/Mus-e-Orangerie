@@ -1,0 +1,56 @@
+{
+  "montmartre": {
+      "poi": {
+        "garage": {
+          "position": {
+            "xNormal":0.684,
+            "yNormal": 0.456
+          },
+          "scene": {
+            "cameraPos": {
+              "x": 0,
+              "y": 0
+            },
+            "objList": ["pneu","cadre","masque"]
+          }
+        },
+        "urtillo": {
+          "position": {
+            "xNormal": 0.56,
+            "yNormal": 0.698
+          },
+          "scene": {
+            "cameraPos": {
+              "x": 0,
+              "y": 0
+            },
+            "objList": ["peinture","bouteille"]
+          }
+        },
+        "laurencin": {
+          "position": {
+            "xNormal": 0.288,
+            "yNormal": 0.35
+          },
+          "scene": {
+            "cameraPos": {
+              "x": 0,
+              "y": 0
+            },
+            "objList": ["peinture","bouteille"]
+          }
+        }
+      }
+  },
+  "orangerie": {
+    "poi": {
+      "museum": {
+        "position": {
+          "xNormal": 0.8,
+          "yNormal": 0.5
+        },
+        "scene": null
+      }
+    }
+  }
+}
