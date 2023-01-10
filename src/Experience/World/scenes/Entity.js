@@ -2,8 +2,6 @@ import Experience from "../../Experience";
 import {Clock} from "three";
 
 export default class Entity {
-    _body;
-    _shape;
     _mesh;
     _material;
     _geometry;
@@ -42,19 +40,4 @@ export default class Entity {
         this._material = material;
     }
 
-    getBody(){
-        return this._body;
-    }
-
-    setBody(body){
-        this._body = body;
-    }
-
-    getShape(){
-        return this._shape;
-    }
-
-    setShape(shape){
-        this._shape = shape;
-    }
 }

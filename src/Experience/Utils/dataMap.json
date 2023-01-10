@@ -8,10 +8,12 @@
           },
           "scene": {
             "cameraPos": {
-              "x": 0,
-              "y": 0
+              "x": 20.5,
+              "y": 4.52,
+              "z": 10.66
             },
-            "objList": ["pneu","cadre","masque"]
+            "audio": "sounds/Son_Lettre_Garage.mp3",
+            "objList": ["pneus","masque","cadre"]
           }
         },
         "urtillo": {
@@ -24,6 +26,7 @@
               "x": 0,
               "y": 0
             },
+            "audio": "sounds/Son_Lettre_Utrillo.mp3",
             "objList": ["peinture","bouteille"]
           }
         },
@@ -37,6 +40,7 @@
               "x": 0,
               "y": 0
             },
+            "audio": "sounds/Son_Lettre_Laurencin.mp3",
             "objList": ["peinture","bouteille"]
           }
         }
