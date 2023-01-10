@@ -17,9 +17,11 @@ export default class World {
             this.environment = new Environment()
             this.montmartre = new Map("montmartre");
             // this.garage = new Garage()
+
         })
     }
 
     update() {
+
     }
 }
