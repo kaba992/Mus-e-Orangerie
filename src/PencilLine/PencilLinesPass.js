@@ -55,10 +55,9 @@ export class PencilLinesPass extends Pass {
         readBuffer
     ) {
         this.material.uniforms['tDiffuse'].value = readBuffer.texture
-
-        renderer.setRenderTarget(this.normalBuffer)
-        const overrideMaterialValue = this.scene.overrideMaterial
         renderer.setRenderTarget(this.depthBuffer)
+
+        const overrideMaterialValue = this.scene.overrideMaterial
 
 
 

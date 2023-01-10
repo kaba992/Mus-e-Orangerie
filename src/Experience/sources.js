@@ -33,8 +33,23 @@ export default [
         path: 'models/Garage/garage.glb'
     },
     {
-        name: 'mapColor',
+        name: 'montmartre',
         type: 'texture',
-        path: 'textures/map/color.png'
+        path: 'textures/map/Montmartre-carte.jpg'
+    },
+    {
+        name: 'orangerie',
+        type: 'texture',
+        path: 'textures/map/Orangerie-carte.jpg'
+    },
+    {
+        name: 'poi',
+        type: 'gltfModel',
+        path: 'models/indicator/indicator.glb'
+    },
+    {
+        name: 'cloud',
+        type: 'texture',
+        path: 'textures/cloud.png'
     }
 ]

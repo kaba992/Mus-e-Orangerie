@@ -45,10 +45,16 @@ export default class Experience {
         this.composer = new Composer()
         this.world = new World()
 
+        const fog = new THREE.Fog('#F0E5D4', 1, 100)
+        // this.scene.fog = fog
+
         if(this.debug.active)
         {
             this.debugFolder = this.debug.ui.addFolder('composer')
             this.debugFolder.add(this,'composerEnable')
+            // this.debugFolder.add(this.scene.fog,"near",0,200,0.1)
+            // this.debugFolder.add(this.scene.fog,"far",0,200,0.1)
+
         }
 
         // Resize event

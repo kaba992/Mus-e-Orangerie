@@ -90,30 +90,31 @@ float cnoise(vec3 P)
 void main()
 {
     const float PI = 3.1415926535897932384626433832795;
+//
+//    if(uRadius == 0.) discard;
+//
+////  START - fragment for Orangerie
+//    float strength =  (1. * uRadius - (distance(vUv, vec2(0.5))*2.)*(distance(vUv, vec2(0.5))*2.));
+//    strength -= cnoise(vec3(vUv.x, vUv.y, uTime*0.5))*0.35  ;
+//    float noise = (cnoise(vec3(vUv.x*5., vUv.y*5., uTime*0.25))+0.75);
+//    strength -= distance(vec2(vUv.x*noise,vUv.y*noise), vec2(0.5)) ;
+//
+//
+//    vec4 textureColor = texture2D(uTexture, vUv);
+//    textureColor = vec4(mix(textureColor.xyz,uColorFilter,0.5),1.);
+//    textureColor = vec4(textureColor.rgb*strength,1.);
+//
+//    vec4 textureCloud = texture2D(uCloud,vUv);
+//    textureColor *= textureCloud;
+//
+//
+//    if(textureColor.r < 0.1 && textureColor.g < 0.1 && textureColor.b < 0.1){
+//        textureColor = vec4(smoothstep(0.01,.1,textureColor.rgb)*0.1,1.);
+//    }
 
-    if(uRadius == 0.) discard;
+//    if(textureColor.r < 0.01 && textureColor.g < 0.01 && textureColor.b < 0.01) discard;
 
-//  START - fragment for Orangerie
-    float strength =  (1. * uRadius - (distance(vUv, vec2(0.5))*2.)*(distance(vUv, vec2(0.5))*2.));
-    strength -= cnoise(vec3(vUv.x, vUv.y, uTime*0.5))*0.35  ;
-    float noise = (cnoise(vec3(vUv.x*5., vUv.y*5., uTime*0.25))+0.75);
-    strength -= distance(vec2(vUv.x*noise,vUv.y*noise), vec2(0.5)) ;
-
-
-    vec4 textureColor = texture2D(uTexture, vUv);
-    textureColor = vec4(mix(textureColor.xyz,uColorFilter,0.5),1.);
-    textureColor = vec4(textureColor.rgb*strength,1.);
-
-    vec4 textureCloud = texture2D(uCloud,vUv);
-    textureColor *= textureCloud;
-
-
-    if(textureColor.r < 0.1 && textureColor.g < 0.1 && textureColor.b < 0.1){
-        textureColor = vec4(smoothstep(0.01,.1,textureColor.rgb)*0.1,1.);
-    }
-
-    if(textureColor.r < 0.01 && textureColor.g < 0.01 && textureColor.b < 0.01) discard;
-    gl_FragColor = textureColor;
+    gl_FragColor = vec4(1.,0.,0.,1.);
 //  END - fragment for Orangerie
 
 }

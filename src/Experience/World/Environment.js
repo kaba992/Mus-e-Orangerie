@@ -12,11 +12,6 @@ export default class Environment
         this.resources = this.experience.resources
         this.debug = this.experience.debug
         
-        // Debug
-        if(this.debug.active)
-        {
-            this.debugFolder = this.debug.ui.addFolder('environment')
-        }
 
         this.setSunLight()
         this.setEnvironmentMap()
@@ -25,9 +20,13 @@ export default class Environment
     setSunLight()
     {
         this.sunLight = new THREE.DirectionalLight('#ffffff', this.lux.value)
-        if(this.debug.active){
-        this.debugFolder.add(this.sunLight,'intensity',0,20,0.1).name('lumière')
+        // Debug
+        if(this.debug.active)
+        {
+            this.debugFolder = this.debug.ui.addFolder('environment')
+            this.debugFolder.add(this.sunLight,'intensity',0,20,0.1).name('lumière')
         }
+
         this.sunLight.castShadow = true
         this.sunLight.shadow.camera.far = 15
         this.sunLight.shadow.mapSize.set(1024, 1024)
