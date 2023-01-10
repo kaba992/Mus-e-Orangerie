@@ -26,21 +26,21 @@ export default class Camera
     setControls()
     {
         this.controls = new OrbitControls(this.instance, this.canvas)
-        this.controls.screenSpacePanning = false; // pan orthogonal to world-space direction camera.up
+        // this.controls.screenSpacePanning = false; // pan orthogonal to world-space direction camera.up
 
-        this.controls.mouseButtons.LEFT = THREE.MOUSE.PAN;
-        this.controls.mouseButtons.RIGHT = THREE.MOUSE.ROTATE;
-        this.controls.touches.ONE = THREE.TOUCH.PAN;
-        this.controls.touches.TWO = THREE.TOUCH.DOLLY_ROTATE;
+        // this.controls.mouseButtons.LEFT = THREE.MOUSE.PAN;
+        // this.controls.mouseButtons.RIGHT = THREE.MOUSE.ROTATE;
+        // this.controls.touches.ONE = THREE.TOUCH.PAN;
+        // this.controls.touches.TWO = THREE.TOUCH.DOLLY_ROTATE;
 
         this.controls.enableDamping = true
         this.controls.enablePan = false;
-        this.controls.minDistance = 50
-        this.controls.maxDistance = 100
-        this.controls.maxPolarAngle = Math.PI/3 -Math.PI/10
-        this.controls.minPolarAngle = Math.PI/6
-        this.controls.maxAzimuthAngle = 0
-        this.controls.minAzimuthAngle = -Math.PI/9
+        // this.controls.minDistance = 50
+        // this.controls.maxDistance = 100
+        // this.controls.maxPolarAngle = Math.PI/3 -Math.PI/10
+        // this.controls.minPolarAngle = Math.PI/6
+        // this.controls.maxAzimuthAngle = 0
+        // this.controls.minAzimuthAngle = -Math.PI/9
         this.controls.enableRotate = true;
     }
     resize()

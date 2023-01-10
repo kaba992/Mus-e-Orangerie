@@ -20,7 +20,6 @@ export default class Garage {
         this.model1 = this.resources.items.garage
         this.raycaster = new THREE.Raycaster();
         this.mouse = new THREE.Vector2()
-        this.maxFocus = 2
         this.currentIntersect = null
         this.targetPos = new THREE.Vector3()
         this.initialLookAt = new THREE.Vector3(0, 0, 0)
@@ -53,7 +52,7 @@ export default class Garage {
         this.subtitle = document.querySelector('.subtitle')
         this.startAudio.addEventListener("click", () => {
             if (this.scene1) {
-                
+
                 window.fetch('sounds/Son_Lettre_Garage.mp3.vtt')
                     .then(response => response.text())
                     .then(data => {
@@ -87,14 +86,17 @@ export default class Garage {
         this.garage.position.set(0, -2, 0)
         this.garageObjects = []
         const mask1 = this.garage.getObjectByName("masque1.001")
-        const mask2 = this.garage.getObjectByName("Masque_Low__0")
+        const mask2 = this.garage.getObjectByName("masque")
         mask2.name = "mask2"
         const pneus = this.garage.getObjectByName("pneus")
         pneus.name = "pneus"
-        const cadre = this.garage.getObjectByName("photo_guillaume")
-
+        const cadre = this.garage.getObjectByName("cadre")
         cadre.name = "cadre"
-        const guillaumePhoto = this.garage.getObjectByName("photo_guillaume")
+        const guillaumePhoto = this.garage.getObjectByName("guigui")
+        this.resources.items.guillaume.flipY = false
+        guillaumePhoto.material = new THREE.MeshBasicMaterial({
+            map: this.resources.items.guillaume
+        })
         console.log(guillaumePhoto);
         this.garageObjects = []
         this.garageObjects.push(mask2, pneus, cadre)
@@ -126,7 +128,7 @@ export default class Garage {
     update() {
         this.raycaster.setFromCamera(this.mouse, this.camera);
 
-        if(this.garageAudio.playing()){
+        if (this.garageAudio.playing()) {
             const time = this.garageAudio.seek()
             const cues = this.subtitlesCues
             for (let i = 0; i < cues.length; i++) {
@@ -137,11 +139,9 @@ export default class Garage {
                     return
                 }
                 this.subtitle.innerHTML = "";
-
             }
-
         }
-        
+
 
         const intersects = this.raycaster.intersectObjects(this.garageObjects, true);
         this.currentIntersect = intersects[0]
