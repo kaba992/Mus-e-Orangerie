@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
 
+
 module.exports = {
     entry: path.resolve(__dirname, '../src/script.js'),
     output:
@@ -75,6 +76,14 @@ module.exports = {
                 generator:
                 {
                     filename: 'assets/fonts/[hash][ext]'
+                }
+            },
+            // GLSL
+            {
+                test: /\.glsl$/,
+                use: {
+                    loader: 'webpack-glsl-loader',
+                    options: {}
                 }
             }
         ]
