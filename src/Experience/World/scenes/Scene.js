@@ -42,6 +42,7 @@ export default class Scene extends Entity {
         this.audioHandler = new AudioHandler();
         this.audioHandler.setAudio(this.#sceneInfo.audio)
         this.mouseHandler = new MouseHandler();
+        this.experience.camera.setParametersIsHome(false);
     }
 
     setDom() {
@@ -51,7 +52,6 @@ export default class Scene extends Entity {
 
         this.camBack.addEventListener("click", () => {
             this.mouseHandler.clearCurrentObj(this.cameraStart)
-            console.log("test")
         })
     }
 
