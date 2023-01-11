@@ -6,7 +6,6 @@ import PointOfInterest from "./PointOfInterest"
 import dataMap from '/src/Experience/Utils/dataMap.json';
 import MouseHandler from "../../MouseHandler";
 
-
 export default class Map extends Entity{
     static SIZE = 100;
     mapName = null;
@@ -16,8 +15,8 @@ export default class Map extends Entity{
     constructor(mapName) {
         super();
         this.mapName = mapName;
-        this.experience.camera.setParametersIsHome(true)
 
+        this.experience.camera.setParametersIsHome(true)
 
         this.#createMap()
         const axesHelper = new THREE.AxesHelper(10)
@@ -60,36 +59,50 @@ export default class Map extends Entity{
 
         this._mesh.position.set(-(boundingBoxMax.x/2),0,(boundingBoxMax.y/2)-10)
         this._mesh.receiveShadow = true;
-        this.scene.add(this._mesh)
     }
 
-    #setPois(){
-        this.experience.camera.initPosition = new THREE.Vector3(0, 120, 40)
-        const pois = dataMap[this.mapName].poi;
+    start(){
+        if(this.mapName == "montmatre"){
+            const positionCam = dataMap[this.mapName].positionCam
+            this.experience.camera.initPosition = new THREE.Vector3(positionCam.x, positionCam.y, positionCam.z)
+        }
         this.mouseHandler = new MouseHandler();
         this.mouseHandler.clearListObjects()
         this.mouseHandler.inHome = true;
+        this.#setPois()
+    }
+
+    #setPois(){
+        const pois = dataMap[this.mapName].poi;
         for (const [key, value] of Object.entries(pois)) {
             this.pois[key] = value;
             const position = this.pois[key].position;
-            this.pois[key].poi = new PointOfInterest(this,[position.xNormal,position.yNormal],key)
-            this.mouseHandler.addObject(this.pois[key].poi.getMesh())
-            this.mouseHandler.addKeyObject(key);
+            if(this.pois[key].position){
+                this.pois[key].poi = new PointOfInterest(this,[position.xNormal,position.yNormal],key)
+                this.mouseHandler.addObject(this.pois[key].poi.getMesh())
+                this.mouseHandler.addKeyObject(key);
+            }
         }
     }
 
     #createMap() {
         this.#setTextures();
-        this.#setMesh();
-        this.#setPois()
+        this.#setMesh()
+
     }
 
-    setPosition(x,y){
-        this._mesh.position.set(-50-x,0,50+y);
+    setPosition(){
+        const pos = dataMap[this.mapName].position
+        this._mesh.position.set(-50-pos.x,0,50+pos.z);
     }
 
     update() {
-
+        // if(this.mouseHandler && this.mouseHandler.getIntersection()){
+        //     if(this.mouseHandler.getIntersection().name != "image")
+        // }
+        if(this._mesh){
+            this._material.uniforms.uTime1.value = this.clock.getElapsedTime()
+        }
     }
 }
 

@@ -23,12 +23,15 @@
               "title": "pneus",
               "text": "Paul Guillaume est engagé à la mort de son père dans un garage de luxe au début du 20ème siècle. Il se jure d'être un jour à la place des clients. "
             },
+
             "masque2":{
               "title": "Masques africains",
               "text": "C'est à l'occasion du déchargement d'une cargaison de caoutchouc - destiné à la fabrication de pneus - qu'il découvre et prend possession de quelques objets en provenance d'Afrique. Dès 1911, il expose quelques-uns de ces objets dans son garage. "
             }
           }
-        }
+        },
+        "title": "garage paul guillaume",
+        "subtitle": "Montmartre"
       },
       "urtillo": {
         "position": {
@@ -36,18 +39,22 @@
           "yNormal": 0.698
         },
         "scene": {
+
           "cameraPos": {
             "x": 20.5,
             "y": 4.52,
             "z": 10.66
+
           },
-          "audio": "sounds/Son_Lettre_Utrillo.mp3",
-          "subtitle": "sounds/Son_Lettre_Utrillo.mp3.vtt",
-          "objList": [
-            "peinture",
-            "bouteille"
-          ]
-        }
+            "audio": "sounds/Son_Lettre_Utrillo.mp3",
+            "subtitle": "sounds/Son_Lettre_Utrillo.mp3.vtt",
+            "objList": [
+              "peinture",
+              "bouteille"
+            ]
+          },
+        "title": "chambre maurice urtillo",
+        "subtitle": "Rue Mont-Cenis, Montmartre"
       },
       "laurencin": {
         "position": {
@@ -71,10 +78,25 @@
               "title": "Mannequin",
               "text": "Elle travaille également comme conceptrice de rideaux de scènes, décors et costumes pour les Ballets russes, Les Soirées de Paris d'Étienne de Beaumont, l'Opéra-comique, la Comédie-Française."
             }
-          }
-        }
+          }   
+        },
+        "title": "chambre marie laurencin",
+        "subtitle": "Place Emile Goudeau, Montmartre"
       }
+    },
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "positionCam": {
+      "x": 0,
+      "y": 120,
+      "z": 40
     }
+    ,
+      "title": "montmartre",
+      "subtitle": "quartier"
   },
   "orangerie": {
     "poi": {
@@ -84,7 +106,21 @@
           "yNormal": 0.5
         },
         "scene": null
-      }
+      },
+      "title": "orangerie",
+      "subtitle": "Jardin des Tuilleries"
+    },
+    "title": "tuillerie",
+    "subtitle": "quartier",
+    "position": {
+      "x": 10,
+      "y": 0,
+      "z": 140
+    },
+    "positionCam": {
+      "x": 0,
+      "y": 120,
+      "z": 40
     }
   }
 }

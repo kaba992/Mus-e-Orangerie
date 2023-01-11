@@ -5,7 +5,7 @@
 }
 
 :root{
-	font-size:16px;
+	font-size:18px;
 }
 
 html,
@@ -27,6 +27,10 @@ body h1,h2,h3,h4{
 	font-family: "Abhaya Libre";
 }
 
+.hidden{
+	display: none !important;
+}
+
 button{
 	padding:0;
 	background:none;
@@ -40,7 +44,6 @@ button{
 	top: 0;
 	left: 0;
 	outline: none;
-	z-index: 50;
 }
 
 .textureImg{
@@ -65,14 +68,15 @@ button{
 
 .subtitle {
 	position: absolute;
-	bottom: 4%;
+	bottom: 15%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	
-	font-size: 2rem;
-	color: #000;
+	font-size: 1.5rem;
+	color: var(--bgColor);
+	background: var(--mainColor);
 	z-index: 50;
 	text-align: center;
+	padding: 5px 10px;
 }
 
 .scenes {
@@ -281,18 +285,38 @@ button{
 	border-top: 2px solid var(--mainColor);
 }
 
+.inputNav,.replayInput,.leftInfo{
+	position: absolute;
+	top: 5em;
+	right: 5em;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 0.75em;
+}
+
+.replayInput,.leftInfo{
+	position: relative;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	pointer-events: none;
+}
+p.leftInfo{
+	opacity: 1;
+	pointer-events:auto;
+}
+
+.inputNav img{
+	width:2em;
+}
+
 .back-map{
 	display: none;
 }
 
 .infos{
 	text-align:center;
-}
-
-.subtitle{
-	font-size: 1.5rem;
-	font-weight: 600;
-	background-color: #fff;
 }
 
 .title{

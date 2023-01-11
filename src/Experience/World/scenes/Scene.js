@@ -13,18 +13,19 @@ export default class Scene extends Entity {
     #sceneInfo
     #currentScene
 
-    constructor(sceneName) {
+    constructor() {
         super();
         if (Scene.instance)
             return Scene.instance;
 
-        this.initScene(sceneName)
 
         this.debug = this.experience.debug
         this.canTransit = false
 
-        this.#setCurrentScene()
-        this.setDom()
+        this.camBack = document.querySelector(".camera-back")
+        this.camBack.addEventListener("click", () => {
+            this.mouseHandler.clearCurrentObj(this.cameraStart)
+        })
 
         if (this.debug.active) {
             this.debugFolder = this.debug.ui.addFolder('camera')
@@ -67,22 +68,14 @@ export default class Scene extends Entity {
         this.mouseHandler = new MouseHandler();
         this.mouseHandler.inHome = false;
         this.experience.camera.setParametersIsHome(false);
+        this.#setCurrentScene()
+        this.setAudio()
 
     }
 
-    setDom() {
-        this.camBack = document.querySelector(".camera-back")
+    setAudio() {
         this.startAudio = document.querySelector(".start-audio.scene")
         this.audioHandler.initInput(this.startAudio)
-
-
-
-
-        this.camBack.addEventListener("click", () => {
-
-            this.mouseHandler.clearCurrentObj(this.cameraStart)
-
-        })
     }
 
     setUi() {
@@ -138,13 +131,17 @@ export default class Scene extends Entity {
             if (objCurrent) tabObj.push(objCurrent);
         })
         mouseHandler.addObjects(tabObj)
+        console.log(tabObj)
     }
 
 
 
 
     update() {
-        this.setUi()
+        if(this.mouseHandler){
+            this.setUi()
+
+        }
 
     }
 }
