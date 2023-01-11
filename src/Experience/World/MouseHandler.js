@@ -1,9 +1,12 @@
 import Entity from "./scenes/Entity";
+
 import {
     Raycaster,
     Vector2,
     Color, MeshStandardMaterial, Vector3
 } from "three";
+
+import dataMap from "../Utils/dataMap.json"
 
 export default class MouseHandler extends Entity {
     static currentObjPost = null;
@@ -70,12 +73,12 @@ export default class MouseHandler extends Entity {
                     this.camera.position.lerp(MouseHandler.targetWorldPos, 0.01);
             }
             else {
-                this.camera.position.lerp(this.experience.camera.initPosition, 0.1);
+                this.camera.position.lerp(this.experience.camera.initPosition, 0.03);
             }
         }
         else if (this.camera.position.distanceTo(this.experience.camera.initPosition) > 0.5 && !MouseHandler.currentObj) {
-            this.camera.position.lerp(this.experience.camera.initPosition, 0.1);
-            console.log("hihi")
+            this.camera.position.lerp(this.experience.camera.initPosition, 0.03);
+           
         }
 
         // else if(this.initialPosition.distanceTo(this.currentObjPost) <=  0.1 && this.currentObj ){
@@ -90,9 +93,14 @@ export default class MouseHandler extends Entity {
                 this.experience.camera.controls.enabled = false;
                 MouseHandler.currentObjPost = this.#intersects[0].object.position
                 MouseHandler.currentObj = this.#intersects[0].object
+                
                 // this.#modifyHUD(this.#intersects[0].object)
             }
         })
+    }
+
+    getCurrentObject(){
+        return MouseHandler.currentObj
     }
 
     clearCurrentObj(initPos) {
