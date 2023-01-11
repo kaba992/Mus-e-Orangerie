@@ -15,7 +15,7 @@ export default class World {
 
         this.resources.on('ready', () => {
             this.environment = new Environment()
-            this.montmartre = new Map("montmartre");
+            // this.montmartre = new Map("montmartre");
             this.audioHandler = new AudioHandler();
             this.mouseHandler = new MouseHandler();
 
