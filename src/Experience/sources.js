@@ -29,7 +29,7 @@ export default [
     },
     {
         name: 'garage',
-        type: 'gltfModel',
+        type: 'dracoLoader',
         path: 'models/Garage/garage.glb'
     },
     {
@@ -51,5 +51,9 @@ export default [
         name: 'cloud',
         type: 'texture',
         path: 'textures/cloud.png'
+    },{
+        name: 'guillaume',
+        type: 'texture',
+        path: 'textures/guillaume.jpg'
     }
 ]

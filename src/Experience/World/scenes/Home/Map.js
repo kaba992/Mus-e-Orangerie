@@ -6,33 +6,35 @@ import PointOfInterest from "./PointOfInterest"
 import dataMap from '/src/Experience/Utils/dataMap.json';
 import MouseHandler from "../../MouseHandler";
 
-export default class Map extends Entity{
-    static SIZE = 100;
-    mapName = null;
-    ratio = 1;
-    pois = {};
+
+// export default class Map extends Entity{
+//     static SIZE = 100;
+//     mapName = null;
+//     ratio = 1;
+//     pois = {};
 
     constructor(mapName) {
         super();
         this.mapName = mapName;
         this.experience.camera.setParametersIsHome(true)
 
-        this.#createMap()
-        const axesHelper = new THREE.AxesHelper(10)
-        this.scene.add(axesHelper)
-    }
 
-    #setTextures() {
-        this.textures = {}
+//         this.#createMap()
+//         const axesHelper = new THREE.AxesHelper(10)
+//         this.scene.add(axesHelper)
+//     }
 
-        this.textures.color = this.resources.items[this.mapName]
-        if(this.textures.color){
-            const dataTexture = this.textures.color.source.data
-            this.ratio = dataTexture.width / dataTexture.height  ;
-        }
-        this.mapWidth = Map.SIZE*this.ratio;
-        this.mapHeight = Map.SIZE;
-    }
+//     #setTextures() {
+//         this.textures = {}
+
+//         this.textures.color = this.resources.items[this.mapName]
+//         if(this.textures.color){
+//             const dataTexture = this.textures.color.source.data
+//             this.ratio = dataTexture.width / dataTexture.height  ;
+//         }
+//         this.mapWidth = Map.SIZE*this.ratio;
+//         this.mapHeight = Map.SIZE;
+//     }
 
     #setMesh(){
         this._geometry = new THREE.PlaneGeometry( this.mapWidth, this.mapHeight );
@@ -48,13 +50,13 @@ export default class Map extends Entity{
         this._mesh = new THREE.Mesh(this._geometry,this._material)
         this._mesh.rotation.x = -Math.PI * 0.5
 
-        this._mesh.geometry.computeBoundingBox()
-        const boundingBoxMax = this._mesh.geometry.boundingBox.max
-        this._mesh.geometry.translate(
-            boundingBoxMax.x,
-            boundingBoxMax.y,
-            0
-        )
+//         this._mesh.geometry.computeBoundingBox()
+//         const boundingBoxMax = this._mesh.geometry.boundingBox.max
+//         this._mesh.geometry.translate(
+//             boundingBoxMax.x,
+//             boundingBoxMax.y,
+//             0
+//         )
 
         this._mesh.position.set(-(boundingBoxMax.x/2),0,(boundingBoxMax.y/2)-10)
         this._mesh.receiveShadow = true;
@@ -76,25 +78,18 @@ export default class Map extends Entity{
         }
     }
 
-    #createMap() {
-        this.#setTextures();
-        this.#setMesh();
-        this.#setPois()
-    }
+//     #createMap() {
+//         this.#setTextures();
+//         this.#setMesh();
+//         this.#setPois()
+//     }
 
-    setPosition(x,y){
-        this._mesh.position.set(-50-x,0,50+y);
-    }
+//     setPosition(x,y){
+//         this._mesh.position.set(-50-x,0,50+y);
+//     }
 
     update() {
-        // if(this.mouseHandler && this.mouseHandler.getIntersection()){
-        //     if(this.mouseHandler.getIntersection().name != "image")
-        // }
-        if(this._mesh){
-            this._material.uniforms.uTime1.value = this.clock.getElapsedTime()
-        }
 
-
-    }
-}
+//     }
+// }
 
