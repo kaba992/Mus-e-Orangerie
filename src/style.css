@@ -5,7 +5,7 @@
 }
 
 :root{
-	font-size:16px;
+	font-size:18px;
 }
 
 html,
@@ -25,6 +25,10 @@ body p,button,span{
 
 body h1,h2,h3,h4{
 	font-family: "Abhaya Libre";
+}
+
+.hidden{
+	display: none !important;
 }
 
 button{
@@ -172,6 +176,32 @@ button{
 	padding: 0 40px;
 	color: var(--mainColor);
 	border-top: 2px solid var(--mainColor);
+}
+
+.inputNav,.replayInput,.leftInfo{
+	position: absolute;
+	top: 5em;
+	right: 5em;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 0.75em;
+}
+
+.replayInput,.leftInfo{
+	position: relative;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	pointer-events: none;
+}
+p.leftInfo{
+	opacity: 1;
+	pointer-events:auto;
+}
+
+.inputNav img{
+	width:2em;
 }
 
 .back-map{

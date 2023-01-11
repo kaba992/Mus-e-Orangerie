@@ -14,7 +14,9 @@
             },
             "audio": "sounds/Son_Lettre_Garage.mp3",
             "objList": ["pneus","masque","cadre"]
-          }
+          },
+          "title": "garage paul guillaume",
+          "subtitle": "Montmartre"
         },
         "urtillo": {
           "position": {
@@ -28,7 +30,9 @@
             },
             "audio": "sounds/Son_Lettre_Utrillo.mp3",
             "objList": ["peinture","bouteille"]
-          }
+          },
+          "title": "chambre maurice urtillo",
+          "subtitle": "Rue Mont-Cenis, Montmartre"
         },
         "laurencin": {
           "position": {
@@ -42,8 +46,22 @@
             },
             "audio": "sounds/Son_Lettre_Laurencin.mp3",
             "objList": ["peinture","bouteille"]
-          }
+          },
+          "title": "chambre marie laurencin",
+          "subtitle": "Place Emile Goudeau, Montmartre"
         }
+      },
+      "title": "montmartre",
+      "subtitle": "quartier",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "positionCam": {
+        "x": 0,
+        "y": 120,
+        "z": 40
       }
   },
   "orangerie": {
@@ -53,8 +71,22 @@
           "xNormal": 0.8,
           "yNormal": 0.5
         },
-        "scene": null
-      }
+        "scene": null,
+        "title": "orangerie"
+      },
+      "subtitle": "Jardin des Tuilleries"
+    },
+    "title": "tuillerie",
+    "subtitle": "quartier",
+    "position": {
+      "x": 10,
+      "y": 0,
+      "z": 140
+    },
+    "positionCam": {
+      "x": 0,
+      "y": 120,
+      "z": 40
     }
   }
 }

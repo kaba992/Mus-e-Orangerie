@@ -15,6 +15,7 @@ export default class Map extends Entity{
     constructor(mapName) {
         super();
         this.mapName = mapName;
+
         this.experience.camera.setParametersIsHome(true)
 
         this.#createMap()
@@ -58,15 +59,21 @@ export default class Map extends Entity{
 
         this._mesh.position.set(-(boundingBoxMax.x/2),0,(boundingBoxMax.y/2)-10)
         this._mesh.receiveShadow = true;
-        this.scene.add(this._mesh)
     }
 
-    #setPois(){
-        this.experience.camera.initPosition = new THREE.Vector3(0, 120, 40)
-        const pois = dataMap[this.mapName].poi;
+    start(){
+        if(this.mapName == "montmatre"){
+            const positionCam = dataMap[this.mapName].positionCam
+            this.experience.camera.initPosition = new THREE.Vector3(positionCam.x, positionCam.y, positionCam.z)
+        }
         this.mouseHandler = new MouseHandler();
         this.mouseHandler.clearListObjects()
         this.mouseHandler.inHome = true;
+        this.#setPois()
+    }
+
+    #setPois(){
+        const pois = dataMap[this.mapName].poi;
         for (const [key, value] of Object.entries(pois)) {
             this.pois[key] = value;
             const position = this.pois[key].position;
@@ -78,12 +85,13 @@ export default class Map extends Entity{
 
     #createMap() {
         this.#setTextures();
-        this.#setMesh();
-        this.#setPois()
+        this.#setMesh()
+
     }
 
-    setPosition(x,y){
-        this._mesh.position.set(-50-x,0,50+y);
+    setPosition(){
+        const pos = dataMap[this.mapName].position
+        this._mesh.position.set(-50-pos.x,0,50+pos.z);
     }
 
     update() {
