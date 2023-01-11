@@ -29,7 +29,7 @@ body {
 
 .start-audio {
 	position: absolute;
-	bottom: 10%;
+	bottom: 16%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	height: 100px;
@@ -50,12 +50,13 @@ body {
 
 .subtitle {
 	position: absolute;
-	bottom: -4%;
+	bottom: 4%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 40%;
+	width: 60%;
 	height: 100px;
-	font-size: 3.5rem;
+	font-size: 2rem;
 	color: #000;
 	z-index: 1;
+	text-align: center;
 }

@@ -13,7 +13,8 @@
               "z": 10.66
             },
             "audio": "sounds/Son_Lettre_Garage.mp3",
-            "objList": ["pneus","masque","cadre"]
+            "subtitle":"sounds/Son_Lettre_Garage.mp3.vtt",
+            "objList": ["pneus","masque1","masque2","cadre"]
           }
         },
         "urtillo": {

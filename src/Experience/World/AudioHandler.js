@@ -7,17 +7,20 @@ export default class AudioHandler extends Entity{
     subtitle = document.querySelector('.subtitle')
     currentSrc = null;
     webVTTParser
+    static audio = null
+    static subtitlesCues = null
 
     constructor() {
         super();
         if(AudioHandler.instance)
             return AudioHandler.instance;
         this.webVTTParser = new WebVTTParser()
+        
     }
 
-    setAudio(src){
-        this.audio = new Howl({ src: [src] });
-        this.currentSrc = src;
+    setAudio(src,subtitleFile){
+        AudioHandler.audio = new Howl({ src: [src] });
+        this.currentSrc = subtitleFile;
     }
 
     initInput(input){
@@ -26,21 +29,22 @@ export default class AudioHandler extends Entity{
                 .then(response => response.text())
                 .then(data => {
                     const subtitles = this.webVTTParser.parse(data);
-                    this.subtitlesCues = subtitles.cues;
-                    this.audio.play()
+                    AudioHandler.subtitlesCues = subtitles.cues;
+                    AudioHandler.audio.play()
                 })
                 .catch(error => console.log(error));
 
         })
+       
     }
 
     update(){
-        if(this.audio && this.audio.playing()){
-            const time = this.audio.seek()
-            const cues = this.subtitlesCues
+        
+        if(AudioHandler.audio.playing()){
+            const time = AudioHandler.audio.seek()
+            
+            const cues = AudioHandler.subtitlesCues 
             for (let i = 0; i < cues.length; i++) {
-                // console.log(cues[i].text);
-
                 if (time > cues[i].startTime && time < cues[i].endTime) {
                     this.subtitle.innerHTML = cues[i].text;
                     return
