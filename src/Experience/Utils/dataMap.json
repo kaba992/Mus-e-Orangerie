@@ -13,6 +13,7 @@
               "z": 10.66
             },
             "audio": "sounds/Son_Lettre_Garage.mp3",
+            "subtitle":"sounds/Son_Lettre_Garage.mp3.vtt",
             "objList": ["pneus","masque1","masque2","cadre"]
           }
         },
