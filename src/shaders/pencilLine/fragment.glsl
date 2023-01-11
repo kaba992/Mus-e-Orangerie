@@ -3,6 +3,7 @@ uniform sampler2D tDiffuse;
 uniform vec2 uResolution;
 uniform sampler2D uNormals;
 uniform sampler2D tCloud;
+uniform vec3 uColor;
 varying vec2 vUv;
 
 
@@ -135,7 +136,7 @@ void main() {
     if (sobelValue > 0.1) {
         gl_FragColor = lineColor;
     } else {
-        gl_FragColor = vec4(0.9294, 0.9020, 0.8235,1.);
+        gl_FragColor = vec4(uColor,1.);
 //        gl_FragColor = vec4(textureColor);
     }
 }

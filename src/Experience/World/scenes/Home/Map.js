@@ -1,9 +1,11 @@
-// import * as THREE from "three"
-// import Entity from "../Entity";
-// import fragmentShader from '../../../../shaders/map/fragment.glsl'
-// import vertexShader from '../../../../shaders/map/vertex.glsl'
-// import PointOfInterest from "./PointOfInterest"
-// import dataMap from '/src/Experience/Utils/dataMap.json';
+import * as THREE from "three"
+import Entity from "../Entity";
+import fragmentShader from '../../../../shaders/map/fragment.glsl'
+import vertexShader from '../../../../shaders/map/vertex.glsl'
+import PointOfInterest from "./PointOfInterest"
+import dataMap from '/src/Experience/Utils/dataMap.json';
+import MouseHandler from "../../MouseHandler";
+
 
 // export default class Map extends Entity{
 //     static SIZE = 100;
@@ -11,9 +13,11 @@
 //     ratio = 1;
 //     pois = {};
 
-//     constructor(mapName) {
-//         super();
-//         this.mapName = mapName;
+    constructor(mapName) {
+        super();
+        this.mapName = mapName;
+        this.experience.camera.setParametersIsHome(true)
+
 
 //         this.#createMap()
 //         const axesHelper = new THREE.AxesHelper(10)
@@ -32,21 +36,19 @@
 //         this.mapHeight = Map.SIZE;
 //     }
 
-//     #setMesh(){
-//         this._geometry = new THREE.PlaneGeometry( this.mapWidth, this.mapHeight );
-//         this._material =  new THREE.ShaderMaterial({
-//             fragmentShader,
-//             vertexShader,
-//             uniforms: {
-//                 uTexture: {value: this.textures.color},
-//                 uFogNear: { value: 1 },
-//                 uFogFar: {value: 100},
-//                 uFogColor: {value: new THREE.Color("#F0E5D4")}
-//             },
-//             side: THREE.DoubleSide
-//         })
-//         this._mesh = new THREE.Mesh(this._geometry,this._material)
-//         this._mesh.rotation.x = -Math.PI * 0.5
+    #setMesh(){
+        this._geometry = new THREE.PlaneGeometry( this.mapWidth, this.mapHeight );
+        this._material =  new THREE.ShaderMaterial({
+            fragmentShader,
+            vertexShader,
+            uniforms: {
+                uTexture: {value: this.textures.color},
+                uTime1: {value:0}
+            },
+            side: THREE.DoubleSide
+        })
+        this._mesh = new THREE.Mesh(this._geometry,this._material)
+        this._mesh.rotation.x = -Math.PI * 0.5
 
 //         this._mesh.geometry.computeBoundingBox()
 //         const boundingBoxMax = this._mesh.geometry.boundingBox.max
@@ -56,20 +58,25 @@
 //             0
 //         )
 
-//         this._mesh.position.set(-(boundingBoxMax.x/2),0,(boundingBoxMax.y/2))
-//         this._mesh.receiveShadow = true;
-//         this.scene.add(this._mesh)
-//     }
+        this._mesh.position.set(-(boundingBoxMax.x/2),0,(boundingBoxMax.y/2)-10)
+        this._mesh.receiveShadow = true;
+        this.scene.add(this._mesh)
+    }
 
-//     #setPois(){
-//         const pois = dataMap[this.mapName].poi;
-
-//         for (const [key, value] of Object.entries(pois)) {
-//             this.pois[key] = value;
-//             const position = this.pois[key].position;
-//             this.pois[key].poi = new PointOfInterest(this,[position.xNormal,position.yNormal])
-//         }
-//     }
+    #setPois(){
+        this.experience.camera.initPosition = new THREE.Vector3(0, 120, 40)
+        const pois = dataMap[this.mapName].poi;
+        this.mouseHandler = new MouseHandler();
+        this.mouseHandler.clearListObjects()
+        this.mouseHandler.inHome = true;
+        for (const [key, value] of Object.entries(pois)) {
+            this.pois[key] = value;
+            const position = this.pois[key].position;
+            this.pois[key].poi = new PointOfInterest(this,[position.xNormal,position.yNormal],key)
+            this.mouseHandler.addObject(this.pois[key].poi.getMesh())
+            this.mouseHandler.addKeyObject(key);
+        }
+    }
 
 //     #createMap() {
 //         this.#setTextures();
@@ -81,13 +88,7 @@
 //         this._mesh.position.set(-50-x,0,50+y);
 //     }
 
-//     update() {
-//         // const objPos = this._mesh.position.clone()
-//         // const camPos = this.camera.position;
-//         // const distance = objPos.distanceTo(camPos);
-//         // const fogFactor = (distance - this.scene.fog.near) / (this.scene.fog.far - this.scene.fog.near);
-//         // this._material.uniforms.uFogFactor.value = fogFactor;
-//         // console.log(this._mesh
+    update() {
 
 //     }
 // }
