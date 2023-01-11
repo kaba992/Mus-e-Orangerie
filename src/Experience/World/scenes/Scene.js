@@ -39,6 +39,7 @@ export default class Scene extends Entity {
     initScene(sceneName) {
         this.#sceneInfo = dataMap.montmartre.poi[sceneName].scene;
         this.camera.position.set(this.#sceneInfo.cameraPos.x, this.#sceneInfo.cameraPos.y, this.#sceneInfo.cameraPos.z)
+        console.log(this.camera.position);
         this.cameraStart = new THREE.Vector3(this.#sceneInfo.cameraPos.x, this.#sceneInfo.cameraPos.y, this.#sceneInfo.cameraPos.z)
         this.experience.camera.initPosition = this.cameraStart.clone();
         this.experience.camera.controls.enabled = false;
@@ -117,7 +118,7 @@ export default class Scene extends Entity {
 
     #setCurrentScene() {
         this.#currentScene = this.model.scene
-        // this.#currentScene.position.set(0, -2, 0)
+        this.#currentScene.position.set(0, -2, 0)
         this.#addObjectList()
         this.scene.add(this.#currentScene)
     }

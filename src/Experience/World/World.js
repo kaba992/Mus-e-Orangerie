@@ -26,12 +26,13 @@ export default class World {
             this.map.name = "map"
             this.montmartre = new Map("montmartre");
             this.orangerie = new Map("orangerie");
-            this.montmartre.start()
-            this.map.add(this.montmartre.getMesh());
-            this.map.add(this.orangerie.getMesh());
-            this.scene.add(this.map)
+            // this.montmartre.start()
+            // this.map.add(this.montmartre.getMesh());
+            // this.map.add(this.orangerie.getMesh());
+            // this.scene.add(this.map)
             this.orangerie.setPosition()
             this.scenePoi = new Scene()
+            this.scenePoi.initScene('garage')
         })
     }
 
