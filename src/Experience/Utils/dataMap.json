@@ -41,6 +41,7 @@
             "y": 0
           },
           "audio": "sounds/Son_Lettre_Utrillo.mp3",
+          "subtitle": "sounds/Son_Lettre_Utrillo.mp3.vtt",
           "objList": [
             "peinture",
             "bouteille"
@@ -58,6 +59,8 @@
             "y": 0
           },
           "audio": "sounds/Son_Lettre_Laurencin.mp3",
+          "subtitle": "sounds/Son_Lettre_Laurencin.mp3.vtt",
+
           "objList": [
             "peinture",
             "bouteille"
