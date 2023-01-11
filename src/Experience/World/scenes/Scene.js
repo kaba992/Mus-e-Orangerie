@@ -42,7 +42,7 @@ export default class Scene extends Entity {
         this.experience.camera.controls.enabled = false;
         this.model = this.resources.items[sceneName]
         this.audioHandler = new AudioHandler();
-        this.audioHandler.setAudio(this.#sceneInfo.audio)
+        this.audioHandler.setAudio(this.#sceneInfo.audio,this.#sceneInfo.subtitle)
         this.mouseHandler = new MouseHandler();
         this.mouseHandler.inHome = false;
         this.experience.camera.setParametersIsHome(false);

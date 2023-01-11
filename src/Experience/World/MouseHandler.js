@@ -5,10 +5,11 @@ import {
     Color, MeshStandardMaterial, Vector3
 } from "three";
 
-export default class MouseHandler extends Entity{
+export default class MouseHandler extends Entity {
     static currentObjPost = null;
     static currentObj = null;
     static instance = null;
+    static targetWorldPos = null;
     #raycaster;
     #mouse;
     #listObject = []
@@ -19,7 +20,7 @@ export default class MouseHandler extends Entity{
 
     constructor() {
         super();
-        if(MouseHandler.instance)
+        if (MouseHandler.instance)
             return MouseHandler.instance;
         this.#raycaster = new Raycaster();
         this.#mouse = new Vector2();
@@ -29,7 +30,7 @@ export default class MouseHandler extends Entity{
         this.#handlePoseClick()
     }
 
-    addObject(object){
+    addObject(object) {
         this.#listObject.push(object)
     }
 
@@ -58,17 +59,22 @@ export default class MouseHandler extends Entity{
         })
     }
 
-    targetCameraEvent(){
-        if(this.cameraObj.lookAtPosition.distanceTo(MouseHandler.currentObjPost) > 0.1){
-            this.cameraObj.lookAtPosition.lerp(MouseHandler.currentObjPost,0.05)
-            if( MouseHandler.currentObj){
-                if(this.camera.position.distanceTo(MouseHandler.currentObjPost) > 8)
-                    this.camera.position.lerp(MouseHandler.currentObjPost,0.01);
+    targetCameraEvent() {
+      if(MouseHandler.currentObj){
+        MouseHandler.targetWorldPos = new Vector3
+        MouseHandler.currentObj.getWorldPosition(MouseHandler.targetWorldPos)
+      }
+        if (this.cameraObj.lookAtPosition.distanceTo(MouseHandler.targetWorldPos) > 0.1) {
+            this.cameraObj.lookAtPosition.lerp(MouseHandler.targetWorldPos, 0.05)
+
+            if (MouseHandler.currentObj) {
+                if (this.camera.position.distanceTo(MouseHandler.targetWorldPos) > 8)
+                    this.camera.position.lerp(MouseHandler.targetWorldPos, 0.01);
             }
             else{
                 this.camera.position.lerp(this.experience.camera.initPosition,0.1);
-            }
 
+            }
         }
         else if((this.camera.position.distanceTo(this.experience.camera.initPosition) > 0.1 && !MouseHandler.currentObj && !this.cameraObj.isHome) ||
             (this.camera.position.distanceTo(this.experience.camera.initPosition) < 18 && !MouseHandler.currentObj && this.cameraObj.isHome)
@@ -123,7 +129,7 @@ export default class MouseHandler extends Entity{
     }
 
     update() {
-        if(MouseHandler.currentObjPost){
+        if (MouseHandler.currentObjPost) {
             this.targetCameraEvent()
         }
     }

@@ -59,3 +59,4 @@ export default class PointOfInterest extends Entity{
     }
 }
 
+
