@@ -11,6 +11,7 @@ export default class Entity {
         this.scene = this.experience.scene
         this.resources = this.experience.resources
         this.time = this.experience.time
+        this.world = this.experience.world
         this.debug = this.experience.debug
         this.clock = new Clock();
         this.camera = this.experience.camera.instance
