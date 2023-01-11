@@ -8,6 +8,7 @@ import MouseHandler from "./MouseHandler";
 import * as THREE from 'three'
 import dataMap from '../Utils/dataMap.json'
 
+
 export default class World {
     state = "map";
     counter = 0;
@@ -31,7 +32,6 @@ export default class World {
             this.scene.add(this.map)
             this.orangerie.setPosition()
             this.scenePoi = new Scene()
-
         })
     }
 
@@ -110,5 +110,6 @@ export default class World {
         if(this.montmartre) this.montmartre.update()
         if(this.audioHandler) this.audioHandler.update();
         if(this.mouseHandler) this.mouseHandler.update();
+        if(this.garage) this.garage.update();
     }
 }

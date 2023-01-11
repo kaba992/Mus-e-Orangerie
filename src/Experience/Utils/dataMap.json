@@ -1,27 +1,47 @@
 {
   "montmartre": {
-      "poi": {
-        "garage": {
-          "position": {
-            "xNormal":0.684,
-            "yNormal": 0.456
+    "poi": {
+      "garage": {
+        "position": {
+          "xNormal": 0.684,
+          "yNormal": 0.456
+        },
+        "scene": {
+          "cameraPos": {
+            "x": 20.5,
+            "y": 4.52,
+            "z": 10.66
           },
-          "scene": {
-            "cameraPos": {
-              "x": 20.5,
-              "y": 4.52,
-              "z": 10.66
+          "audio": "sounds/Son_Lettre_Garage.mp3",
+          "subtitle": "sounds/Son_Lettre_Garage.mp3.vtt",
+          "objList": [
+            "pneus",
+            "masque2"
+          ],
+          "description": {
+            "pneus": {
+              "title": "pneus",
+              "text": "Paul Guillaume est engagé à la mort de son père dans un garage de luxe au début du 20ème siècle. Il se jure d'être un jour à la place des clients. "
             },
-            "audio": "sounds/Son_Lettre_Garage.mp3",
-            "objList": ["pneus","masque","cadre"]
+
+            "masque2":{
+              "title": "Masques africains",
+              "text": "C'est à l'occasion du déchargement d'une cargaison de caoutchouc - destiné à la fabrication de pneus - qu'il découvre et prend possession de quelques objets en provenance d'Afrique. Dès 1911, il expose quelques-uns de ces objets dans son garage. "
+            }
           },
           "title": "garage paul guillaume",
           "subtitle": "Montmartre"
+        }
+      },
+      "urtillo": {
+        "position": {
+          "xNormal": 0.56,
+          "yNormal": 0.698
         },
-        "urtillo": {
-          "position": {
-            "xNormal": 0.56,
-            "yNormal": 0.698
+        "scene": {
+          "cameraPos": {
+            "x": 0,
+            "y": 0
           },
           "scene": {
             "cameraPos": {
@@ -29,15 +49,25 @@
               "y": 0
             },
             "audio": "sounds/Son_Lettre_Utrillo.mp3",
-            "objList": ["peinture","bouteille"]
+            "subtitle": "sounds/Son_Lettre_Utrillo.mp3.vtt",
+            "objList": [
+              "peinture",
+              "bouteille"
+            ]
           },
           "title": "chambre maurice urtillo",
           "subtitle": "Rue Mont-Cenis, Montmartre"
+        }
+      },
+      "laurencin": {
+        "position": {
+          "xNormal": 0.288,
+          "yNormal": 0.35
         },
-        "laurencin": {
-          "position": {
-            "xNormal": 0.288,
-            "yNormal": 0.35
+        "scene": {
+          "cameraPos": {
+            "x": 0,
+            "y": 0
           },
           "scene": {
             "cameraPos": {
@@ -45,10 +75,16 @@
               "y": 0
             },
             "audio": "sounds/Son_Lettre_Laurencin.mp3",
-            "objList": ["peinture","bouteille"]
+            "subtitle": "sounds/Son_Lettre_Laurencin.mp3.vtt",
+
+            "objList": [
+              "peinture",
+              "bouteille"
+            ]
           },
           "title": "chambre marie laurencin",
           "subtitle": "Place Emile Goudeau, Montmartre"
+
         }
       },
       "title": "montmartre",
@@ -63,6 +99,7 @@
         "y": 120,
         "z": 40
       }
+    }
   },
   "orangerie": {
     "poi": {

@@ -101,8 +101,6 @@ export default class Map extends Entity{
         if(this._mesh){
             this._material.uniforms.uTime1.value = this.clock.getElapsedTime()
         }
-
-
     }
 }
 
