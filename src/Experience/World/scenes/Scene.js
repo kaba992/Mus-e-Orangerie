@@ -39,31 +39,10 @@ export default class Scene extends Entity {
     initScene(sceneName) {
         this.#sceneInfo = dataMap.montmartre.poi[sceneName].scene;
         this.camera.position.set(this.#sceneInfo.cameraPos.x, this.#sceneInfo.cameraPos.y, this.#sceneInfo.cameraPos.z)
-        console.log(this.camera.position);
         this.cameraStart = new THREE.Vector3(this.#sceneInfo.cameraPos.x, this.#sceneInfo.cameraPos.y, this.#sceneInfo.cameraPos.z)
         this.experience.camera.initPosition = this.cameraStart.clone();
         this.experience.camera.controls.enabled = false;
         this.model = this.resources.items[sceneName]
-        if (sceneName === "laurencin" && this.model) {
-            // this.model.scene.rotation.y = 0.74
-            // this.model.scene.scale.set(1.5, 1.5, 1.5)
-            // this.model.scene.position.z = -18
-            // this.model.scene.position.y = 5
-            // this.model.scene.position.x = -2.85
-            console.log(this.model);
-            this.modelDebug = this.debug.ui
-
-            if (this.debug.active) {
-                this.debugFolder = this.debug.ui.addFolder('laurencin')
-                this.debugFolder.add(this.model.scene.position, 'x').min(-50).max(50).step(0.0001).name('positionX')
-                this.debugFolder.add(this.model.scene.position, 'y').min(-50).max(50).step(0.0001).name('positionY')
-                this.debugFolder.add(this.model.scene.position, 'z').min(-50).max(100).step(0.0001).name('positionZ')
-                // rotation
-                this.debugFolder.add(this.model.scene.rotation, 'x').min(0).max(Math.PI).step(0.0001).name('rotationX')
-                this.debugFolder.add(this.model.scene.rotation, 'y').min(0).max(Math.PI).step(0.0001).name('rotationY')
-                this.debugFolder.add(this.model.scene.rotation, 'z').min(0).max(Math.PI).step(0.0001).name('rotationZ')
-            }
-        }
         this.audioHandler = new AudioHandler();
         this.audioHandler.setAudio(this.#sceneInfo.audio, this.#sceneInfo.subtitle)
         this.mouseHandler = new MouseHandler();
@@ -71,7 +50,21 @@ export default class Scene extends Entity {
         this.experience.camera.setParametersIsHome(false);
         this.#setCurrentScene()
         this.setAudio()
+        this.setGui()
 
+    }
+
+    setGui(){
+        if (this.debug.active && this.model) {
+            this.debugFolder = this.debug.ui.addFolder(this.sceneName)
+            this.debugFolder.add(this.model.scene.position, 'x').min(-50).max(50).step(0.0001).name('positionX')
+            this.debugFolder.add(this.model.scene.position, 'y').min(-50).max(50).step(0.0001).name('positionY')
+            this.debugFolder.add(this.model.scene.position, 'z').min(-50).max(100).step(0.0001).name('positionZ')
+            // rotation
+            this.debugFolder.add(this.model.scene.rotation, 'x').min(0).max(Math.PI).step(0.0001).name('rotationX')
+            this.debugFolder.add(this.model.scene.rotation, 'y').min(0).max(Math.PI).step(0.0001).name('rotationY')
+            this.debugFolder.add(this.model.scene.rotation, 'z').min(0).max(Math.PI).step(0.0001).name('rotationZ')
+        }
     }
 
     setAudio() {
