@@ -14,15 +14,16 @@ export default class World {
 
         this.resources.on('ready', () => {
             this.environment = new Environment()
-            // this.montmartre = new Map("montmartre");
+            this.montmartre = new Map("montmartre");
             this.audioHandler = new AudioHandler();
             this.mouseHandler = new MouseHandler();
-            this.garage = new Scene("garage")
+            // this.garage = new Scene("garage")
 
         })
     }
 
     update() {
+        if(this.montmartre) this.montmartre.update()
         if(this.audioHandler) this.audioHandler.update();
         if(this.mouseHandler) this.mouseHandler.update();
     }

@@ -12,8 +12,9 @@ export default class MouseHandler extends Entity{
     #raycaster;
     #mouse;
     #listObject = []
-    #listMesh = []
+    #listKeyobject = []
     #intersects
+    inHome = false;
 
 
     constructor() {
@@ -32,16 +33,17 @@ export default class MouseHandler extends Entity{
         this.#listObject.push(object)
     }
 
-    addMesh(mesh){
-        this.#listMesh.push(mesh);
-    }
-
     addObjects(objects){
         objects.forEach(object => this.addObject(object))
     }
 
+    addKeyObject(key){
+        this.#listKeyobject.push(key);
+    }
+
     clearListObjects(){
         this.#listObject = [];
+        this.#listKeyobject = []
     }
 
     #handleMouseMove() {
@@ -63,41 +65,61 @@ export default class MouseHandler extends Entity{
                 if(this.camera.position.distanceTo(MouseHandler.currentObjPost) > 8)
                     this.camera.position.lerp(MouseHandler.currentObjPost,0.01);
             }
-            else {
+            else{
                 this.camera.position.lerp(this.experience.camera.initPosition,0.1);
-                console.log("hihi")
             }
 
         }
-        else if(this.camera.position.distanceTo(this.experience.camera.initPosition) > 0.5 && !MouseHandler.currentObj) {
+        else if((this.camera.position.distanceTo(this.experience.camera.initPosition) > 0.1 && !MouseHandler.currentObj && !this.cameraObj.isHome) ||
+            (this.camera.position.distanceTo(this.experience.camera.initPosition) < 18 && !MouseHandler.currentObj && this.cameraObj.isHome)
+        ) {
             this.camera.position.lerp(this.experience.camera.initPosition,0.1);
-            console.log("hihi")
         }
-
-        // else if(this.initialPosition.distanceTo(this.currentObjPost) <=  0.1 && this.currentObj ){
-        //     if(!this.animInFocus)
-        //         this.animFocus();
-        // }
-
     }
 
     #handlePoseClick() {
         window.addEventListener('click', (e) => {
+
             if (this.#intersects && this.#intersects.length > 0) {
                 this.experience.camera.controls.enabled = false;
-                MouseHandler.currentObjPost = this.#intersects[0].object.position
-                MouseHandler.currentObj =  this.#intersects[0].object
                 // this.#modifyHUD(this.#intersects[0].object)
+                const pos = new Vector3();
+                if(this.#listKeyobject.length > 0 && !this.#listKeyobject.includes(this.#intersects[0].object.name)){
+                    this.#intersects[0].object.parent.getWorldPosition(pos)
+                    MouseHandler.currentObjPost = pos
+                    MouseHandler.currentObj  =  this.#intersects[0].object.parent
+                }
+                else{
+                    this.#intersects[0].object.getWorldPosition(pos)
+                    MouseHandler.currentObjPost = pos
+                    MouseHandler.currentObj =  this.#intersects[0].object
+                }
+                if(this.inHome && this.cameraObj.isHome && MouseHandler.currentObj){
+                    this.cameraObj.setParametersIsHome(false);
+                }
+            }
+            else if(MouseHandler.currentObj && this.inHome && this.#intersects.length < 1){
+                this.cameraObj.setParametersIsHome(true);
+                this.experience.camera.controls.enabled = true;
+                this.clearCurrentObj();
             }
         })
     }
 
-    clearCurrentObj(initPos){
+    clearCurrentObj(){
         MouseHandler.currentObj = null;
-        // this.experience.camera.controls.enabled = true;
-        this.cameraObj.initPosition = new Vector3(initPos.x, initPos.y, initPos.z);
         MouseHandler.currentObjPost =new Vector3(0,0,0)
-        console.log(this.camera.position.distanceTo(this.experience.camera.initPosition))
+    }
+
+    getListObject(){
+        return this.#listObject
+    }
+
+    getIntersection(){
+        if(this.#intersects && this.#intersects.length > 0){
+            return this.#intersects[0].object
+        }
+        return null;
     }
 
     update() {

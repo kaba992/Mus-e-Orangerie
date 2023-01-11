@@ -6,7 +6,7 @@ export default class Camera
 {
     isHome = true;
     lookAtPosition = new THREE.Vector3(0,0,0);
-    initPosition = new THREE.Vector3(0, 100, 20);
+    initPosition = new THREE.Vector3(0, 120, 40);
     constructor()
     {
         this.experience = new Experience()
@@ -21,7 +21,7 @@ export default class Camera
     setInstance()
     {
         this.instance = new THREE.PerspectiveCamera(35, this.sizes.width / this.sizes.height, 0.1, 500)
-        this.instance.position.set(0, 100, 20)
+        this.instance.position.set(this.initPosition.x, this.initPosition.y, this.initPosition.z)
         this.instance.lookAt(0,0,0)
         this.scene.add(this.instance)
     }
@@ -43,8 +43,8 @@ export default class Camera
             this.controls.touches.TWO = THREE.TOUCH.DOLLY_ROTATE;
             this.controls.enableDamping = true
             this.controls.enablePan = false;
-            this.controls.minDistance = 50
-            this.controls.maxDistance = 100
+            this.controls.minDistance = 90
+            this.controls.maxDistance = 120
             this.controls.maxPolarAngle = Math.PI/3 -Math.PI/10
             this.controls.minPolarAngle = Math.PI/6
             this.controls.maxAzimuthAngle = 0

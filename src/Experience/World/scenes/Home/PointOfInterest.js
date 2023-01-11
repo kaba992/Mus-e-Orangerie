@@ -1,32 +1,36 @@
 import * as THREE from "three"
 import Entity from "../Entity";
-import fragmentShader from '../../../../shaders/image/fragment.glsl'
+import fragmentShader from '../../../../shaders/image/fragmentshade.glsl'
 import vertexShader from '../../../../shaders/image/vertex.glsl'
 import Map from './Map'
 
 export default class PointOfInterest extends Entity{
     static height = 7.5;
+    static cloud;
     position = [0,0];
     parent;
+    name
 
-    constructor(parent,position) {
+    constructor(parent,position,name) {
         super();
         this.parent = parent;
+        this.name = name
         this.#setPosition(position)
 
         this.#createPoi()
+        if(!PointOfInterest.cloud){
+            PointOfInterest.cloud = this.resources.items.cloud
+        }
 
     }
 
     #setPosition(position){
         this.position[0] = position[0] * Map.SIZE * this.parent.ratio;
         this.position[1] = position[1] * Map.SIZE;
-        console.log(this.position)
     }
 
     #createPoi() {
         // this.setTextures();
-        console.log(this.resources.items.poi)
         this._mesh = new THREE.Group();
 
         this.needle = this.resources.items.poi.scene.clone()
@@ -43,12 +47,15 @@ export default class PointOfInterest extends Entity{
         this.contactZone.visible = false;
         this._mesh.add(this.contactZone)
 
+        this._mesh.name = this.name
+
         this._mesh.position.set(this.position[0],this.position[1],0)
         this.parent.getMesh().add(this._mesh)
     }
 
 
     update() {
+
     }
 }
 
