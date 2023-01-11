@@ -1,6 +1,11 @@
 * {
 	margin: 0;
 	padding: 0;
+	box-sizing: border-box;
+}
+
+:root{
+	font-size:16px;
 }
 
 html,
@@ -8,8 +13,27 @@ body {
 	overflow: hidden;
 	height: 100%;
 	width: 100%;
-	font-family: 'Abhaya Libre', serif;
+	background: #FDF9F0;
+	--bgColor: #FDF9F0;
+	--mainColor: #502432;
+
 }
+
+body p,button,span{
+	font-family: "Pavanam";
+}
+
+body h1,h2,h3,h4{
+	font-family: "Abhaya Libre";
+}
+
+button{
+	padding:0;
+	background:none;
+	border:none;
+	font-size: 1rem;
+}
+
 
 .webgl {
 	position: absolute;
@@ -17,6 +41,16 @@ body {
 	left: 0;
 	outline: none;
 	z-index: 50;
+}
+
+.textureImg{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	opacity: 0.25;
+	z-index: 5;
+	pointer-events: none;
 }
 
 .camera-back {
@@ -168,4 +202,102 @@ body {
 	background-color: #000;
 	bottom: 20px;
 	transform: translate(-50%, -50%);
+}
+
+
+.frame{
+	position: absolute;
+	top: 0;
+	left:0;
+	width: 100%;
+	height: 100%;
+	border: 20px solid var(--bgColor);
+	pointer-events:none;
+	z-index: 1;
+}
+
+.frame:before{
+	position: absolute;
+	content: "";
+	top: 50%;
+	left: 50%;
+	transform:translate(-50%,-50%);
+	width:calc(100%);
+	height: calc(100%);
+	border: 2px solid var(--mainColor);
+	z-index: 2;
+}
+
+.frame2{
+	position: absolute;
+	content: "";
+	top: 50%;
+	left: 50%;
+	transform:translate(-50%,-50%);
+	width:calc(100%);
+	height: calc(100% );
+	/*background:#FDF9F0;*/
+	border: 20px solid var(--bgColor);
+	z-index: 2;
+}
+
+
+
+.frame2:after{
+	position: absolute;
+	content: "";
+	top: 50%;
+	left: 50%;
+	transform:translate(-50%,-50%);
+	width:calc(100% );
+	height: calc(100% );
+	border: 2px solid var(--mainColor);
+	z-index: 2;
+}
+
+.frame2:before{
+	position: absolute;
+	content: "";
+	top: 50%;
+	left: 50%;
+	transform:translate(-50%,-50%);
+	width:calc(100% + 15px );
+	height: calc(100% + 15px );
+	border: 6px solid var(--mainColor);
+	z-index: 2;
+}
+
+.bottomBar{
+	position: absolute;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
+	bottom: 40px;
+	background: var(--bgColor);
+	min-height: 8rem;
+	width: 100%;
+	margin-top: 80vh;
+	padding: 0 40px;
+	color: var(--mainColor);
+	border-top: 2px solid var(--mainColor);
+}
+
+.back-map{
+	display: none;
+}
+
+.infos{
+	text-align:center;
+}
+
+.subtitle{
+	font-size: 1rem;
+	font-weight: 600;
+}
+
+.title{
+	font-size:2.5em;
+	text-transform:uppercase;
+	font-weight:bold;
 }

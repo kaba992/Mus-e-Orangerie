@@ -40,10 +40,12 @@ export default class Scene extends Entity {
         this.camera.position.set(this.#sceneInfo.cameraPos.x, this.#sceneInfo.cameraPos.y, this.#sceneInfo.cameraPos.z)
         this.cameraStart = new THREE.Vector3(this.#sceneInfo.cameraPos.x, this.#sceneInfo.cameraPos.y, this.#sceneInfo.cameraPos.z)
         this.experience.camera.initPosition = this.cameraStart.clone();
+        this.experience.camera.controls.enabled = false;
         this.model = this.resources.items[sceneName]
         this.audioHandler = new AudioHandler();
         this.audioHandler.setAudio(this.#sceneInfo.audio, this.#sceneInfo.subtitle)
         this.mouseHandler = new MouseHandler();
+        this.mouseHandler.inHome = false;
         this.experience.camera.setParametersIsHome(false);
 
     }
