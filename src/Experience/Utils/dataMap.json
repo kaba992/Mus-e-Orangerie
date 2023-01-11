@@ -1,51 +1,70 @@
 {
   "montmartre": {
-      "poi": {
-        "garage": {
-          "position": {
-            "xNormal":0.684,
-            "yNormal": 0.456
-          },
-          "scene": {
-            "cameraPos": {
-              "x": 20.5,
-              "y": 4.52,
-              "z": 10.66
-            },
-            "audio": "sounds/Son_Lettre_Garage.mp3",
-            "subtitle":"sounds/Son_Lettre_Garage.mp3.vtt",
-            "objList": ["pneus","masque1","masque2","cadre"]
-          }
+    "poi": {
+      "garage": {
+        "position": {
+          "xNormal": 0.684,
+          "yNormal": 0.456
         },
-        "urtillo": {
-          "position": {
-            "xNormal": 0.56,
-            "yNormal": 0.698
+        "scene": {
+          "cameraPos": {
+            "x": 20.5,
+            "y": 4.52,
+            "z": 10.66
           },
-          "scene": {
-            "cameraPos": {
-              "x": 0,
-              "y": 0
+          "audio": "sounds/Son_Lettre_Garage.mp3",
+          "subtitle": "sounds/Son_Lettre_Garage.mp3.vtt",
+          "objList": [
+            "pneus",
+            "masque2"
+          ],
+          "description": {
+            "pneus": {
+              "title": "pneus",
+              "text": "Paul Guillaume est engagé à la mort de son père dans un garage de luxe au début du 20ème siècle. Il se jure d'être un jour à la place des clients. "
             },
-            "audio": "sounds/Son_Lettre_Utrillo.mp3",
-            "objList": ["peinture","bouteille"]
-          }
-        },
-        "laurencin": {
-          "position": {
-            "xNormal": 0.288,
-            "yNormal": 0.35
-          },
-          "scene": {
-            "cameraPos": {
-              "x": 0,
-              "y": 0
-            },
-            "audio": "sounds/Son_Lettre_Laurencin.mp3",
-            "objList": ["peinture","bouteille"]
+            "masque2":{
+              "title": "Masques africains",
+              "text": "C'est à l'occasion du déchargement d'une cargaison de caoutchouc - destiné à la fabrication de pneus - qu'il découvre et prend possession de quelques objets en provenance d'Afrique. Dès 1911, il expose quelques-uns de ces objets dans son garage. "
+            }
           }
         }
+      },
+      "urtillo": {
+        "position": {
+          "xNormal": 0.56,
+          "yNormal": 0.698
+        },
+        "scene": {
+          "cameraPos": {
+            "x": 0,
+            "y": 0
+          },
+          "audio": "sounds/Son_Lettre_Utrillo.mp3",
+          "objList": [
+            "peinture",
+            "bouteille"
+          ]
+        }
+      },
+      "laurencin": {
+        "position": {
+          "xNormal": 0.288,
+          "yNormal": 0.35
+        },
+        "scene": {
+          "cameraPos": {
+            "x": 0,
+            "y": 0
+          },
+          "audio": "sounds/Son_Lettre_Laurencin.mp3",
+          "objList": [
+            "peinture",
+            "bouteille"
+          ]
+        }
       }
+    }
   },
   "orangerie": {
     "poi": {

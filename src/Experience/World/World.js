@@ -6,6 +6,7 @@ import SCENES from '../Utils/SCENES'
 import Map from './scenes/Home/Map.js'
 import MouseHandler from "./MouseHandler";
 
+
 export default class World {
     constructor() {
         this.experience = new Experience()
@@ -17,7 +18,8 @@ export default class World {
             this.montmartre = new Map("montmartre");
             this.audioHandler = new AudioHandler();
             this.mouseHandler = new MouseHandler();
-            // this.garage = new Scene("garage")
+
+            this.garage = new Scene("garage")
 
         })
     }
@@ -26,5 +28,6 @@ export default class World {
         if(this.montmartre) this.montmartre.update()
         if(this.audioHandler) this.audioHandler.update();
         if(this.mouseHandler) this.mouseHandler.update();
+        if(this.garage) this.garage.update();
     }
 }
