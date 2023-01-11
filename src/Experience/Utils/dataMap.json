@@ -37,8 +37,9 @@
         },
         "scene": {
           "cameraPos": {
-            "x": 0,
-            "y": 0
+            "x": 20.5,
+            "y": 4.52,
+            "z": 10.66
           },
           "audio": "sounds/Son_Lettre_Utrillo.mp3",
           "subtitle": "sounds/Son_Lettre_Utrillo.mp3.vtt",
@@ -55,16 +56,22 @@
         },
         "scene": {
           "cameraPos": {
-            "x": 0,
-            "y": 0
+            "x": 20.5,
+            "y": 4.52,
+            "z": 10.66
           },
           "audio": "sounds/Son_Lettre_Laurencin.mp3",
           "subtitle": "sounds/Son_Lettre_Laurencin.mp3.vtt",
 
           "objList": [
-            "peinture",
-            "bouteille"
-          ]
+            "Mannequin"
+          ],
+          "description": {
+            "Mannequin": {
+              "title": "Mannequin",
+              "text": "Elle travaille également comme conceptrice de rideaux de scènes, décors et costumes pour les Ballets russes, Les Soirées de Paris d'Étienne de Beaumont, l'Opéra-comique, la Comédie-Française."
+            }
+          }
         }
       }
     }

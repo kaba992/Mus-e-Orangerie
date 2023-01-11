@@ -19,7 +19,8 @@ export default class World {
             this.audioHandler = new AudioHandler();
             this.mouseHandler = new MouseHandler();
 
-            this.garage = new Scene("garage")
+            // this.garage = new Scene("garage")
+            this.laurencin = new Scene("laurencin")
 
         })
     }
@@ -29,5 +30,6 @@ export default class World {
         if(this.audioHandler) this.audioHandler.update();
         if(this.mouseHandler) this.mouseHandler.update();
         if(this.garage) this.garage.update();
+        if(this.laurencin) this.laurencin.update();
     }
 }
