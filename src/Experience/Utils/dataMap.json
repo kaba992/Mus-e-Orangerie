@@ -23,11 +23,14 @@
               "title": "pneus",
               "text": "Paul Guillaume est engagé à la mort de son père dans un garage de luxe au début du 20ème siècle. Il se jure d'être un jour à la place des clients. "
             },
+
             "masque2":{
               "title": "Masques africains",
               "text": "C'est à l'occasion du déchargement d'une cargaison de caoutchouc - destiné à la fabrication de pneus - qu'il découvre et prend possession de quelques objets en provenance d'Afrique. Dès 1911, il expose quelques-uns de ces objets dans son garage. "
             }
-          }
+          },
+          "title": "garage paul guillaume",
+          "subtitle": "Montmartre"
         }
       },
       "urtillo": {
@@ -40,12 +43,20 @@
             "x": 0,
             "y": 0
           },
-          "audio": "sounds/Son_Lettre_Utrillo.mp3",
-          "subtitle": "sounds/Son_Lettre_Utrillo.mp3.vtt",
-          "objList": [
-            "peinture",
-            "bouteille"
-          ]
+          "scene": {
+            "cameraPos": {
+              "x": 0,
+              "y": 0
+            },
+            "audio": "sounds/Son_Lettre_Utrillo.mp3",
+            "subtitle": "sounds/Son_Lettre_Utrillo.mp3.vtt",
+            "objList": [
+              "peinture",
+              "bouteille"
+            ]
+          },
+          "title": "chambre maurice urtillo",
+          "subtitle": "Rue Mont-Cenis, Montmartre"
         }
       },
       "laurencin": {
@@ -58,14 +69,35 @@
             "x": 0,
             "y": 0
           },
-          "audio": "sounds/Son_Lettre_Laurencin.mp3",
-          "subtitle": "sounds/Son_Lettre_Laurencin.mp3.vtt",
+          "scene": {
+            "cameraPos": {
+              "x": 0,
+              "y": 0
+            },
+            "audio": "sounds/Son_Lettre_Laurencin.mp3",
+            "subtitle": "sounds/Son_Lettre_Laurencin.mp3.vtt",
 
-          "objList": [
-            "peinture",
-            "bouteille"
-          ]
+            "objList": [
+              "peinture",
+              "bouteille"
+            ]
+          },
+          "title": "chambre marie laurencin",
+          "subtitle": "Place Emile Goudeau, Montmartre"
+
         }
+      },
+      "title": "montmartre",
+      "subtitle": "quartier",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "positionCam": {
+        "x": 0,
+        "y": 120,
+        "z": 40
       }
     }
   },
@@ -76,8 +108,22 @@
           "xNormal": 0.8,
           "yNormal": 0.5
         },
-        "scene": null
-      }
+        "scene": null,
+        "title": "orangerie"
+      },
+      "subtitle": "Jardin des Tuilleries"
+    },
+    "title": "tuillerie",
+    "subtitle": "quartier",
+    "position": {
+      "x": 10,
+      "y": 0,
+      "z": 140
+    },
+    "positionCam": {
+      "x": 0,
+      "y": 120,
+      "z": 40
     }
   }
 }

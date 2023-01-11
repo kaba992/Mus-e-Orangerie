@@ -4,11 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700&family=Pavanam&display=swap" rel="stylesheet">
     <title>A deux mains</title>
-
 </head>
 
 <body>
@@ -47,23 +44,28 @@
 
     </div>
     <nav class="bottomBar">
-        <button class="inputNav sound">Son Activé</button>
-        <button class="inputNav back-map">Son Activé</button>
+        <p class="leftInfo">Première lettre</p>
+        <button class="leftInfo hidden"><img src="/static/icons/subway_sound-1.svg" alt=""> Retour carte</button>
         <div class="infos">
-            <h3 class="subTitle">Montmartre</h3>
-            <h2 class="title">Garage paul guillaume</h2>
+            <h3 class="subTitle">Quartier</h3>
+            <h2 class="title">montmatre</h2>
         </div>
-        <p class="subInfo">Première lettre</p>
+        <button class="replayInput">Réécouter l'audio<img src="/static/icons/replay.svg" alt=""></button>
     </nav>
+    <button class="inputNav sound"><img src="/static/icons/subway_sound-1.svg" alt=""></button>
 
-<!--    <div class="camera-back"></div>-->
-<!--    <div class="start-audio scene">-->
-<!--        <p>Commencer</p>-->
-<!--    </div>-->
 
-<!--    <div class="subtitle">-->
+    <div class="hudScene hidden">
+        <div class="camera-back"></div>
+        <div class="start-audio scene">
+            <p>Commencer</p>
+        </div>
 
-<!--    </div>-->
+        <div class="subtitle">
+
+        </div>
+    </div>
+
 
 </body>
 
