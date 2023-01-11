@@ -40,7 +40,7 @@ export default class AudioHandler extends Entity{
 
     update(){
         
-        if(AudioHandler.audio.playing()){
+        if(AudioHandler.audio && AudioHandler.audio.playing()){
             const time = AudioHandler.audio.seek()
             
             const cues = AudioHandler.subtitlesCues 

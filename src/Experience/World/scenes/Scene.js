@@ -112,13 +112,17 @@ export default class Scene extends Entity {
             if (objCurrent) tabObj.push(objCurrent);
         })
         mouseHandler.addObjects(tabObj)
+        console.log(tabObj)
     }
 
 
 
 
     update() {
-        this.setUi()
+        if(this.mouseHandler){
+            this.setUi()
+
+        }
 
     }
 }

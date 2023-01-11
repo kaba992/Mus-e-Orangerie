@@ -12,7 +12,6 @@ export default class MouseHandler extends Entity {
     static currentObjPost = null;
     static currentObj = null;
     static instance = null;
-    static targetWorldPos = null;
     #raycaster;
     #mouse;
     #listObject = []
@@ -63,30 +62,21 @@ export default class MouseHandler extends Entity {
     }
 
     targetCameraEvent() {
-      if(MouseHandler.currentObj){
-        MouseHandler.targetWorldPos = new Vector3
-        MouseHandler.currentObj.getWorldPosition(MouseHandler.targetWorldPos)
-      }
-        if (this.cameraObj.lookAtPosition.distanceTo(MouseHandler.targetWorldPos) > 0.1) {
-            this.cameraObj.lookAtPosition.lerp(MouseHandler.targetWorldPos, 0.05)
+        if (this.cameraObj.lookAtPosition.distanceTo(MouseHandler.currentObjPost) > 0.1) {
+            this.cameraObj.lookAtPosition.lerp(MouseHandler.currentObjPost, 0.05)
 
             if (MouseHandler.currentObj) {
-                if (this.camera.position.distanceTo(MouseHandler.targetWorldPos) > 8)
-                    this.camera.position.lerp(MouseHandler.targetWorldPos, 0.01);
+                if (this.camera.position.distanceTo(MouseHandler.currentObjPost) > 8)
+                    this.camera.position.lerp(MouseHandler.currentObjPost, 0.01);
             }
-
-           
-
             else{
                 this.camera.position.lerp(this.experience.camera.initPosition,0.1);
-
             }
         }
         else if((this.camera.position.distanceTo(this.experience.camera.initPosition) > 0.1 && !MouseHandler.currentObj && !this.cameraObj.isHome) ||
             (this.camera.position.distanceTo(this.experience.camera.initPosition) < 18 && !MouseHandler.currentObj && this.cameraObj.isHome)
         ) {
             this.camera.position.lerp(this.experience.camera.initPosition,0.1);
-
         }
     }
 
@@ -95,11 +85,10 @@ export default class MouseHandler extends Entity {
 
             if (this.#intersects && this.#intersects.length > 0) {
                 this.experience.camera.controls.enabled = false;
-
-
                 // this.#modifyHUD(this.#intersects[0].object)
                 const pos = new Vector3();
                 if(this.#listKeyobject.length > 0 && !this.#listKeyobject.includes(this.#intersects[0].object.name)){
+                    console.log(this.#listKeyobject)
                     this.#intersects[0].object.parent.getWorldPosition(pos)
                     MouseHandler.currentObjPost = pos
                     MouseHandler.currentObj  =  this.#intersects[0].object.parent
@@ -121,13 +110,9 @@ export default class MouseHandler extends Entity {
         })
     }
 
-
     getCurrentObject(){
         return MouseHandler.currentObj
     }
-
- 
-
 
     clearCurrentObj(){
         MouseHandler.currentObj = null;

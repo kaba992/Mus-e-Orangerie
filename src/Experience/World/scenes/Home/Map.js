@@ -77,9 +77,11 @@ export default class Map extends Entity{
         for (const [key, value] of Object.entries(pois)) {
             this.pois[key] = value;
             const position = this.pois[key].position;
-            this.pois[key].poi = new PointOfInterest(this,[position.xNormal,position.yNormal],key)
-            this.mouseHandler.addObject(this.pois[key].poi.getMesh())
-            this.mouseHandler.addKeyObject(key);
+            if(this.pois[key].position){
+                this.pois[key].poi = new PointOfInterest(this,[position.xNormal,position.yNormal],key)
+                this.mouseHandler.addObject(this.pois[key].poi.getMesh())
+                this.mouseHandler.addKeyObject(key);
+            }
         }
     }
 

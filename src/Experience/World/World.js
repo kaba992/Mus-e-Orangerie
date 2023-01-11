@@ -110,6 +110,6 @@ export default class World {
         if(this.montmartre) this.montmartre.update()
         if(this.audioHandler) this.audioHandler.update();
         if(this.mouseHandler) this.mouseHandler.update();
-        if(this.garage) this.garage.update();
+        if(this.scenePoi) this.scenePoi.update()
     }
 }
