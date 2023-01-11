@@ -43,6 +43,26 @@ export default class Scene extends Entity {
         this.experience.camera.initPosition = this.cameraStart.clone();
         this.experience.camera.controls.enabled = false;
         this.model = this.resources.items[sceneName]
+        if (sceneName === "laurencin" && this.model) {
+            // this.model.scene.rotation.y = 0.74
+            // this.model.scene.scale.set(1.5, 1.5, 1.5)
+            // this.model.scene.position.z = -18
+            // this.model.scene.position.y = 5
+            // this.model.scene.position.x = -2.85
+            console.log(this.model);
+            this.modelDebug = this.debug.ui
+
+            if (this.debug.active) {
+                this.debugFolder = this.debug.ui.addFolder('laurencin')
+                this.debugFolder.add(this.model.scene.position, 'x').min(-50).max(50).step(0.0001).name('positionX')
+                this.debugFolder.add(this.model.scene.position, 'y').min(-50).max(50).step(0.0001).name('positionY')
+                this.debugFolder.add(this.model.scene.position, 'z').min(-50).max(100).step(0.0001).name('positionZ')
+                // rotation
+                this.debugFolder.add(this.model.scene.rotation, 'x').min(0).max(Math.PI).step(0.0001).name('rotationX')
+                this.debugFolder.add(this.model.scene.rotation, 'y').min(0).max(Math.PI).step(0.0001).name('rotationY')
+                this.debugFolder.add(this.model.scene.rotation, 'z').min(0).max(Math.PI).step(0.0001).name('rotationZ')
+            }
+        }
         this.audioHandler = new AudioHandler();
         this.audioHandler.setAudio(this.#sceneInfo.audio, this.#sceneInfo.subtitle)
         this.mouseHandler = new MouseHandler();
@@ -64,7 +84,6 @@ export default class Scene extends Entity {
         this.objectContent = document.querySelector(".object-content")
         this.object = this.mouseHandler.getCurrentObject()
 
-
         if (this.object) {
             this.objectTitle.innerHTML = this.#sceneInfo.description[this.object.name].title
             this.objectContent.innerHTML = this.#sceneInfo.description[this.object.name].text
@@ -77,28 +96,28 @@ export default class Scene extends Entity {
                     ease: "power4.out",
                     delay: 1
                 }
-    
+
             )
-        }else{
-           setTimeout(() => {
-            gsap.to(
-                this.objectContainer,
-                {
-                    x: "160%",
-                    opacity: 0,
-                    duration: 2,
-                    ease: "none",
-                }
-            )
-            
-           }, 500);
+        } else {
+            setTimeout(() => {
+                gsap.to(
+                    this.objectContainer,
+                    {
+                        x: "160%",
+                        opacity: 0,
+                        duration: 2,
+                        ease: "none",
+                    }
+                )
+
+            }, 500);
         }
-    
+
     }
 
     #setCurrentScene() {
         this.#currentScene = this.model.scene
-        this.#currentScene.position.set(0, -2, 0)
+        // this.#currentScene.position.set(0, -2, 0)
         this.#addObjectList()
         this.scene.add(this.#currentScene)
     }

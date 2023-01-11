@@ -33,6 +33,16 @@ export default [
         path: 'models/Garage/garage.glb'
     },
     {
+        name: 'laurencin',
+        type: 'dracoLoader',
+        path: 'models/Laurencin/laurencin.glb'
+    },
+    {
+        name: 'utrillo',
+        type: 'dracoLoader',
+        path: 'models/Laurencin/laurencin.glb'
+    },
+    {
         name: 'montmartre',
         type: 'texture',
         path: 'textures/map/Montmartre-carte.jpg'
