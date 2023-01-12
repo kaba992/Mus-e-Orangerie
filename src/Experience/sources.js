@@ -46,9 +46,5 @@ export default [
         name: 'cloud',
         type: 'texture',
         path: 'textures/cloud.png'
-    },{
-        name: 'guillaume',
-        type: 'texture',
-        path: 'textures/guillaume.jpg'
     }
 ]
