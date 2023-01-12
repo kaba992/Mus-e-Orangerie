@@ -89,24 +89,6 @@ export default class World {
      * @param params
      */
     handleInfoChanges(params){
-        const subtitleDOM = document.querySelector(".infos.subTitle");
-        const titleDOM = document.querySelector(".infos.title");
-        let subtitle = "";
-        let title = "";
-
-
-        if(params.maps.includes(params.namePlace)){
-            subtitle = dataMap[params.namePlace].subtitle;
-            title = dataMap[params.namePlace].title;
-        }
-        else{
-            subtitle = dataMap.montmartre.poi[params.namePlace].subtitle;
-            title =  dataMap.montmartre.poi[params.namePlace].title;
-        }
-
-        subtitleDOM.innerHTML = subtitle;
-        titleDOM.innerHTML = title;
-
         if(this.state = "map"){
             document.querySelector("p.leftInfo").classList.remove("hidden")
             document.querySelector("button.leftInfo").classList.add("hidden")
@@ -178,8 +160,28 @@ export default class World {
     }
 
     update() {
-        if(this.audioHandler) this.audioHandler.update();
-        if(this.mouseHandler) this.mouseHandler.update();
-        if(this.scenePoi) this.scenePoi.update()
+        if (this.audioHandler) this.audioHandler.update();
+        if (this.scenePoi) this.scenePoi.update()
+        if (this.mouseHandler) {
+            this.mouseHandler.update();
+            this.object = this.mouseHandler.getCurrentObject()
+            if(this.object && this.state == "map" ){
+
+                switch (this.object.name) {
+                    case "garage":
+                        this.initSceneState("garage")
+                        break;
+                    case "utrillo":
+                        this.initSceneState("utrillo")
+                        break;
+                    case "laurencin":
+                        this.initSceneState("laurencin")
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+        }
     }
 }
