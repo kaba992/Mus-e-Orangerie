@@ -14,6 +14,7 @@ export default class World {
     state = "map";
     namespace = "montmartre"
     counter = 0;
+    zoneEncounter = []
 
     constructor() {
         this.experience = new Experience()
@@ -25,7 +26,6 @@ export default class World {
             this.audioHandler = new AudioHandler();
             this.mouseHandler = new MouseHandler();
             this.map = new THREE.Group();
-
             this.map.name = "map"
             this.montmartre = new Map("montmartre");
             this.orangerie = new Map("orangerie");
@@ -35,28 +35,39 @@ export default class World {
             this.scene.add(this.map)
             this.orangerie.setPosition()
             this.scenePoi = new Scene()
-            // this.scenePoi.initScene('utrillo')
         })
     }
+
 
     /**
      * Lance le processus de changement de zone et modifie les infos correspondantes
      *
      * @param namePlace
      */
-    initSceneState(namePlace) {
-        const maps = ["montmartre", "orangerie"]
-        if (maps.includes(namePlace)) {
+    initSceneState(namePlace){
+        const maps = ["montmartre","orangerie"]
+        if(maps.includes(namePlace)){
             this.state = "map";
-            this[namePlace].start();
-            
+            // this[namePlace].start();
+            // console.log("in Map")
         }
-        else {
+        else{
             this.state = namePlace;
-            this.scenePoi.initScene(namePlace);
+            let firstTime = false;
+            if(!this.zoneEncounter.includes(namePlace) && this.montmartre.checkIsAvailable(namePlace)){
+                this.zoneEncounter.push(namePlace)
+                if(namePlace != "garage"){
+                    this.montmartre.modifyPoisMaterial(namePlace)
+                }
+                this.counter += 1
+
+                firstTime = true;
+            }
+            // this.scenePoi.initScene(namePlace,firstTime);
+
         }
 
-        this.transitionAnimation({ maps, namePlace })
+        // this.transitionAnimation({maps,namePlace})
     }
 
     /**
@@ -64,10 +75,10 @@ export default class World {
      *
      * @param params
      */
-    transitionAnimation(params) {
-       
+    transitionAnimation(params){
         this.map.visible = params.maps.includes(params.namePlace);
-        this.scenePoi.model.scene.visible = !params.maps.includes(params.namePlace);
+        this.scenePoi.getMesh().visible = !params.maps.includes(params.namePlace);
+
         this.handleInfoChanges(params);
     }
 
@@ -77,55 +88,67 @@ export default class World {
      *
      * @param params
      */
-    handleInfoChanges(params) {
-        const subtitleDOM = document.querySelector(".subTitle");
-        const titleDOM = document.querySelector(".title");
+    handleInfoChanges(params){
+        const subtitleDOM = document.querySelector(".infos.subTitle");
+        const titleDOM = document.querySelector(".infos.title");
         let subtitle = "";
         let title = "";
 
 
-        if (params.maps.includes(params.namePlace)) {
+        if(params.maps.includes(params.namePlace)){
             subtitle = dataMap[params.namePlace].subtitle;
             title = dataMap[params.namePlace].title;
         }
-        else {
+        else{
             subtitle = dataMap.montmartre.poi[params.namePlace].subtitle;
-            title = dataMap.montmartre.poi[params.namePlace].title;
+            title =  dataMap.montmartre.poi[params.namePlace].title;
         }
 
         subtitleDOM.innerHTML = subtitle;
         titleDOM.innerHTML = title;
 
-        if (this.state == "map") {
+        if(this.state = "map"){
             document.querySelector("p.leftInfo").classList.remove("hidden")
             document.querySelector("button.leftInfo").classList.add("hidden")
             document.querySelector("button.replayInput").classList.remove("scene")
-            document.querySelector(".hudScene").classList.add("hidden")
+            document.querySelector(".hubScene").classList.add("hidden")
         }
-        else {
+        else{
             document.querySelector("p.leftInfo").classList.add("hidden")
             document.querySelector("button.leftInfo").classList.remove("hidden")
             document.querySelector("button.replayInput").classList.add("scene")
-            document.querySelector(".hudScene").classList.remove("hidden")
+            document.querySelector(".hubScene").classList.remove("hidden")
         }
     }
 
     transitionTitle(path, back = false){
         let active = document.querySelectorAll('.active');
         let data = null;
-        console.log(path)
+
         if(this.state == "map" && this.counter <= 3 && path != "montmartre" ){
-            data = dataMap.montmartre.poi[path].scene
+            data = dataMap.montmartre.poi[path]
         }
         else if((this.state != "map" && this.counter <= 3 && back) || path == "montmartre"){
-            data = dataMap.montmartre.poi
+            data = dataMap.montmartre
         }
         else if((this.state == "map" && this.counter == 4) || path == "orangerie"){
-            data = dataMap.orangerie.poi
+            data = dataMap.orangerie
         }
         else if(this.state == "map" && this.counter == 5){
             data = dataMap.orangerie.poi.museum
         }
+        console.log(this.counter)
+
+        if(path != "montmartre" || path != "orangerie"){
+            // console.log("NOT IN ORANGERIE OR MONTMARTRE")
+            this.initSceneState(path)
+        }
+
+
+        if(path == "montmartre" && this.counter == 3){
+            console.log("3 INDICES !!")
+        }
+
 
         let anim = gsap.timeline()
         anim
@@ -155,30 +178,8 @@ export default class World {
     }
 
     update() {
-    
-        if (this.audioHandler) this.audioHandler.update();
-        if (this.scenePoi) this.scenePoi.update()
-        if (this.mouseHandler) {
-            this.mouseHandler.update();
-            this.object = this.mouseHandler.getCurrentObject()
-          if(this.object && this.state == "map" ){
-           
-            switch (this.object.name) {
-                case "garage":
-                    this.initSceneState("garage")         
-                    break;
-                case "utrillo":
-                    this.initSceneState("utrillo")
-                    break;
-                case "laurencin":
-                    this.initSceneState("laurencin")
-                    break;
-                default:
-                    break;
-            }
-          }
-
-        }
-
+        if(this.audioHandler) this.audioHandler.update();
+        if(this.mouseHandler) this.mouseHandler.update();
+        if(this.scenePoi) this.scenePoi.update()
     }
 }

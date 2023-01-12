@@ -13,7 +13,6 @@ export default class Scene extends Entity {
     #sceneInfo
     #currentScene
 
-
     constructor() {
         super();
         if (Scene.instance)
@@ -50,7 +49,6 @@ export default class Scene extends Entity {
     }
 
     initScene(sceneName) {
-        this.sceneName = sceneName
         this.#sceneInfo = dataMap.montmartre.poi[sceneName].scene;
         this.camera.position.set(this.#sceneInfo.cameraPos.x, this.#sceneInfo.cameraPos.y, this.#sceneInfo.cameraPos.z)
         this.cameraStart = new THREE.Vector3(this.#sceneInfo.cameraPos.x, this.#sceneInfo.cameraPos.y, this.#sceneInfo.cameraPos.z)
@@ -64,9 +62,6 @@ export default class Scene extends Entity {
         this.experience.camera.setParametersIsHome(false);
         this.#setCurrentScene()
         this.setAudio()
-
-        this.setGui(sceneName)
-
 
     }
 

@@ -17,7 +17,7 @@ export default class MouseHandler extends Entity {
     #listObject = []
     #listKeyobject = []
     #intersects
-    inHome = false;
+    inHome = true;
 
 
     constructor() {
@@ -72,11 +72,14 @@ export default class MouseHandler extends Entity {
             else{
                 this.camera.position.lerp(this.experience.camera.initPosition,0.1);
             }
+
         }
         else if((this.camera.position.distanceTo(this.experience.camera.initPosition) > 0.1 && !MouseHandler.currentObj && !this.cameraObj.isHome) ||
             (this.camera.position.distanceTo(this.experience.camera.initPosition) < 18 && !MouseHandler.currentObj && this.cameraObj.isHome)
         ) {
             this.camera.position.lerp(this.experience.camera.initPosition,0.1);
+            console.log(this.camera.position.distanceTo(this.experience.camera.initPosition), this.cameraObj.isHome)
+
         }
     }
 
@@ -102,7 +105,6 @@ export default class MouseHandler extends Entity {
                     this.cameraObj.setParametersIsHome(false);
                 }
                 if(this.#listKeyobject){
-                    console.log(MouseHandler.currentObj.name)
                     this.world.transitionTitle(MouseHandler.currentObj.name)
                 }
             }
