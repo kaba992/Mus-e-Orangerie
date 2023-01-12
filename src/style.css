@@ -77,7 +77,6 @@ button{
 	background: var(--mainColor);
 	z-index: 50;
 	text-align: center;
-	padding: 5px 10px;
 }
 
 .scenes {
@@ -131,16 +130,23 @@ button{
 }
 .start-audio {
 	position: absolute;
-	bottom: 15%;
+	bottom: 18%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-
-	height: 100px;
-	width: 100px;
-	border-radius: 50%;
-	background-color: #000;
-	z-index: 50;
+	z-index: 99;
 	cursor: pointer;
+}
+.start-audio p::after{
+	position: absolute;
+	top: 106%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	content: "";
+	width: 80%;
+	height: 2px;
+	background: #CF3232;
+
+	z-index: 99;
 }
 .start-audio p {
 	position: absolute;
@@ -216,7 +222,7 @@ button{
 	height: 100%;
 	border: 20px solid var(--bgColor);
 	pointer-events:none;
-	z-index: 10;
+	z-index: 5;
 }
 
 .frame:before{
@@ -283,8 +289,8 @@ button{
 	margin-top: 80vh;
 	padding: 0 40px;
 	color: var(--mainColor);
-	border-top: 2px solid var(--mainColor);
-	z-index: 2;
+	/* border-top: 2px solid var(--mainColor); */
+	z-index: 3;
 }
 
 .inputNav,.replayInput,.leftInfo{
@@ -370,4 +376,38 @@ p.leftInfo{
 	background: var(--bgColor);
 	z-index:1;
 	pointer-events: none;
+}
+
+.lettre-container {
+	position:absolute;
+	width: 472px;
+	height: 356px;
+	bottom: -100%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 2;
+
+}
+
+.lettre-container img{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 99;
+}
+.lettre-container p{
+	color: #CF3232;
+
+}
+.bottomHover{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 0%;
+	height: 3%;
+	background:#000;
+
+
 }
