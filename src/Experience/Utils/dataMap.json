@@ -67,6 +67,11 @@
             "y": 4.52,
             "z": 10.66
           },
+          "position": {
+            "x": -5.31,
+            "y": -1,
+            "z": -3.24
+          },
           "audio": "sounds/Son_Lettre_Laurencin.mp3",
           "subtitle": "sounds/Son_Lettre_Laurencin.mp3.vtt",
 
