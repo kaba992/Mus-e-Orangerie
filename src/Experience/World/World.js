@@ -14,6 +14,7 @@ export default class World {
     state = "map";
     namespace = "montmartre"
     counter = 0;
+    zoneEncounter = []
 
     constructor() {
         this.experience = new Experience()
@@ -28,13 +29,12 @@ export default class World {
             this.map.name = "map"
             this.montmartre = new Map("montmartre");
             this.orangerie = new Map("orangerie");
-            // this.montmartre.start()
-            // this.map.add(this.montmartre.getMesh());
-            // this.map.add(this.orangerie.getMesh());
-            // this.scene.add(this.map)
+            this.montmartre.start()
+            this.map.add(this.montmartre.getMesh());
+            this.map.add(this.orangerie.getMesh());
+            this.scene.add(this.map)
             this.orangerie.setPosition()
             this.scenePoi = new Scene()
-            this.scenePoi.initScene('garage')
         })
     }
 
@@ -48,14 +48,26 @@ export default class World {
         const maps = ["montmartre","orangerie"]
         if(maps.includes(namePlace)){
             this.state = "map";
-            this[namePlace].start();
+            // this[namePlace].start();
+            // console.log("in Map")
         }
         else{
             this.state = namePlace;
-            this.scenePoi.initScene(namePlace);
+            let firstTime = false;
+            if(!this.zoneEncounter.includes(namePlace) && this.montmartre.checkIsAvailable(namePlace)){
+                this.zoneEncounter.push(namePlace)
+                if(namePlace != "garage"){
+                    this.montmartre.modifyPoisMaterial(namePlace)
+                }
+                this.counter += 1
+
+                firstTime = true;
+            }
+            // this.scenePoi.initScene(namePlace,firstTime);
+
         }
 
-        this.transitionAnimation({maps,namePlace})
+        // this.transitionAnimation({maps,namePlace})
     }
 
     /**
@@ -112,19 +124,31 @@ export default class World {
     transitionTitle(path, back = false){
         let active = document.querySelectorAll('.active');
         let data = null;
-        console.log(path)
+
         if(this.state == "map" && this.counter <= 3 && path != "montmartre" ){
-            data = dataMap.montmartre.poi[path].scene
+            data = dataMap.montmartre.poi[path]
         }
         else if((this.state != "map" && this.counter <= 3 && back) || path == "montmartre"){
-            data = dataMap.montmartre.poi
+            data = dataMap.montmartre
         }
         else if((this.state == "map" && this.counter == 4) || path == "orangerie"){
-            data = dataMap.orangerie.poi
+            data = dataMap.orangerie
         }
         else if(this.state == "map" && this.counter == 5){
             data = dataMap.orangerie.poi.museum
         }
+        console.log(this.counter)
+
+        if(path != "montmartre" || path != "orangerie"){
+            // console.log("NOT IN ORANGERIE OR MONTMARTRE")
+            this.initSceneState(path)
+        }
+
+
+        if(path == "montmartre" && this.counter == 3){
+            console.log("3 INDICES !!")
+        }
+
 
         let anim = gsap.timeline()
         anim

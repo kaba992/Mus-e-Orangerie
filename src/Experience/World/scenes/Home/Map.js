@@ -11,6 +11,7 @@ export default class Map extends Entity{
     mapName = null;
     ratio = 1;
     pois = {};
+    poisMaterial = []
 
     constructor(mapName) {
         super();
@@ -74,6 +75,7 @@ export default class Map extends Entity{
 
     #setPois(){
         const pois = dataMap[this.mapName].poi;
+        let index = 0;
         for (const [key, value] of Object.entries(pois)) {
             this.pois[key] = value;
             const position = this.pois[key].position;
@@ -81,9 +83,37 @@ export default class Map extends Entity{
                 this.pois[key].poi = new PointOfInterest(this,[position.xNormal,position.yNormal],key)
                 this.mouseHandler.addObject(this.pois[key].poi.getMesh())
                 this.mouseHandler.addKeyObject(key);
+                this.pois[key].material = this.pois[key].poi.getMesh().children[0].children[0].children[0].children[0].material.clone();
+                this.pois[key].index = index;
+                if(key != "garage"){
+                    this.modifyPoisMaterial(key);
+                }
+                index+=1;
+
             }
         }
     }
+
+    modifyPoisMaterial(key){
+        console.log(this.pois[key].index,this.world.counter)
+        // if(this.pois[key].index == this.world.counter) {
+
+        let elt = this.pois[key].poi.getMesh().children[0].children[0].children[0].children[0];
+            if (elt.material.color.r == this.pois[key].material.color.r && elt.material.color.g == this.pois[key].material.color.g && elt.material.color.b == this.pois[key].material.color.b) {
+                elt.material = new THREE.MeshStandardMaterial({color: new THREE.Color("#000000")})
+
+            } else if(this.pois[key].index == this.world.counter) {
+                elt.material = this.pois[key].material
+            }
+        // }
+    }
+
+    checkIsAvailable(key) {
+        console.log(this.pois[key].index,this.world.counter)
+        return this.pois[key].index == this.world.counter
+    }
+
+
 
     #createMap() {
         this.#setTextures();
@@ -97,9 +127,6 @@ export default class Map extends Entity{
     }
 
     update() {
-        if(this._mesh){
-            this._material.uniforms.uTime1.value = this.clock.getElapsedTime()
-        }
     }
 }
 

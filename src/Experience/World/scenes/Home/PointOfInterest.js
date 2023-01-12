@@ -40,7 +40,6 @@ export default class PointOfInterest extends Entity{
         this.needle.scale.multiplyScalar(75)
         this.needle.name = this.name;
         this.needle.traverse(elt => elt.name = this.name)
-        console.log(this.needle.name)
         this._mesh.add(this.needle)
 
         const geometry = new THREE.CircleGeometry( 5, 32 );
