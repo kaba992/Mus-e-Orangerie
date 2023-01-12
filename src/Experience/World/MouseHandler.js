@@ -160,7 +160,6 @@ export default class MouseHandler extends Entity {
         }
         return null;
     }
-
     update() {
         if ( MouseHandler.currentObjPost) {
             this.targetCameraEvent()
