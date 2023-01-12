@@ -78,6 +78,7 @@
           "toile": {
             "title": "Toile",
             "text": "La mère de Maurice, Suzanne Utrillo, finissait les toiles de son fils."
+
           }
         },
         "title": "chambre maurice urtillo",
@@ -96,7 +97,7 @@
           },
           "position": {
             "x": -5.31,
-            "y": 0.83,
+            "y": -1,
             "z": -3.24
           },
           "audio": "sounds/Son_Lettre_Laurencin.mp3",
