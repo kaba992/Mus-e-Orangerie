@@ -7,10 +7,12 @@ import Map from './scenes/Home/Map.js'
 import MouseHandler from "./MouseHandler";
 import * as THREE from 'three'
 import dataMap from '../Utils/dataMap.json'
+import gsap from 'gsap'
 
 
 export default class World {
     state = "map";
+    namespace = "montmartre"
     counter = 0;
 
     constructor() {
@@ -104,6 +106,50 @@ export default class World {
             document.querySelector("button.replayInput").classList.add("scene")
             document.querySelector(".hubScene").classList.remove("hidden")
         }
+    }
+
+    transitionTitle(path, back = false){
+        let active = document.querySelectorAll('.active');
+        let data = null;
+        console.log(path)
+        if(this.state == "map" && this.counter <= 3 && path != "montmartre" ){
+            data = dataMap.montmartre.poi[path].scene
+        }
+        else if((this.state != "map" && this.counter <= 3 && back) || path == "montmartre"){
+            data = dataMap.montmartre.poi
+        }
+        else if((this.state == "map" && this.counter == 4) || path == "orangerie"){
+            data = dataMap.orangerie.poi
+        }
+        else if(this.state == "map" && this.counter == 5){
+            data = dataMap.orangerie.poi.museum
+        }
+
+        let anim = gsap.timeline()
+        anim
+            .from(active,{
+            y:"0%"
+        })
+            .to(active[0],{
+            y:"-100%"
+        })
+            .to(active[1],{
+                y:"-100%"
+            },'<0.1')
+            .add(() => {
+                active[0].innerHTML = data.subtitle;
+                active[1].innerHTML = data.title;
+
+            },"<0.25")
+            .from(active,{
+                y:"100%"
+            },)
+            .to(active[0],{
+                y:"0%"
+            })
+            .to(active[1],{
+                y:"0%"
+            },'<0.1')
     }
 
     update() {

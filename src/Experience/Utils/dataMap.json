@@ -28,10 +28,10 @@
               "title": "Masques africains",
               "text": "C'est à l'occasion du déchargement d'une cargaison de caoutchouc - destiné à la fabrication de pneus - qu'il découvre et prend possession de quelques objets en provenance d'Afrique. Dès 1911, il expose quelques-uns de ces objets dans son garage. "
             }
-          }
-        },
-        "title": "garage paul guillaume",
-        "subtitle": "Montmartre"
+          },
+          "title": "garage paul guillaume",
+          "subtitle": "Montmartre"
+        }
       },
       "urtillo": {
         "position": {
@@ -39,6 +39,11 @@
           "yNormal": 0.698
         },
         "scene": {
+          "cameraPos": {
+            "x": 0,
+            "y": 0
+          },
+          "scene": {
             "cameraPos": {
               "x": 0,
               "y": 0
@@ -50,8 +55,9 @@
               "bouteille"
             ]
           },
-        "title": "chambre maurice urtillo",
-        "subtitle": "Rue Mont-Cenis, Montmartre"
+          "title": "chambre maurice urtillo",
+          "subtitle": "Rue Mont-Cenis, Montmartre"
+        }
       },
       "laurencin": {
         "position": {
@@ -63,29 +69,36 @@
             "x": 0,
             "y": 0
           },
-          "audio": "sounds/Son_Lettre_Laurencin.mp3",
-          "subtitle": "sounds/Son_Lettre_Laurencin.mp3.vtt",
+          "scene": {
+            "cameraPos": {
+              "x": 0,
+              "y": 0
+            },
+            "audio": "sounds/Son_Lettre_Laurencin.mp3",
+            "subtitle": "sounds/Son_Lettre_Laurencin.mp3.vtt",
 
-          "objList": [
-            "peinture",
-            "bouteille"
-          ]
-        },
-        "title": "chambre marie laurencin",
-        "subtitle": "Place Emile Goudeau, Montmartre"
+            "objList": [
+              "peinture",
+              "bouteille"
+            ]
+          },
+          "title": "chambre marie laurencin",
+          "subtitle": "Place Emile Goudeau, Montmartre"
+
+        }
       },
       "title": "montmartre",
-      "subtitle": "quartier"
-    },
-    "position": {
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "positionCam": {
-      "x": 0,
-      "y": 120,
-      "z": 40
+      "subtitle": "quartier",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "positionCam": {
+        "x": 0,
+        "y": 120,
+        "z": 40
+      }
     }
   },
   "orangerie": {
@@ -95,9 +108,9 @@
           "xNormal": 0.8,
           "yNormal": 0.5
         },
-        "scene": null
+        "scene": null,
+        "title": "orangerie"
       },
-      "title": "orangerie",
       "subtitle": "Jardin des Tuilleries"
     },
     "title": "tuillerie",

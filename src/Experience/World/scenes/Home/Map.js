@@ -97,9 +97,6 @@ export default class Map extends Entity{
     }
 
     update() {
-        // if(this.mouseHandler && this.mouseHandler.getIntersection()){
-        //     if(this.mouseHandler.getIntersection().name != "image")
-        // }
         if(this._mesh){
             this._material.uniforms.uTime1.value = this.clock.getElapsedTime()
         }

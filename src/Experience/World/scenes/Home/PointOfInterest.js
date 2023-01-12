@@ -38,6 +38,9 @@ export default class PointOfInterest extends Entity{
         this.needle.rotation.set(Math.PI+Math.random()*0.25,Math.random()*0.25,Math.random()*0.25)
         // this.needle.translateZ(1)
         this.needle.scale.multiplyScalar(75)
+        this.needle.name = this.name;
+        this.needle.traverse(elt => elt.name = this.name)
+        console.log(this.needle.name)
         this._mesh.add(this.needle)
 
         const geometry = new THREE.CircleGeometry( 5, 32 );

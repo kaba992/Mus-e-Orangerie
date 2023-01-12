@@ -90,7 +90,6 @@ export default class Scene extends Entity {
                     ease: "none",
                 }
             )
-            
            }, 500);
         }
     
@@ -112,11 +111,7 @@ export default class Scene extends Entity {
             if (objCurrent) tabObj.push(objCurrent);
         })
         mouseHandler.addObjects(tabObj)
-        console.log(tabObj)
     }
-
-
-
 
     update() {
         if(this.mouseHandler){
