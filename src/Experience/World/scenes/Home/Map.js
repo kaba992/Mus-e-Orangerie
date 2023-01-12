@@ -64,13 +64,30 @@ export default class Map extends Entity{
 
     start(){
         if(this.mapName == "montmatre"){
-            const positionCam = dataMap[this.mapName].positionCam
-            this.experience.camera.initPosition = new THREE.Vector3(positionCam.x, positionCam.y, positionCam.z)
+            this.resetPos()
         }
         this.mouseHandler = new MouseHandler();
         this.mouseHandler.clearListObjects()
         this.mouseHandler.inHome = true;
         this.#setPois()
+    }
+
+    resetPos(){
+        this.mouseHandler = new MouseHandler();
+        this.mouseHandler.clearCurrentObj()
+        this.mouseHandler.inHome = true;
+        const positionCam = dataMap[this.mapName].positionCam
+        this.experience.camera.initPosition = new THREE.Vector3(positionCam.x, positionCam.y, positionCam.z)
+        this.camera.position.set(positionCam.x, positionCam.y, positionCam.z)
+        this.experience.camera.lookAtPosition = new THREE.Vector3()
+        this.experience.camera.controls.enabled = true;
+        this.experience.camera.setParametersIsHome(true);
+
+        for (const [key, value] of Object.entries(this.pois)) {
+            this.mouseHandler.addKeyObject(key);
+            this.mouseHandler.addObject(this.pois[key].poi.getMesh())
+
+        }
     }
 
     #setPois(){
@@ -81,13 +98,14 @@ export default class Map extends Entity{
             const position = this.pois[key].position;
             if(this.pois[key].position){
                 this.pois[key].poi = new PointOfInterest(this,[position.xNormal,position.yNormal],key)
+                this.pois[key].poi.getMesh().name = key
                 this.mouseHandler.addObject(this.pois[key].poi.getMesh())
                 this.mouseHandler.addKeyObject(key);
                 this.pois[key].material = this.pois[key].poi.getMesh().children[0].children[0].children[0].children[0].material.clone();
                 this.pois[key].index = index;
-                if(key != "garage"){
+                // if(key != "garage"){
                     this.modifyPoisMaterial(key);
-                }
+                // }
                 index+=1;
 
             }
@@ -95,22 +113,24 @@ export default class Map extends Entity{
     }
 
     modifyPoisMaterial(key){
-        console.log(this.pois[key].index,this.world.counter)
         // if(this.pois[key].index == this.world.counter) {
 
         let elt = this.pois[key].poi.getMesh().children[0].children[0].children[0].children[0];
             if (elt.material.color.r == this.pois[key].material.color.r && elt.material.color.g == this.pois[key].material.color.g && elt.material.color.b == this.pois[key].material.color.b) {
                 elt.material = new THREE.MeshStandardMaterial({color: new THREE.Color("#000000")})
 
-            } else if(this.pois[key].index == this.world.counter) {
+            } else {
                 elt.material = this.pois[key].material
             }
         // }
     }
 
     checkIsAvailable(key) {
-        console.log(this.pois[key].index,this.world.counter)
-        return this.pois[key].index == this.world.counter
+        if(this.pois[key]){
+            console.log(this.pois[key].index,this.world.counter)
+            return this.pois[key].index == this.world.counter
+        }
+        return false;
     }
 
 

@@ -1,5 +1,4 @@
 varying vec2 vUv;
-varying float vFogFactor;
 uniform sampler2D uTexture;
 
 

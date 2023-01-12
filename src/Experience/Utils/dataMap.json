@@ -12,6 +12,11 @@
             "y": 4.52,
             "z": 10.66
           },
+          "position": {
+            "x": 0,
+            "y": -2,
+            "z": 0
+          },
           "audio": "sounds/Son_Lettre_Garage.mp3",
           "subtitle": "sounds/Son_Lettre_Garage.mp3.vtt",
           "objList": [
@@ -33,18 +38,21 @@
         "title": "garage paul guillaume",
         "subtitle": "Montmartre"
       },
-      "urtillo": {
+      "utrillo": {
         "position": {
           "xNormal": 0.56,
           "yNormal": 0.698
         },
         "scene": {
-
           "cameraPos": {
             "x": 20.5,
             "y": 4.52,
             "z": 10.66
-
+          },
+          "position": {
+            "x": 0,
+            "y": -2,
+            "z": 0
           },
             "audio": "sounds/Son_Lettre_Utrillo.mp3",
             "subtitle": "sounds/Son_Lettre_Utrillo.mp3.vtt",
@@ -66,6 +74,11 @@
             "x": 20.5,
             "y": 4.52,
             "z": 10.66
+          },
+          "position": {
+            "x": -5.31,
+            "y": 0.83,
+            "z": -3.24
           },
           "audio": "sounds/Son_Lettre_Laurencin.mp3",
           "subtitle": "sounds/Son_Lettre_Laurencin.mp3.vtt",

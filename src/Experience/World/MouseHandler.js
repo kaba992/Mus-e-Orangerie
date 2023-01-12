@@ -18,6 +18,7 @@ export default class MouseHandler extends Entity {
     #listKeyobject = []
     #intersects
     inHome = true;
+    objNav = ["utrillo",'laurencin',"garage","museum"]
 
 
     constructor() {
@@ -70,28 +71,37 @@ export default class MouseHandler extends Entity {
             this.cameraObj.lookAtPosition.lerp(MouseHandler.currentObjPost, 0.05)
 
             if (MouseHandler.currentObj) {
-                if (this.camera.position.distanceTo(MouseHandler.currentObjPost) > 8)
+                if (this.camera.position.distanceTo(MouseHandler.currentObjPost) > 8){
                     this.camera.position.lerp(MouseHandler.currentObjPost, 0.01);
+                    console.log("hihi")
+                }
             }
             else{
                 this.camera.position.lerp(this.experience.camera.initPosition,0.1);
+                console.log("haha")
+
             }
 
         }
-        else if((this.camera.position.distanceTo(this.experience.camera.initPosition) > 0.1 && !MouseHandler.currentObj && !this.cameraObj.isHome) ||
-            (this.camera.position.distanceTo(this.experience.camera.initPosition) < 18 && !MouseHandler.currentObj && this.cameraObj.isHome)
+        else if((this.camera.position.distanceTo(this.experience.camera.initPosition) > 2 && !MouseHandler.currentObj && !this.cameraObj.isHome)
+            // (this.camera.position.distanceTo(this.experience.camera.initPosition) < 18 && !MouseHandler.currentObj && this.cameraObj.isHome)
         ) {
             this.camera.position.lerp(this.experience.camera.initPosition,0.1);
-            console.log(this.camera.position.distanceTo(this.experience.camera.initPosition), this.cameraObj.isHome)
+            console.log(this.camera.position.distanceTo(this.experience.camera.initPosition))
 
+        }
+        else{
+            // console.log(this.objNav.includes(MouseHandler.currentObj.name))
+            if(MouseHandler.currentObj && this.objNav.includes(MouseHandler.currentObj.name) && !this.world.inTrans){
+                    this.world.inTrans = true;
+                    this.world.initSceneState(MouseHandler.currentObj.name);
+            }
         }
     }
 
     #handlePoseClick() {
         window.addEventListener('click', (e) => {
-            console.log("click")
             if (this.#intersects && this.#intersects.length > 0) {
-                console.log('intersect')
                 this.experience.camera.controls.enabled = false;
                 // this.#modifyHUD(this.#intersects[0].object)
                 const pos = new Vector3();
@@ -114,16 +124,15 @@ export default class MouseHandler extends Entity {
                 }
             }
             else if(MouseHandler.currentObj && this.#intersects.length < 1){
-                console.log('no intersect')
                 if(this.inHome){
                     this.cameraObj.setParametersIsHome(true);
                 }
                 this.experience.camera.controls.enabled = true;
                 this.clearCurrentObj();
-                if(this.world.counter <= 3){
+                if(this.world.counter <= 3 && this.inHome){
                     this.world.transitionTitle("montmartre")
                 }
-                else{
+                else if(this.world.counter > 3 && this.inHome){
                     this.world.transitionTitle("orangerie")
                 }
 
@@ -136,6 +145,7 @@ export default class MouseHandler extends Entity {
     }
 
     clearCurrentObj(){
+        this.#listKeyobject = []
         MouseHandler.currentObj = null;
         MouseHandler.currentObjPost =new Vector3(0,0,0)
     }
@@ -152,7 +162,7 @@ export default class MouseHandler extends Entity {
     }
 
     update() {
-        if (MouseHandler.currentObjPost) {
+        if ( MouseHandler.currentObjPost) {
             this.targetCameraEvent()
         }
     }

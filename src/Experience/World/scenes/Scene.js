@@ -11,7 +11,6 @@ import AudioHandler from "../AudioHandler";
 export default class Scene extends Entity {
     static instance = null;
     #sceneInfo
-    #currentScene
 
     constructor() {
         super();
@@ -34,20 +33,23 @@ export default class Scene extends Entity {
             this.debugFolder.add(this.camera.position, 'z').min(-50).max(50).step(0.01).name('positionZ')
 
         }
-        Scene.instance = this
     }
 
     initScene(sceneName) {
+        console.log(sceneName)
+        this.sceneName = sceneName
+        this.mouseHandler = new MouseHandler();
+        this.mouseHandler.inHome = false;
+        this.mouseHandler.clearCurrentObj()
         this.#sceneInfo = dataMap.montmartre.poi[sceneName].scene;
         this.camera.position.set(this.#sceneInfo.cameraPos.x, this.#sceneInfo.cameraPos.y, this.#sceneInfo.cameraPos.z)
         this.cameraStart = new THREE.Vector3(this.#sceneInfo.cameraPos.x, this.#sceneInfo.cameraPos.y, this.#sceneInfo.cameraPos.z)
         this.experience.camera.initPosition = this.cameraStart.clone();
+        this.experience.camera.lookAtPosition = new THREE.Vector3();
         this.experience.camera.controls.enabled = false;
         this.model = this.resources.items[sceneName]
         this.audioHandler = new AudioHandler();
         this.audioHandler.setAudio(this.#sceneInfo.audio, this.#sceneInfo.subtitle)
-        this.mouseHandler = new MouseHandler();
-        this.mouseHandler.inHome = false;
         this.experience.camera.setParametersIsHome(false);
         this.#setCurrentScene()
         this.setAudio()
@@ -66,42 +68,70 @@ export default class Scene extends Entity {
         this.object = this.mouseHandler.getCurrentObject()
 
 
-        if (this.object) {
-            this.objectTitle.innerHTML = this.#sceneInfo.description[this.object.name].title
-            this.objectContent.innerHTML = this.#sceneInfo.description[this.object.name].text
-            gsap.to(
-                this.objectContainer,
-                {
-                    x: "-140%",
-                    opacity: 1,
-                    duration: 2,
-                    ease: "power4.out",
-                    delay: 1
-                }
-    
-            )
-        }else{
-           setTimeout(() => {
-            gsap.to(
-                this.objectContainer,
-                {
-                    x: "160%",
-                    opacity: 0,
-                    duration: 2,
-                    ease: "none",
-                }
-            )
-            
-           }, 500);
-        }
+        // if (this.object) {
+        //     this.objectTitle.innerHTML = this.#sceneInfo.description[this.object.name].title
+        //     this.objectContent.innerHTML = this.#sceneInfo.description[this.object.name].text
+        //     gsap.to(
+        //         this.objectContainer,
+        //         {
+        //             x: "-140%",
+        //             opacity: 1,
+        //             duration: 2,
+        //             ease: "power4.out",
+        //             delay: 1
+        //         }
+        //
+        //     )
+        // }else{
+        //    setTimeout(() => {
+        //     gsap.to(
+        //         this.objectContainer,
+        //         {
+        //             x: "160%",
+        //             opacity: 0,
+        //             duration: 2,
+        //             ease: "none",
+        //         }
+        //     )
+        //
+        //    }, 500);
+        // }
     
     }
 
+    manageClickHandler(destroy = false){
+        if(!destroy){
+            window.addEventListener("click",this.clickhandler)
+        }
+        else{
+            window.removeEventListener("click",this.clickhandler)
+        }
+
+    }
+
+    clickhandler(){
+        if (MouseHandler.intersects && MouseHandler.intersects.length > 0) {
+            this.experience.camera.controls.enabled = false;
+            this.mouseHandler.setCurrentObj();
+        }
+        else if(MouseHandler.currentObj && MouseHandler.intersects.length < 1){
+            this.experience.camera.controls.enabled = true;
+            this.clearCurrentObj();
+        }
+    }
+
     #setCurrentScene() {
-        this.#currentScene = this.model.scene
-        this.#currentScene.position.set(0, -2, 0)
+        this._mesh = this.model.scene
+        this._mesh.position.set(this.#sceneInfo.position.x, this.#sceneInfo.position.y,this.#sceneInfo.position.z)
+        if(this.sceneName == "laurencin"){
+            this._mesh.rotation.y = 1.8
+        }
+        else if(this.sceneName == "utrillo"){
+            this._mesh.rotation.y = 5
+            this._mesh.scale.set(2,2,2)
+        }
         this.#addObjectList()
-        this.scene.add(this.#currentScene)
+        this.scene.add(this._mesh)
     }
 
     #addObjectList() {
@@ -109,11 +139,10 @@ export default class Scene extends Entity {
         mouseHandler.clearListObjects()
         const tabObj = [];
         this.#sceneInfo.objList.forEach(obj => {
-            let objCurrent = this.#currentScene.getObjectByName(obj);
+            let objCurrent = this._mesh.getObjectByName(obj);
             if (objCurrent) tabObj.push(objCurrent);
         })
         mouseHandler.addObjects(tabObj)
-        console.log(tabObj)
     }
 
 

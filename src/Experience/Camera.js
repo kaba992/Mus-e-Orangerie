@@ -44,7 +44,7 @@ export default class Camera
             this.controls.enableDamping = true
             this.controls.enablePan = false;
             this.controls.minDistance = 90
-            this.controls.maxDistance = 120
+            this.controls.maxDistance = 140
             this.controls.maxPolarAngle = Math.PI/3 -Math.PI/10
             this.controls.minPolarAngle = Math.PI/6
             this.controls.maxAzimuthAngle = 0

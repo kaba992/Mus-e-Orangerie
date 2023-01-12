@@ -15,6 +15,8 @@ export default class World {
     namespace = "montmartre"
     counter = 0;
     zoneEncounter = []
+    inTrans = false
+    prevPlace = ""
 
     constructor() {
         this.experience = new Experience()
@@ -35,6 +37,13 @@ export default class World {
             this.scene.add(this.map)
             this.orangerie.setPosition()
             this.scenePoi = new Scene()
+            this.initUI()
+        })
+    }
+
+    initUI(){
+        document.querySelector('.backmap').addEventListener('click',() => {
+            this.initSceneState("montmartre")
         })
     }
 
@@ -46,27 +55,18 @@ export default class World {
      */
     initSceneState(namePlace){
         const maps = ["montmartre","orangerie"]
-        if(maps.includes(namePlace)){
+        let inMap = maps.includes(namePlace)
+        if(inMap){
             this.state = "map";
-            // this[namePlace].start();
             // console.log("in Map")
         }
         else{
             this.state = namePlace;
-            let firstTime = false;
-            if(!this.zoneEncounter.includes(namePlace) && this.montmartre.checkIsAvailable(namePlace)){
-                this.zoneEncounter.push(namePlace)
-                if(namePlace != "garage"){
-                    this.montmartre.modifyPoisMaterial(namePlace)
-                }
-                this.counter += 1
 
-                firstTime = true;
-            }
-            // this.scenePoi.initScene(namePlace,firstTime);
+
         }
 
-        // this.transitionAnimation({maps,namePlace})
+        this.transitionAnimation({maps,inMap,namePlace})
     }
 
     /**
@@ -75,10 +75,47 @@ export default class World {
      * @param params
      */
     transitionAnimation(params){
-        this.map.visible = params.maps.includes(params.namePlace);
-        this.scenePoi.getMesh().visible = !params.maps.includes(params.namePlace);
 
-        this.handleInfoChanges(params);
+
+        const transition = document.querySelector(".transition")
+        let anim = gsap.timeline()
+        anim
+            .from(transition,{
+            opacity:0
+        })
+            .to(transition,{
+                opacity:1,
+                duration:0.25
+            })
+            .add(() => {
+                if(params.inMap){
+                    this.experience.composerEnable = false;
+                    if(!this.zoneEncounter.includes(this.prevPlace) ){
+                        console.log(this.zoneEncounter.includes(this.prevPlace),this.prevPlace)
+                        this.zoneEncounter.push(this.prevPlace)
+                        this.montmartre.modifyPoisMaterial(this.prevPlace)
+                        this.counter += 1;
+                        console.log(this.counter)
+                    }
+                    this[params.namePlace].resetPos();
+                }
+                else{
+                    this.scenePoi.initScene(params.namePlace);
+                    this.experience.composerEnable = true;
+                    this.prevPlace = params.namePlace
+                }
+                this.handleInfoChanges(params);
+                this.map.visible = params.maps.includes(params.namePlace);
+                this.scenePoi.getMesh().visible = !params.maps.includes(params.namePlace);
+
+            },"<0.5")
+            .to(transition,{
+                opacity:0,
+                duration:1
+            })
+            .add(() => {
+                this.inTrans = false
+            })
     }
 
 
@@ -88,33 +125,17 @@ export default class World {
      * @param params
      */
     handleInfoChanges(params){
-        const subtitleDOM = document.querySelector(".infos.subTitle");
-        const titleDOM = document.querySelector(".infos.title");
-        let subtitle = "";
-        let title = "";
-
-
-        if(params.maps.includes(params.namePlace)){
-            subtitle = dataMap[params.namePlace].subtitle;
-            title = dataMap[params.namePlace].title;
-        }
-        else{
-            subtitle = dataMap.montmartre.poi[params.namePlace].subtitle;
-            title =  dataMap.montmartre.poi[params.namePlace].title;
-        }
-
-        subtitleDOM.innerHTML = subtitle;
-        titleDOM.innerHTML = title;
-
-        if(this.state = "map"){
+        if(this.state == "map"){
             document.querySelector("p.leftInfo").classList.remove("hidden")
             document.querySelector("button.leftInfo").classList.add("hidden")
+            document.querySelector("button.leftInfo").classList.remove("scene")
             document.querySelector("button.replayInput").classList.remove("scene")
             document.querySelector(".hubScene").classList.add("hidden")
         }
         else{
             document.querySelector("p.leftInfo").classList.add("hidden")
             document.querySelector("button.leftInfo").classList.remove("hidden")
+            document.querySelector("button.leftInfo").classList.add("scene")
             document.querySelector("button.replayInput").classList.add("scene")
             document.querySelector(".hubScene").classList.remove("hidden")
         }
@@ -136,16 +157,14 @@ export default class World {
         else if(this.state == "map" && this.counter == 5){
             data = dataMap.orangerie.poi.museum
         }
-        console.log(this.counter)
 
         if(path != "montmartre" || path != "orangerie"){
             // console.log("NOT IN ORANGERIE OR MONTMARTRE")
-            this.initSceneState(path)
+            // this.initSceneState(path)
         }
 
 
         if(path == "montmartre" && this.counter == 3){
-            console.log("3 INDICES !!")
         }
 
         if(data && active[0].innerHTML != data.subtitle && active[1].innerHTML != data.title ){

@@ -13,14 +13,9 @@ export default [
         ]
     },
     {
-        name: 'grassColorTexture',
-        type: 'texture',
-        path: 'textures/dirt/color.jpg'
-    },
-    {
-        name: 'grassNormalTexture',
-        type: 'texture',
-        path: 'textures/dirt/normal.jpg'
+        name: 'garage',
+        type: 'dracoLoader',
+        path: 'models/garage/garage.glb'
     },
     {
         name: 'laurencin',
@@ -30,7 +25,7 @@ export default [
     {
         name: 'utrillo',
         type: 'dracoLoader',
-        path: 'models/Laurencin/laurencin.glb'
+        path: 'models/Utrillo/utrillo.glb'
     },
     {
         name: 'montmartre',
