@@ -15,6 +15,7 @@ export default class AudioHandler extends Entity{
         if(AudioHandler.instance)
             return AudioHandler.instance;
         this.webVTTParser = new WebVTTParser()
+        AudioHandler.instance = this;
         
     }
 

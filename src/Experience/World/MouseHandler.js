@@ -24,12 +24,16 @@ export default class MouseHandler extends Entity {
         super();
         if (MouseHandler.instance)
             return MouseHandler.instance;
-        this.#raycaster = new Raycaster();
-        this.#mouse = new Vector2();
-        this.cameraObj = this.experience.camera;
-        this.#raycaster.setFromCamera(this.#mouse, this.camera);
-        this.#handleMouseMove();
-        this.#handlePoseClick()
+        else{
+            this.#raycaster = new Raycaster();
+            this.#mouse = new Vector2();
+            this.cameraObj = this.experience.camera;
+            this.#raycaster.setFromCamera(this.#mouse, this.camera);
+            this.#handleMouseMove();
+            this.#handlePoseClick()
+            MouseHandler.instance = this;
+        }
+
     }
 
     addObject(object) {
@@ -85,8 +89,9 @@ export default class MouseHandler extends Entity {
 
     #handlePoseClick() {
         window.addEventListener('click', (e) => {
-
+            console.log("click")
             if (this.#intersects && this.#intersects.length > 0) {
+                console.log('intersect')
                 this.experience.camera.controls.enabled = false;
                 // this.#modifyHUD(this.#intersects[0].object)
                 const pos = new Vector3();
@@ -109,6 +114,7 @@ export default class MouseHandler extends Entity {
                 }
             }
             else if(MouseHandler.currentObj && this.#intersects.length < 1){
+                console.log('no intersect')
                 if(this.inHome){
                     this.cameraObj.setParametersIsHome(true);
                 }

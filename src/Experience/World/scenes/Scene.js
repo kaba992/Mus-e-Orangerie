@@ -34,6 +34,7 @@ export default class Scene extends Entity {
             this.debugFolder.add(this.camera.position, 'z').min(-50).max(50).step(0.01).name('positionZ')
 
         }
+        Scene.instance = this
     }
 
     initScene(sceneName) {

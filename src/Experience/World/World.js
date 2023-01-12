@@ -64,7 +64,6 @@ export default class World {
                 firstTime = true;
             }
             // this.scenePoi.initScene(namePlace,firstTime);
-
         }
 
         // this.transitionAnimation({maps,namePlace})
@@ -149,32 +148,33 @@ export default class World {
             console.log("3 INDICES !!")
         }
 
+        if(data && active[0].innerHTML != data.subtitle && active[1].innerHTML != data.title ){
+            let anim = gsap.timeline()
+            anim
+                .from(active,{
+                    y:"0%"
+                })
+                .to(active[0],{
+                    y:"-100%"
+                })
+                .to(active[1],{
+                    y:"-100%"
+                },'<0.1')
+                .add(() => {
+                    active[0].innerHTML = data.subtitle;
+                    active[1].innerHTML = data.title;
 
-        let anim = gsap.timeline()
-        anim
-            .from(active,{
-            y:"0%"
-        })
-            .to(active[0],{
-            y:"-100%"
-        })
-            .to(active[1],{
-                y:"-100%"
-            },'<0.1')
-            .add(() => {
-                active[0].innerHTML = data.subtitle;
-                active[1].innerHTML = data.title;
-
-            },"<0.25")
-            .from(active,{
-                y:"100%"
-            },)
-            .to(active[0],{
-                y:"0%"
-            })
-            .to(active[1],{
-                y:"0%"
-            },'<0.1')
+                },"<0.25")
+                .from(active,{
+                    y:"100%"
+                },)
+                .to(active[0],{
+                    y:"0%"
+                })
+                .to(active[1],{
+                    y:"0%"
+                },'<0.1')
+        }
     }
 
     update() {
