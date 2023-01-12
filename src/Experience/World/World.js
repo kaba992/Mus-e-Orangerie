@@ -28,12 +28,13 @@ export default class World {
             this.map.name = "map"
             this.montmartre = new Map("montmartre");
             this.orangerie = new Map("orangerie");
-            this.montmartre.start()
-            this.map.add(this.montmartre.getMesh());
-            this.map.add(this.orangerie.getMesh());
-            this.scene.add(this.map)
+            // this.montmartre.start()
+            // this.map.add(this.montmartre.getMesh());
+            // this.map.add(this.orangerie.getMesh());
+            // this.scene.add(this.map)
             this.orangerie.setPosition()
             this.scenePoi = new Scene()
+            this.scenePoi.initScene('garage')
         })
     }
 
@@ -153,7 +154,6 @@ export default class World {
     }
 
     update() {
-        if(this.montmartre) this.montmartre.update()
         if(this.audioHandler) this.audioHandler.update();
         if(this.mouseHandler) this.mouseHandler.update();
         if(this.scenePoi) this.scenePoi.update()

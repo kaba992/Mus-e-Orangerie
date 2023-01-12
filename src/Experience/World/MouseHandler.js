@@ -106,8 +106,10 @@ export default class MouseHandler extends Entity {
                     this.world.transitionTitle(MouseHandler.currentObj.name)
                 }
             }
-            else if(MouseHandler.currentObj && this.inHome && this.#intersects.length < 1){
-                this.cameraObj.setParametersIsHome(true);
+            else if(MouseHandler.currentObj && this.#intersects.length < 1){
+                if(this.inHome){
+                    this.cameraObj.setParametersIsHome(true);
+                }
                 this.experience.camera.controls.enabled = true;
                 this.clearCurrentObj();
                 if(this.world.counter <= 3){

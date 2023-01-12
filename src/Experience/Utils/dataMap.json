@@ -28,10 +28,10 @@
               "title": "Masques africains",
               "text": "C'est à l'occasion du déchargement d'une cargaison de caoutchouc - destiné à la fabrication de pneus - qu'il découvre et prend possession de quelques objets en provenance d'Afrique. Dès 1911, il expose quelques-uns de ces objets dans son garage. "
             }
-          },
-          "title": "garage paul guillaume",
-          "subtitle": "Montmartre"
-        }
+          }
+        },
+        "title": "garage paul guillaume",
+        "subtitle": "Montmartre"
       },
       "urtillo": {
         "position": {
@@ -39,15 +39,13 @@
           "yNormal": 0.698
         },
         "scene": {
+
           "cameraPos": {
-            "x": 0,
-            "y": 0
+            "x": 20.5,
+            "y": 4.52,
+            "z": 10.66
+
           },
-          "scene": {
-            "cameraPos": {
-              "x": 0,
-              "y": 0
-            },
             "audio": "sounds/Son_Lettre_Utrillo.mp3",
             "subtitle": "sounds/Son_Lettre_Utrillo.mp3.vtt",
             "objList": [
@@ -55,9 +53,8 @@
               "bouteille"
             ]
           },
-          "title": "chambre maurice urtillo",
-          "subtitle": "Rue Mont-Cenis, Montmartre"
-        }
+        "title": "chambre maurice urtillo",
+        "subtitle": "Rue Mont-Cenis, Montmartre"
       },
       "laurencin": {
         "position": {
@@ -66,40 +63,40 @@
         },
         "scene": {
           "cameraPos": {
-            "x": 0,
-            "y": 0
+            "x": 20.5,
+            "y": 4.52,
+            "z": 10.66
           },
-          "scene": {
-            "cameraPos": {
-              "x": 0,
-              "y": 0
-            },
-            "audio": "sounds/Son_Lettre_Laurencin.mp3",
-            "subtitle": "sounds/Son_Lettre_Laurencin.mp3.vtt",
+          "audio": "sounds/Son_Lettre_Laurencin.mp3",
+          "subtitle": "sounds/Son_Lettre_Laurencin.mp3.vtt",
 
-            "objList": [
-              "peinture",
-              "bouteille"
-            ]
-          },
-          "title": "chambre marie laurencin",
-          "subtitle": "Place Emile Goudeau, Montmartre"
-
-        }
-      },
-      "title": "montmartre",
-      "subtitle": "quartier",
-      "position": {
-        "x": 0,
-        "y": 0,
-        "z": 0
-      },
-      "positionCam": {
-        "x": 0,
-        "y": 120,
-        "z": 40
+          "objList": [
+            "Mannequin"
+          ],
+          "description": {
+            "Mannequin": {
+              "title": "Mannequin",
+              "text": "Elle travaille également comme conceptrice de rideaux de scènes, décors et costumes pour les Ballets russes, Les Soirées de Paris d'Étienne de Beaumont, l'Opéra-comique, la Comédie-Française."
+            }
+          }   
+        },
+        "title": "chambre marie laurencin",
+        "subtitle": "Place Emile Goudeau, Montmartre"
       }
+    },
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "positionCam": {
+      "x": 0,
+      "y": 120,
+      "z": 40
     }
+    ,
+      "title": "montmartre",
+      "subtitle": "quartier"
   },
   "orangerie": {
     "poi": {
@@ -108,9 +105,9 @@
           "xNormal": 0.8,
           "yNormal": 0.5
         },
-        "scene": null,
-        "title": "orangerie"
+        "scene": null
       },
+      "title": "orangerie",
       "subtitle": "Jardin des Tuilleries"
     },
     "title": "tuillerie",
