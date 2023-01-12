@@ -26,6 +26,18 @@ export default class Scene extends Entity {
         this.camBack = document.querySelector(".camera-back")
         this.camBack.addEventListener("click", () => {
             this.mouseHandler.clearCurrentObj(this.cameraStart)
+         if(!MouseHandler.currentObj){
+            console.log("back");
+            gsap.to(
+                this.objectContainer,
+                {
+                    x: "160%",
+                    opacity: 0,
+                    duration: 2,
+                    ease: "none",
+                }
+            )
+         }
         })
 
         if (this.debug.active) {
@@ -71,89 +83,77 @@ export default class Scene extends Entity {
         }
         if (sceneName === "laurencin" && this.model) {
             this.model.scene.rotation.y = 1.8
+
         }
         if (sceneName === "utrillo" && this.model) {
             this.model.scene.rotation.y = 5
             this.model.scene.scale.set(2, 2, 2)
 
         }
-     
-    }
-
-
 
     }
 
 
-    setAudio() {
-        this.startAudio = document.querySelector(".start-audio.scene")
-        this.audioHandler.initInput(this.startAudio)
-    }
-
-    setUi() {
-        this.objectContainer = document.querySelector(".objects-description")
-        this.objectTitle = document.querySelector(".object-title")
-        this.objectContent = document.querySelector(".object-content")
 
 
-        if (MouseHandler.currentObj ) {
-          
-            this.objectTitle.innerHTML = this.#sceneInfo.description[MouseHandler.currentObj.name].title
-            this.objectContent.innerHTML = this.#sceneInfo.description[MouseHandler.currentObj.name].text
 
-            gsap.to(
-                this.objectContainer,
-                {
-                    x: "-140%",
-                    opacity: 1,
-                    duration: 2,
-                    ease: "power4.out",
-                    delay: 1
-                }
-    
-            )
-        }else{
-           setTimeout(() => {
-            gsap.to(
-                this.objectContainer,
-                {
-                    x: "160%",
-                    opacity: 0,
-                    duration: 2,
-                    ease: "none",
-                }
-            )
-            
-           }, 500);
-        }
-    
-    }
 
-    #setCurrentScene() {
-        this.#currentScene = this.model.scene
-        this.#currentScene.position.set(this.#sceneInfo.position.x, this.#sceneInfo.position.y, this.#sceneInfo.position.z)
-        this.#addObjectList()
-        this.scene.add(this.#currentScene)
-    }
+setAudio() {
+    this.startAudio = document.querySelector(".start-audio.scene")
+    this.audioHandler.initInput(this.startAudio)
+}
 
-    #addObjectList() {
-        const mouseHandler = new MouseHandler();
-        mouseHandler.clearListObjects()
-        const tabObj = [];
-        this.#sceneInfo.objList.forEach(obj => {
-            let objCurrent = this.#currentScene.getObjectByName(obj);
-            if (objCurrent) tabObj.push(objCurrent);
-        })
-        mouseHandler.addObjects(tabObj)
-        console.log(tabObj)
-    }
+setUi() {
+    this.objectContainer = document.querySelector(".objects-description")
+    this.objectTitle = document.querySelector(".object-title")
+    this.objectContent = document.querySelector(".object-content")
 
-    update() {
-            if (this.sceneName && MouseHandler.currentObj && MouseHandler.currentObj.name != this.sceneName){
-                console.log(MouseHandler.currentObj.name, this.sceneName);
-                this.setUi()
+
+    if (MouseHandler.currentObj) {
+
+        this.objectTitle.innerHTML = this.#sceneInfo.description[MouseHandler.currentObj.name].title
+        this.objectContent.innerHTML = this.#sceneInfo.description[MouseHandler.currentObj.name].text
+       
+
+        gsap.to(
+            this.objectContainer,
+            {
+                x: "-140%",
+                opacity: 1,
+                duration: 2,
+                ease: "power4.out",
+                delay: 1
             }
-    
+
+        )
+    } 
+}
+
+#setCurrentScene() {
+    this.#currentScene = this.model.scene
+    this.#currentScene.position.set(this.#sceneInfo.position.x, this.#sceneInfo.position.y, this.#sceneInfo.position.z)
+    this.#addObjectList()
+    this.scene.add(this.#currentScene)
+}
+
+#addObjectList() {
+    const mouseHandler = new MouseHandler();
+    mouseHandler.clearListObjects()
+    const tabObj = [];
+    this.#sceneInfo.objList.forEach(obj => {
+        let objCurrent = this.#currentScene.getObjectByName(obj);
+        if (objCurrent) tabObj.push(objCurrent);
+    })
+    mouseHandler.addObjects(tabObj)
+    console.log(tabObj)
+}
+
+update() {
+    if (this.sceneName && MouseHandler.currentObj && MouseHandler.currentObj.name != this.sceneName) {
+        console.log(MouseHandler.currentObj.name, this.sceneName);
+        this.setUi()
     }
+
+}
 }
 

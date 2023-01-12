@@ -164,6 +164,11 @@ button{
 	border-radius: 8px;
 	z-index: 99;
 }
+.objects-description  .fade-out{
+	
+
+
+}
 .objects-description:after {
 	position: absolute;
 	top: 50%;
@@ -282,7 +287,7 @@ button{
 	margin-top: 80vh;
 	padding: 0 40px;
 	color: var(--mainColor);
-	border-top: 2px solid var(--mainColor);
+	/* border-top: 2px solid var(--mainColor); */
 }
 
 .inputNav,.replayInput,.leftInfo{
@@ -346,4 +351,16 @@ p.leftInfo{
 	left: 50%;
 	transform: translateX(-50%);
 	white-space: nowrap;
+}
+
+.soundAnim{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width:0;
+	height: 2px;
+	pointer-events: none;
+	background-color: #000;
+	transform-origin: center;
+	
 }

@@ -1,6 +1,7 @@
 import Entity from './scenes/Entity';
 import { Howl } from 'Howler';
 import { WebVTTParser } from 'webvtt-parser';
+import gsap from 'gsap';
 
 export default class AudioHandler extends Entity{
     static instance = null;
@@ -24,6 +25,7 @@ export default class AudioHandler extends Entity{
     }
 
     initInput(input){
+        
         input.addEventListener("click",() => {
             window.fetch(this.currentSrc)
                 .then(response => response.text())
@@ -31,6 +33,15 @@ export default class AudioHandler extends Entity{
                     const subtitles = this.webVTTParser.parse(data);
                     AudioHandler.subtitlesCues = subtitles.cues;
                     AudioHandler.audio.play()
+                    gsap.to(
+                        ".soundAnim",
+                        {
+                            width:"100%",
+                            transformOrigin: 'center center',
+                            duration:AudioHandler.audio._duration,
+                        }
+                    )
+                  
                 })
                 .catch(error => console.log(error));
 
@@ -42,7 +53,7 @@ export default class AudioHandler extends Entity{
         
         if(AudioHandler.audio && AudioHandler.audio.playing()){
             const time = AudioHandler.audio.seek()
-            
+
             const cues = AudioHandler.subtitlesCues 
             for (let i = 0; i < cues.length; i++) {
                 if (time > cues[i].startTime && time < cues[i].endTime) {
@@ -51,6 +62,14 @@ export default class AudioHandler extends Entity{
                 }
                 this.subtitle.innerHTML = "";
             }
+        }else{
+            gsap.set(
+                ".soundAnim",
+                {
+                    width:"0%",
+
+                }
+            )
         }
     }
 }
