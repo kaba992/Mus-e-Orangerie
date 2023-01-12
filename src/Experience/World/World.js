@@ -25,37 +25,38 @@ export default class World {
             this.audioHandler = new AudioHandler();
             this.mouseHandler = new MouseHandler();
             this.map = new THREE.Group();
+
             this.map.name = "map"
             this.montmartre = new Map("montmartre");
             this.orangerie = new Map("orangerie");
-            // this.montmartre.start()
-            // this.map.add(this.montmartre.getMesh());
-            // this.map.add(this.orangerie.getMesh());
-            // this.scene.add(this.map)
+            this.montmartre.start()
+            this.map.add(this.montmartre.getMesh());
+            this.map.add(this.orangerie.getMesh());
+            this.scene.add(this.map)
             this.orangerie.setPosition()
             this.scenePoi = new Scene()
-            this.scenePoi.initScene('garage')
+            // this.scenePoi.initScene('utrillo')
         })
     }
-
 
     /**
      * Lance le processus de changement de zone et modifie les infos correspondantes
      *
      * @param namePlace
      */
-    initSceneState(namePlace){
-        const maps = ["montmartre","orangerie"]
-        if(maps.includes(namePlace)){
+    initSceneState(namePlace) {
+        const maps = ["montmartre", "orangerie"]
+        if (maps.includes(namePlace)) {
             this.state = "map";
             this[namePlace].start();
+            
         }
-        else{
+        else {
             this.state = namePlace;
             this.scenePoi.initScene(namePlace);
         }
 
-        this.transitionAnimation({maps,namePlace})
+        this.transitionAnimation({ maps, namePlace })
     }
 
     /**
@@ -63,10 +64,10 @@ export default class World {
      *
      * @param params
      */
-    transitionAnimation(params){
+    transitionAnimation(params) {
+       
         this.map.visible = params.maps.includes(params.namePlace);
-        this.scenePoi.getMesh().visible = !params.maps.includes(params.namePlace);
-
+        this.scenePoi.model.scene.visible = !params.maps.includes(params.namePlace);
         this.handleInfoChanges(params);
     }
 
@@ -76,36 +77,36 @@ export default class World {
      *
      * @param params
      */
-    handleInfoChanges(params){
-        const subtitleDOM = document.querySelector(".infos.subTitle");
-        const titleDOM = document.querySelector(".infos.title");
+    handleInfoChanges(params) {
+        const subtitleDOM = document.querySelector(".subTitle");
+        const titleDOM = document.querySelector(".title");
         let subtitle = "";
         let title = "";
 
 
-        if(params.maps.includes(params.namePlace)){
+        if (params.maps.includes(params.namePlace)) {
             subtitle = dataMap[params.namePlace].subtitle;
             title = dataMap[params.namePlace].title;
         }
-        else{
+        else {
             subtitle = dataMap.montmartre.poi[params.namePlace].subtitle;
-            title =  dataMap.montmartre.poi[params.namePlace].title;
+            title = dataMap.montmartre.poi[params.namePlace].title;
         }
 
         subtitleDOM.innerHTML = subtitle;
         titleDOM.innerHTML = title;
 
-        if(this.state = "map"){
+        if (this.state == "map") {
             document.querySelector("p.leftInfo").classList.remove("hidden")
             document.querySelector("button.leftInfo").classList.add("hidden")
             document.querySelector("button.replayInput").classList.remove("scene")
-            document.querySelector(".hubScene").classList.add("hidden")
+            document.querySelector(".hudScene").classList.add("hidden")
         }
-        else{
+        else {
             document.querySelector("p.leftInfo").classList.add("hidden")
             document.querySelector("button.leftInfo").classList.remove("hidden")
             document.querySelector("button.replayInput").classList.add("scene")
-            document.querySelector(".hubScene").classList.remove("hidden")
+            document.querySelector(".hudScene").classList.remove("hidden")
         }
     }
 
@@ -154,8 +155,30 @@ export default class World {
     }
 
     update() {
-        if(this.audioHandler) this.audioHandler.update();
-        if(this.mouseHandler) this.mouseHandler.update();
-        if(this.scenePoi) this.scenePoi.update()
+    
+        if (this.audioHandler) this.audioHandler.update();
+        if (this.scenePoi) this.scenePoi.update()
+        if (this.mouseHandler) {
+            this.mouseHandler.update();
+            this.object = this.mouseHandler.getCurrentObject()
+          if(this.object && this.state == "map" ){
+           
+            switch (this.object.name) {
+                case "garage":
+                    this.initSceneState("garage")         
+                    break;
+                case "utrillo":
+                    this.initSceneState("utrillo")
+                    break;
+                case "laurencin":
+                    this.initSceneState("laurencin")
+                    break;
+                default:
+                    break;
+            }
+          }
+
+        }
+
     }
 }
