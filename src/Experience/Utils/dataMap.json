@@ -28,8 +28,7 @@
               "title": "pneus",
               "text": "Paul Guillaume est engagé à la mort de son père dans un garage de luxe au début du 20ème siècle. Il se jure d'être un jour à la place des clients. "
             },
-
-            "masque2":{
+            "masque2": {
               "title": "Masques africains",
               "text": "C'est à l'occasion du déchargement d'une cargaison de caoutchouc - destiné à la fabrication de pneus - qu'il découvre et prend possession de quelques objets en provenance d'Afrique. Dès 1911, il expose quelques-uns de ces objets dans son garage. "
             }
@@ -54,13 +53,33 @@
             "y": -2,
             "z": 0
           },
-            "audio": "sounds/Son_Lettre_Utrillo.mp3",
-            "subtitle": "sounds/Son_Lettre_Utrillo.mp3.vtt",
-            "objList": [
-              "peinture",
-              "bouteille"
-            ]
-          },
+          "audio": "sounds/Son_Lettre_Utrillo.mp3",
+          "subtitle": "sounds/Son_Lettre_Utrillo.mp3.vtt",
+          "objList": [
+            "bouteille",
+            "cartesPostales",
+            "barreaux",
+            "toile"
+          ],
+          "description": {
+            "bouteille": {
+              "title": "Bouteille",
+              "text": "Maurice Utrillo sombre très jeune dans l’alcoolisme, il ne jure que par son « rouge » et, à défaut, ingurgite tout ce qui lui passe sous la main, jusqu’au parfum de sa logeuse ou de l’alcool à brûler. Utrillo tremblait sans arrêt, à cause de sa dépendance à l'alcool, mais quand il s'approchait d’une toile, sa main redevenait ferme et savait guider le pinceau. "
+            },
+            "cartesPostales": {
+              "title": "Carte postale",
+              "text": "Quand des amis lui envoyaient une carte pour lui donner des nouvelles, Maurice Utrillo la gardait et s'en servait comme modèle. Dans chaque paysage, on retrouve ce sens du détail et cette mélancolie qui imprègnent ses toiles. Il sera le « peintre de Montmartre »."
+            },
+            "barreaux": {
+              "title": "Barreaux",
+              "text": "La mère de Maurice avait fait installer des barreaux sur la fenêtre de sa chambre, où elle l’enfermait, pour le forcer à finir ses toiles et ne pas se rendre au bar."
+            },
+            "toile": {
+              "title": "Toile",
+              "text": "La mère de Maurice, Suzanne Utrillo, finissait les toiles de son fils."
+            }
+          }
+        },
         "title": "chambre maurice urtillo",
         "subtitle": "Rue Mont-Cenis, Montmartre"
       },
@@ -77,12 +96,11 @@
           },
           "position": {
             "x": -5.31,
-            "y": 0.83,
+            "y": -1,
             "z": -3.24
           },
           "audio": "sounds/Son_Lettre_Laurencin.mp3",
           "subtitle": "sounds/Son_Lettre_Laurencin.mp3.vtt",
-
           "objList": [
             "Mannequin"
           ],
@@ -91,7 +109,7 @@
               "title": "Mannequin",
               "text": "Elle travaille également comme conceptrice de rideaux de scènes, décors et costumes pour les Ballets russes, Les Soirées de Paris d'Étienne de Beaumont, l'Opéra-comique, la Comédie-Française."
             }
-          }   
+          }
         },
         "title": "chambre marie laurencin",
         "subtitle": "Place Emile Goudeau, Montmartre"
@@ -106,10 +124,9 @@
       "x": 0,
       "y": 120,
       "z": 40
-    }
-    ,
-      "title": "montmartre",
-      "subtitle": "quartier"
+    },
+    "title": "montmartre",
+    "subtitle": "quartier"
   },
   "orangerie": {
     "poi": {
