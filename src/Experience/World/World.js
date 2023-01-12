@@ -22,6 +22,7 @@ export default class World {
         this.experience = new Experience()
         this.scene = this.experience.scene
         this.resources = this.experience.resources
+        this.camera = this.experience.camera
 
         this.resources.on('ready', () => {
             this.environment = new Environment()
@@ -31,6 +32,7 @@ export default class World {
             this.map.name = "map"
             this.montmartre = new Map("montmartre");
             this.orangerie = new Map("orangerie");
+            this.orangerie.start()
             this.montmartre.start()
             this.map.add(this.montmartre.getMesh());
             this.map.add(this.orangerie.getMesh());
@@ -38,6 +40,11 @@ export default class World {
             this.orangerie.setPosition()
             this.scenePoi = new Scene()
             this.initUI()
+
+            this.experience.debugFolder.add(this.map.position,"x",-300,300,1)
+            this.experience.debugFolder.add(this.map.position,"y",-300,300,1)
+            this.experience.debugFolder.add(this.map.position,"z",-300,300,1)
+
         })
     }
 
@@ -97,7 +104,14 @@ export default class World {
                         this.counter += 1;
                         console.log(this.counter)
                     }
-                    this[params.namePlace].resetPos();
+
+                    if( this.counter == 3){
+                        this[params.namePlace].resetPos();
+                        this.transitionBtnOrangerie()
+                    }else{
+                        this[params.namePlace].resetPos();
+
+                    }
                 }
                 else{
                     this.scenePoi.initScene(params.namePlace);
@@ -115,6 +129,7 @@ export default class World {
             })
             .add(() => {
                 this.inTrans = false
+
             })
     }
 
@@ -164,9 +179,6 @@ export default class World {
         }
 
 
-        if(path == "montmartre" && this.counter == 3){
-        }
-
         if(data && active[0].innerHTML != data.subtitle && active[1].innerHTML != data.title ){
             let anim = gsap.timeline()
             anim
@@ -194,6 +206,36 @@ export default class World {
                     y:"0%"
                 },'<0.1')
         }
+    }
+
+    transitionBtnOrangerie(){
+        let anim = gsap.timeline()
+        anim.to('.mask',{
+            bottom:"20%",
+        })
+            .add(() =>
+                document.querySelector('.maskBtn').addEventListener("click",() => {
+                    this.transitionOrangerie();
+                    let anim2 = gsap.timeline()
+                    anim2.to(".mask",{
+                        bottom:"-5em",
+                    })
+                })
+            )
+    }
+
+    transitionOrangerie(){
+        let anim = gsap.timeline()
+        anim.add(() => {
+            this.orangerie.resetPos();
+        })
+            .to(this.map.position,{
+            x: 40,
+            y: 0,
+            z: -220,
+                duration:5,
+                ease: "Power4.easeInOut"
+        },"<")
     }
 
     update() {
