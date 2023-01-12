@@ -77,26 +77,8 @@ export default class World {
      *
      * @param params
      */
-    handleInfoChanges(params) {
-        const subtitleDOM = document.querySelector(".subTitle");
-        const titleDOM = document.querySelector(".title");
-        let subtitle = "";
-        let title = "";
-
-
-        if (params.maps.includes(params.namePlace)) {
-            subtitle = dataMap[params.namePlace].subtitle;
-            title = dataMap[params.namePlace].title;
-        }
-        else {
-            subtitle = dataMap.montmartre.poi[params.namePlace].subtitle;
-            title = dataMap.montmartre.poi[params.namePlace].title;
-        }
-
-        subtitleDOM.innerHTML = subtitle;
-        titleDOM.innerHTML = title;
-
-        if (this.state == "map") {
+    handleInfoChanges(params){
+        if(this.state = "map"){
             document.querySelector("p.leftInfo").classList.remove("hidden")
             document.querySelector("button.leftInfo").classList.add("hidden")
             document.querySelector("button.replayInput").classList.remove("scene")
@@ -155,7 +137,6 @@ export default class World {
     }
 
     update() {
-    
         if (this.audioHandler) this.audioHandler.update();
         if (this.scenePoi) this.scenePoi.update()
         if (this.mouseHandler) {
@@ -179,6 +160,5 @@ export default class World {
           }
 
         }
-
     }
 }
