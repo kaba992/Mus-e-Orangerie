@@ -40,7 +40,7 @@ export default [
     {
         name: 'utrillo',
         type: 'dracoLoader',
-        path: 'models/Laurencin/laurencin.glb'
+        path: 'models/Utrillo/utrillo.glb'
     },
     {
         name: 'montmartre',

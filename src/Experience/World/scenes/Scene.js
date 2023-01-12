@@ -13,6 +13,7 @@ export default class Scene extends Entity {
     #sceneInfo
     #currentScene
 
+
     constructor() {
         super();
         if (Scene.instance)
@@ -37,6 +38,7 @@ export default class Scene extends Entity {
     }
 
     initScene(sceneName) {
+        this.sceneName = sceneName
         this.#sceneInfo = dataMap.montmartre.poi[sceneName].scene;
         this.camera.position.set(this.#sceneInfo.cameraPos.x, this.#sceneInfo.cameraPos.y, this.#sceneInfo.cameraPos.z)
         this.cameraStart = new THREE.Vector3(this.#sceneInfo.cameraPos.x, this.#sceneInfo.cameraPos.y, this.#sceneInfo.cameraPos.z)
@@ -50,21 +52,31 @@ export default class Scene extends Entity {
         this.experience.camera.setParametersIsHome(false);
         this.#setCurrentScene()
         this.setAudio()
-        this.setGui()
+        this.setGui(sceneName)
+
 
     }
 
-    setGui(){
+    setGui(sceneName) {
         if (this.debug.active && this.model) {
-            this.debugFolder = this.debug.ui.addFolder(this.sceneName)
+            this.debugFolder = this.debug.ui.addFolder(sceneName)
             this.debugFolder.add(this.model.scene.position, 'x').min(-50).max(50).step(0.0001).name('positionX')
             this.debugFolder.add(this.model.scene.position, 'y').min(-50).max(50).step(0.0001).name('positionY')
             this.debugFolder.add(this.model.scene.position, 'z').min(-50).max(100).step(0.0001).name('positionZ')
             // rotation
-            this.debugFolder.add(this.model.scene.rotation, 'x').min(0).max(Math.PI).step(0.0001).name('rotationX')
-            this.debugFolder.add(this.model.scene.rotation, 'y').min(0).max(Math.PI).step(0.0001).name('rotationY')
-            this.debugFolder.add(this.model.scene.rotation, 'z').min(0).max(Math.PI).step(0.0001).name('rotationZ')
+            this.debugFolder.add(this.model.scene.rotation, 'x').min(0).max(Math.PI * 2).step(0.0001).name('rotationX')
+            this.debugFolder.add(this.model.scene.rotation, 'y').min(0).max(Math.PI * 2).step(0.0001).name('rotationY')
+            this.debugFolder.add(this.model.scene.rotation, 'z').min(0).max(Math.PI * 2).step(0.0001).name('rotationZ')
         }
+        if (sceneName === "laurencin" && this.model) {
+            this.model.scene.rotation.y = 1.8
+        }
+        if (sceneName === "utrillo" && this.model) {
+            this.model.scene.rotation.y = 5
+            this.model.scene.scale.set(2, 2, 2)
+
+        }
+     
     }
 
     setAudio() {
@@ -76,11 +88,11 @@ export default class Scene extends Entity {
         this.objectContainer = document.querySelector(".objects-description")
         this.objectTitle = document.querySelector(".object-title")
         this.objectContent = document.querySelector(".object-content")
-        this.object = this.mouseHandler.getCurrentObject()
 
-        if (this.object) {
-            this.objectTitle.innerHTML = this.#sceneInfo.description[this.object.name].title
-            this.objectContent.innerHTML = this.#sceneInfo.description[this.object.name].text
+        if (MouseHandler.currentObj ) {
+          
+            this.objectTitle.innerHTML = this.#sceneInfo.description[MouseHandler.currentObj.name].title
+            this.objectContent.innerHTML = this.#sceneInfo.description[MouseHandler.currentObj.name].text
             gsap.to(
                 this.objectContainer,
                 {
@@ -111,7 +123,7 @@ export default class Scene extends Entity {
 
     #setCurrentScene() {
         this.#currentScene = this.model.scene
-        this.#currentScene.position.set(0, -2, 0)
+        this.#currentScene.position.set(this.#sceneInfo.position.x, this.#sceneInfo.position.y, this.#sceneInfo.position.z)
         this.#addObjectList()
         this.scene.add(this.#currentScene)
     }
@@ -128,15 +140,12 @@ export default class Scene extends Entity {
         console.log(tabObj)
     }
 
-
-
-
     update() {
-        if(this.mouseHandler){
-            this.setUi()
-
-        }
-
+            if (this.sceneName && MouseHandler.currentObj && MouseHandler.currentObj.name != this.sceneName){
+                console.log(MouseHandler.currentObj.name, this.sceneName);
+                this.setUi()
+            }
+    
     }
 }
 
