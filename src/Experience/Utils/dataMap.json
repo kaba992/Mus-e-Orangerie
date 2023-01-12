@@ -137,8 +137,8 @@
     "poi": {
       "museum": {
         "position": {
-          "xNormal": 0.8,
-          "yNormal": 0.5
+          "xNormal": 0.535,
+          "yNormal": 0.261
         },
         "scene": null
       },
@@ -148,14 +148,14 @@
     "title": "tuillerie",
     "subtitle": "quartier",
     "position": {
-      "x": 10,
+      "x": 70,
       "y": 0,
-      "z": 140
+      "z": 200
     },
     "positionCam": {
-      "x": 0,
+      "x": 10,
       "y": 120,
-      "z": 40
+      "z": 180
     }
   }
 }
