@@ -317,10 +317,33 @@ p.leftInfo{
 
 .infos{
 	text-align:center;
+	min-width: 50vw;
+	max-width: 50vw;
 }
 
 .title{
+	position: relative;
+	display: flex;
+	flex-direction: column;
 	font-size:2.5em;
 	text-transform:uppercase;
 	font-weight:bold;
+	height: 1.5em;
+	overflow: hidden;
+}
+
+.subTitle{
+	height: 1em;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	text-transform: capitalize
+}
+
+.active{
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	white-space: nowrap;
 }

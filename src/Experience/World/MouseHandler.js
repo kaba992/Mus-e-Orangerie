@@ -1,5 +1,5 @@
 import Entity from "./scenes/Entity";
-
+import SCENE from "../Utils/SCENES"
 import {
     Raycaster,
     Vector2,
@@ -88,10 +88,10 @@ export default class MouseHandler extends Entity {
                 // this.#modifyHUD(this.#intersects[0].object)
                 const pos = new Vector3();
                 if(this.#listKeyobject.length > 0 && !this.#listKeyobject.includes(this.#intersects[0].object.name)){
-                    console.log(this.#listKeyobject)
                     this.#intersects[0].object.parent.getWorldPosition(pos)
                     MouseHandler.currentObjPost = pos
                     MouseHandler.currentObj  =  this.#intersects[0].object.parent
+
                 }
                 else{
                     this.#intersects[0].object.getWorldPosition(pos)
@@ -101,6 +101,10 @@ export default class MouseHandler extends Entity {
                 if(this.inHome && this.cameraObj.isHome && MouseHandler.currentObj){
                     this.cameraObj.setParametersIsHome(false);
                 }
+                if(this.#listKeyobject){
+                    console.log(MouseHandler.currentObj.name)
+                    this.world.transitionTitle(MouseHandler.currentObj.name)
+                }
             }
             else if(MouseHandler.currentObj && this.#intersects.length < 1){
                 if(this.inHome){
@@ -108,6 +112,13 @@ export default class MouseHandler extends Entity {
                 }
                 this.experience.camera.controls.enabled = true;
                 this.clearCurrentObj();
+                if(this.world.counter <= 3){
+                    this.world.transitionTitle("montmartre")
+                }
+                else{
+                    this.world.transitionTitle("orangerie")
+                }
+
             }
         })
     }

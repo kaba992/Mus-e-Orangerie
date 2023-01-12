@@ -52,6 +52,7 @@ export default class Scene extends Entity {
         this.experience.camera.setParametersIsHome(false);
         this.#setCurrentScene()
         this.setAudio()
+
         this.setGui(sceneName)
 
 
@@ -79,6 +80,11 @@ export default class Scene extends Entity {
      
     }
 
+
+
+    }
+
+
     setAudio() {
         this.startAudio = document.querySelector(".start-audio.scene")
         this.audioHandler.initInput(this.startAudio)
@@ -89,10 +95,12 @@ export default class Scene extends Entity {
         this.objectTitle = document.querySelector(".object-title")
         this.objectContent = document.querySelector(".object-content")
 
+
         if (MouseHandler.currentObj ) {
           
             this.objectTitle.innerHTML = this.#sceneInfo.description[MouseHandler.currentObj.name].title
             this.objectContent.innerHTML = this.#sceneInfo.description[MouseHandler.currentObj.name].text
+
             gsap.to(
                 this.objectContainer,
                 {
@@ -102,23 +110,23 @@ export default class Scene extends Entity {
                     ease: "power4.out",
                     delay: 1
                 }
-
+    
             )
-        } else {
-            setTimeout(() => {
-                gsap.to(
-                    this.objectContainer,
-                    {
-                        x: "160%",
-                        opacity: 0,
-                        duration: 2,
-                        ease: "none",
-                    }
-                )
-
-            }, 500);
+        }else{
+           setTimeout(() => {
+            gsap.to(
+                this.objectContainer,
+                {
+                    x: "160%",
+                    opacity: 0,
+                    duration: 2,
+                    ease: "none",
+                }
+            )
+            
+           }, 500);
         }
-
+    
     }
 
     #setCurrentScene() {
