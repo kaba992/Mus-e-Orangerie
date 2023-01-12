@@ -86,8 +86,9 @@ export default class Map extends Entity{
         for (const [key, value] of Object.entries(this.pois)) {
             this.mouseHandler.addKeyObject(key);
             this.mouseHandler.addObject(this.pois[key].poi.getMesh())
-
         }
+
+        console.log(this.camera.position)
     }
 
     #setPois(){
