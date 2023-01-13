@@ -18,7 +18,7 @@ export default class Scene extends Entity {
 
 
         this.debug = this.experience.debug
-        this.canTransit = false
+        this.orangerMixer = null
 
         this.camBack = document.querySelector(".camera-back")
         this.camBack.addEventListener("click", () => {
@@ -47,17 +47,114 @@ export default class Scene extends Entity {
         this.experience.camera.lookAtPosition = new THREE.Vector3();
         this.experience.camera.controls.enabled = false;
         this.model = this.resources.items[sceneName]
+        console.log(this.model);
         this.audioHandler = new AudioHandler();
         this.audioHandler.setAudio(this.#sceneInfo.audio, this.#sceneInfo.subtitle)
         this.experience.camera.setParametersIsHome(false);
         this.#setCurrentScene()
         this.setAudio()
+        this.setGui(sceneName)
+        this.setBottomBar()
 
+
+    }
+
+    setBottomBar() {
+        const bottomBar = document.querySelector('.bottomBar')
+
+        bottomBar.addEventListener('mouseenter', (event) => {
+            gsap.to(
+                bottomBar, {
+                duration: 1,
+                y: "0%",
+                transformOrigin: "center center",
+                background: "#FDF9F0",
+                ease: "power4.out"
+            }
+            )
+        });
+        bottomBar.addEventListener('mouseleave', (event) => {
+            gsap.to(
+                bottomBar, {
+                duration: 1,
+                y: "85%",
+                transformOrigin: "center center",
+                // background: "rgba(0,0,0,1)",
+                ease: "power4.out"
+            }
+            )
+        })
+    }
+
+    setGui(sceneName) {
+        if (this.debug.active && this.model) {
+            this.debugFolder = this.debug.ui.addFolder(sceneName)
+            this.debugFolder.add(this.model.scene.position, 'x').min(-50).max(50).step(0.0001).name('positionX')
+            this.debugFolder.add(this.model.scene.position, 'y').min(-50).max(50).step(0.0001).name('positionY')
+            this.debugFolder.add(this.model.scene.position, 'z').min(-50).max(100).step(0.0001).name('positionZ')
+            // rotation
+            this.debugFolder.add(this.model.scene.rotation, 'x').min(0).max(Math.PI * 2).step(0.0001).name('rotationX')
+            this.debugFolder.add(this.model.scene.rotation, 'y').min(0).max(Math.PI * 2).step(0.0001).name('rotationY')
+            this.debugFolder.add(this.model.scene.rotation, 'z').min(0).max(Math.PI * 2).step(0.0001).name('rotationZ')
+        }
+        if (sceneName === "laurencin" && this.model) {
+            this.model.scene.rotation.y = 1.8
+
+        }
+        if (sceneName === "utrillo" && this.model) {
+            this.model.scene.rotation.y = 5
+            this.model.scene.scale.set(2, 2, 2)
+
+        }
+        if (sceneName === "garage" && this.model) {
+            gsap.to(
+                ".lettre-container",
+                {
+                    bottom: '0%',
+                    duration: 1.5,
+                    ease: "power4.out"
+                }
+            )
+        }
+        if (sceneName === "oranger" && this.model) {
+            this.orangerMixer = new THREE.AnimationMixer(this.model.scene)
+            const clips = this.model.animations
+            const clip = THREE.AnimationClip.findByName(clips, 'MorphBake');
+            this.action = this.orangerMixer.clipAction(clip)
+
+            this.action.play()
+        }
+
+        if (sceneName && sceneName != "garage") {
+            gsap.to(
+                ".start-audio",
+                {
+                    bottom: "0%",
+                    duration: 1.5,
+                    width: "100px",
+                    height: "100px",
+                    borderRadius: ("50%"),
+                    color: "rgba(1,1,1,1)",
+                    background: "#000",
+                    ease: "power4.out"
+                }
+            )
+        }
     }
 
     setAudio() {
         this.startAudio = document.querySelector(".start-audio.scene")
         this.audioHandler.initInput(this.startAudio)
+
+        AudioHandler.audio.on("end", () => {
+            gsap.to(
+                ".bottomHover", {
+                width: "0%",
+                duration: 1,
+                ease: "power4.out"
+            }
+            )
+        })
     }
 
     setUi() {
@@ -95,25 +192,25 @@ export default class Scene extends Entity {
         //
         //    }, 500);
         // }
-    
-    }
-
-    manageClickHandler(destroy = false){
-        if(!destroy){
-            window.addEventListener("click",this.clickhandler)
-        }
-        else{
-            window.removeEventListener("click",this.clickhandler)
-        }
 
     }
 
-    clickhandler(){
+    manageClickHandler(destroy = false) {
+        if (!destroy) {
+            window.addEventListener("click", this.clickhandler)
+        }
+        else {
+            window.removeEventListener("click", this.clickhandler)
+        }
+
+    }
+
+    clickhandler() {
         if (MouseHandler.intersects && MouseHandler.intersects.length > 0) {
             this.experience.camera.controls.enabled = false;
             this.mouseHandler.setCurrentObj();
         }
-        else if(MouseHandler.currentObj && MouseHandler.intersects.length < 1){
+        else if (MouseHandler.currentObj && MouseHandler.intersects.length < 1) {
             this.experience.camera.controls.enabled = true;
             this.clearCurrentObj();
         }
@@ -121,13 +218,13 @@ export default class Scene extends Entity {
 
     #setCurrentScene() {
         this._mesh = this.model.scene
-        this._mesh.position.set(this.#sceneInfo.position.x, this.#sceneInfo.position.y,this.#sceneInfo.position.z)
-        if(this.sceneName == "laurencin"){
+        this._mesh.position.set(this.#sceneInfo.position.x, this.#sceneInfo.position.y, this.#sceneInfo.position.z)
+        if (this.sceneName == "laurencin") {
             this._mesh.rotation.y = 1.8
         }
-        else if(this.sceneName == "utrillo"){
+        else if (this.sceneName == "utrillo") {
             this._mesh.rotation.y = 5
-            this._mesh.scale.set(2,2,2)
+            this._mesh.scale.set(2, 2, 2)
         }
         this.#addObjectList()
         this.scene.add(this._mesh)
@@ -148,9 +245,12 @@ export default class Scene extends Entity {
 
 
     update() {
-        if(this.mouseHandler){
-            this.setUi()
 
+        if (this.mouseHandler) {
+            this.setUi()
+        }
+        if (this.model && this.sceneName == "oranger") {
+            this.orangerMixer.update(this.clock.getDelta() * 0.5)
         }
 
     }

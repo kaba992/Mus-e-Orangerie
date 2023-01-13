@@ -28,6 +28,11 @@ export default [
         path: 'models/Utrillo/utrillo.glb'
     },
     {
+        name: 'oranger',
+        type: 'dracoLoader',
+        path: 'models/Oranger/oranger.glb'
+    },
+    {
         name: 'montmartre',
         type: 'texture',
         path: 'textures/map/Montmartre-carte.jpg'
