@@ -173,7 +173,7 @@ button {
 	border: 1px solid #502432;
 	border-radius: 4px;
 	color: #000000;
-	
+
 	z-index: 2;
 }
 
@@ -184,7 +184,6 @@ button {
 	font-size: 2rem;
 	line-height: 83px;
 	text-transform: uppercase;
-	
 }
 
 .object-content {
@@ -291,9 +290,8 @@ button {
 	transform: translateY(85%);
 }
 
-.bottomBar.scene:hover{
+.bottomBar.scene:hover {
 	transform: translateY(0%);
-
 }
 
 .inputNav,
@@ -326,9 +324,6 @@ p.leftInfo {
 	width: 2em;
 }
 
-
-
-
 .infos {
 	text-align: center;
 	min-width: 50vw;
@@ -339,9 +334,9 @@ p.leftInfo {
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	font-size:2.25em;
-	text-transform:uppercase;
-	font-weight:bold;
+	font-size: 2.25em;
+	text-transform: uppercase;
+	font-weight: bold;
 	height: 1.5em;
 	overflow: hidden;
 }
@@ -362,9 +357,7 @@ p.leftInfo {
 	white-space: nowrap;
 }
 
-
-
-.hubScene{
+.hubScene {
 	opacity: 0;
 	transition: opacity 0.15s;
 }
@@ -405,12 +398,29 @@ p.leftInfo {
 	z-index: 99;
 }
 
+.lettre-container p {
+	color: #cf3232;
+}
 
+.bottomHover {
+	position: absolute;
+	left: 50%;
+	top: -1em;
+	transform: translate(-50%, -50%);
+	background: var(--mainColor);
+	border-radius: 50% 50% 0 0;
+	padding: 0.5em 1em;
+	z-index: -1;
+	color: var(--bgColor);
+	opacity: 0;
+	pointer-events: none;
+	transition: 0.25s all;
+}
 
-
-.lettre-container p{
-	color: #CF3232;
-
+.bottomHover.scene {
+	display: inline-block;
+	opacity: 1;
+	pointer-events: auto;
 }
 
 .mask {
@@ -430,13 +440,11 @@ p.leftInfo {
 	transform: translate(-50%, -50%);
 }
 
-
-.leftBlock{
-
+.leftBlock {
 	width: 10em;
 }
 
-.timeline{
+.timeline {
 	position: absolute;
 	display: inline-block;
 	top: 0;
@@ -448,9 +456,42 @@ p.leftInfo {
 	/*transition: 0.25s width;*/
 }
 
-.timeline.scene{
+.timeline.scene {
 	width: 0%;
 }
+
+.annotation {
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background: #cf3232;
+	transition: all 1s ease-in-out;
+}
+
+.annotation::after {
+	content: "";
+	position: absolute;
+	top: -19%;
+	left: -23%;
+	transform: translate(-50%, -50%);
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background: transparent;
+	border: 2px solid #cf3232;
+	animation: annotation 1s ease-in-out infinite alternate;
+}
+
+@keyframes annotation {
+	from {
+	  transform: scale(1)
+	}
+  
+	to {
+	  transform: scale(1.2)
+	}
+ }
 
 .landingPage{
 	position: absolute;

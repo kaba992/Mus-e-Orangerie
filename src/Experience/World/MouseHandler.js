@@ -143,6 +143,10 @@ export default class MouseHandler extends Entity {
         return MouseHandler.currentObj
     }
 
+    getListObject(){
+        return this.#listObject
+    }
+
     clearCurrentObj(){
         this.#listKeyobject = []
         MouseHandler.currentObj = null;

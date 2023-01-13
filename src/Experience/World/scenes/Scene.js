@@ -20,6 +20,9 @@ export default class Scene extends Entity {
 
         this.debug = this.experience.debug
         this.orangerMixer = null
+        this.annotation = true
+        this.objects = []
+        this.htmlElement = []
 
         // this.camBack = document.querySelector(".camera-back")
         // this.camBack.addEventListener("click", () => {
@@ -40,10 +43,10 @@ export default class Scene extends Entity {
         this.mouseHandler = new MouseHandler();
         this.mouseHandler.inHome = false;
         this.mouseHandler.clearCurrentObj()
-        if(sceneName == "oranger"){
+        if (sceneName == "oranger") {
             this.#sceneInfo = dataMap.orangerie.poi[sceneName].scene;
         }
-        else{
+        else {
             this.#sceneInfo = dataMap.montmartre.poi[sceneName].scene;
         }
         this.camera.position.set(this.#sceneInfo.cameraPos.x, this.#sceneInfo.cameraPos.y, this.#sceneInfo.cameraPos.z)
@@ -59,34 +62,73 @@ export default class Scene extends Entity {
         this.setAudio()
         this.setGui(sceneName)
         // this.setBottomBar()
+        // this.getObjectList()
 
 
     }
 
+    getObjectList() {
+        const objects = this.mouseHandler.getListObject()
+
+        // set html element on each object with setAnotation function
+        for (let i = 0; i < objects.length; i++) {
+            this.objects.push(objects[i])
+            // create div dependint objects length
+            const div = document.createElement("div")
+            div.classList.add("annotation")
+            div.classList.add(objects[i])
+            this.htmlElement.push(div)
+            document.body.appendChild(div)
+
+
+
+            // const htmlElement = document.createElement('div')
+            // htmlElement.classList.add('annotation')
+            // var position = this.setAnnotation(this.renderer, this.camera, object)
+            // htmlElement.style.position = "absolute"
+            // htmlElement.style.left = position.x + "px"
+            // htmlElement.style.top = position.y  + "px"
+        }
+
+    }
+
+    setAnnotation(renderer, camera, object3d) {
+        const vector = new THREE.Vector3();
+        object3d.getWorldPosition(vector).project(camera);
+        const domRect = renderer.domElement.getBoundingClientRect();
+
+        // On passe des coordonnées dans le repère normalisé (NDC) aux
+        // coordonnées de l'écran
+        vector.x = Math.round((vector.x + 1) / 2 * domRect.width) + domRect.left;
+        vector.y = Math.round((1 - vector.y) / 2 * domRect.height) + domRect.top;
+
+        return vector;
+    }
+
     setBottomBar() {
-        if(this.sceneName){
+        if (this.sceneName) {
             const bottomBar = document.querySelector('.bottomBar')
 
             bottomBar.addEventListener('mouseenter', (event) => {
                 gsap.to(
                     bottomBar, {
-                        duration: 1,
-                        y: "0%",
-                        transformOrigin: "center center",
-                        background: "#FDF9F0",
-                        ease: "power4.out"
-                    }
+                    duration: 1,
+                    y: "0%",
+                    transformOrigin: "center center",
+                    background: "#FDF9F0",
+                    ease: "power4.out"
+                }
                 )
             });
             bottomBar.addEventListener('mouseleave', (event) => {
                 gsap.to(
                     bottomBar, {
-                        duration: 1,
-                        y: "85%",
-                        transformOrigin: "center center",
-                        // background: "rgba(0,0,0,1)",
-                        ease: "power4.out"
-                    }
+                    duration: 1,
+                    y: "85%",
+                    transformOrigin: "center center",
+                    // background: "rgba(0,0,0,1)",
+                    ease: "power4.out"
+                }
                 )
             })
         }
@@ -104,7 +146,7 @@ export default class Scene extends Entity {
             this.debugFolder.add(this.model.scene.rotation, 'y').min(0).max(Math.PI * 2).step(0.0001).name('rotationY')
             this.debugFolder.add(this.model.scene.rotation, 'z').min(0).max(Math.PI * 2).step(0.0001).name('rotationZ')
         }
-      
+
 
     }
 
@@ -131,9 +173,9 @@ export default class Scene extends Entity {
                     duration: 1,
                     ease: "power4.easeInOut",
                 }
-        
+
             )
-        }else{
+        } else {
             gsap.to(
                 this.objectContainer,
                 {
@@ -145,7 +187,7 @@ export default class Scene extends Entity {
             )
         }
 
-       
+
 
 
     }
@@ -178,7 +220,7 @@ export default class Scene extends Entity {
 
             this.action.play()
             const lettreFin = document.querySelector(".lettreGarage")
-            lettreFin.src = "ui/Lettre-fin.png" 
+            lettreFin.src = "ui/Lettre-fin.png"
             gsap.to(
                 ".lettre-container",
                 {
@@ -187,7 +229,7 @@ export default class Scene extends Entity {
                     ease: "power4.out"
                 }
             )
-        } 
+        }
         this.#addObjectList()
         this.scene.add(this._mesh)
     }
@@ -207,8 +249,22 @@ export default class Scene extends Entity {
         if (this.model && this.sceneName == "oranger") {
             this.orangerMixer.update(this.clock.getDelta() * 0.5)
         }
-        if( AudioHandler.audio &&  AudioHandler.audio._duration){
-            console.log( AudioHandler.audio._duration)
+        if (AudioHandler.audio && AudioHandler.audio._duration) {
+            console.log(AudioHandler.audio._duration)
+        }
+        if (this.world.state != "map" && this.mouseHandler) {
+            // this.getObjectList()
+            // this.annotation = false
+            // console.log(this.objects, this.htmlElement);
+            // this.objects.forEach(obj => {
+            //     const position = this.setAnnotation(this.renderer, this.camera, obj)
+            //     this.htmlElement.forEach(element, () => {
+            //         element.style.left = position.x + "px";
+            //         element.style.top = position.y + "px";
+
+
+            //     })
+            // })
         }
 
     }
