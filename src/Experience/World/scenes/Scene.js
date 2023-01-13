@@ -58,6 +58,30 @@ export default class Scene extends Entity {
         this.setAudio()
         this.setGui(sceneName)
         // this.setBottomBar()
+<<<<<<< Updated upstream
+=======
+        this.getObjectList()
+
+
+    }
+
+    getObjectList() {
+        const objects = this.mouseHandler.getListObject()
+
+        // set html element on each object with setAnotation function
+        for (let i = 0; i < objects.length; i++) {
+            this.objects.push(objects[i])
+            // create div dependint objects length
+            const div = document.createElement("div")
+            div.classList.add("annotation")
+            const hubscene = document.querySelector(".hubScene")
+            hubscene.appendChild(div)
+            this.htmlElement.push(div)
+            console.log("pushed")
+        }
+
+    }
+>>>>>>> Stashed changes
 
 
     }
@@ -225,6 +249,25 @@ export default class Scene extends Entity {
         if (this.model && this.sceneName == "oranger") {
             this.orangerMixer.update(this.clock.getDelta() * 0.5)
         }
+<<<<<<< Updated upstream
+=======
+        if (AudioHandler.audio && AudioHandler.audio._duration) {
+            console.log(AudioHandler.audio._duration)
+        }
+        if (this.world.state != "map" && this.mouseHandler) {
+
+            this.objects.forEach((obj,i) => {
+                const position = this.setAnnotation(this.renderer, this.camera, obj)
+                const elt =  document.querySelector(".hubScene .annotation:nth-child("+(i)+")")
+                if(elt){
+                    elt.style.position = "absolute"
+                    elt.style.left = position.x + "px";
+                    elt.style.top = position.y + "px";
+                }
+
+            })
+        }
+>>>>>>> Stashed changes
 
     }
 }
