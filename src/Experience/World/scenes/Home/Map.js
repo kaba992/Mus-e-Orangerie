@@ -20,8 +20,6 @@ export default class Map extends Entity {
         this.experience.camera.setParametersIsHome(true)
 
         this.#createMap()
-        const axesHelper = new THREE.AxesHelper(10)
-        this.scene.add(axesHelper)
     }
 
     #setTextures() {

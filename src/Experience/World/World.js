@@ -110,7 +110,7 @@ export default class World {
                         this.counter += 1;
                     }
 
-                    if( this.counter == 3){
+                    if( this.counter == 1){
                         this[params.namePlace].resetPos();
                         this.transitionBtnOrangerie()
                     }else{
@@ -122,11 +122,11 @@ export default class World {
                     this.scenePoi.initScene(params.namePlace);
                     this.experience.composerEnable = true;
                     this.prevPlace = params.namePlace
+
                 }
                 this.handleInfoChanges(params);
                 this.map.visible = params.maps.includes(params.namePlace);
                 this.scenePoi.getMesh().visible = !params.maps.includes(params.namePlace);
-
             },"<0.5")
             .to(transition,{
                 opacity:0,
@@ -135,7 +135,6 @@ export default class World {
             })
             .add(() => {
                 this.inTrans = false
-
             })
     }
 
@@ -186,10 +185,7 @@ export default class World {
                     document.querySelector('.bottomBar').classList.remove('scene')
                     document.querySelector('.bottomHover').classList.remove('scene')
                 })
-                .set(
-                    ".timeline", {
-                        width: "100%",
-                    })
+
 
         }
         else{
@@ -203,7 +199,7 @@ export default class World {
                     document.querySelector('p.leftInfo').classList.add('hidden')
                 },'<')
                 .add(() => {
-                    document.querySelector('.backmap').classList.remove('hidden')
+                    if(this.state != "oranger") document.querySelector('.backmap').classList.remove('hidden')
                 },'<')
                 .add(() => {
                     document.querySelector('.hubScene').classList.remove('hidden')
@@ -228,10 +224,6 @@ export default class World {
                     document.querySelector('.bottomBar').classList.add('scene')
                     document.querySelector('.bottomHover').classList.add('scene')
                 })
-                .set(
-                    ".timeline", {
-                        width: "0%",
-                    })
         }
     }
 
@@ -284,15 +276,16 @@ export default class World {
         anim.to('.mask',{
             bottom:"20%",
         })
-            .add(() =>
-                document.querySelector('.maskBtn').addEventListener("click",() => {
-                   
-                    this.transitionOrangerie();
-                    let anim2 = gsap.timeline()
-                    anim2.to(".mask",{
-                        bottom:"-5em",
+            .add(() => {
+                    document.querySelector('.maskBtn').addEventListener("click", () => {
+
+                        this.transitionOrangerie();
+                        let anim2 = gsap.timeline()
+                        anim2.to(".mask", {
+                            bottom: "-5em",
+                        })
                     })
-                })
+                }
             )
     }
 

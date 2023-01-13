@@ -10,6 +10,7 @@ import AudioHandler from "../AudioHandler";
 export default class Scene extends Entity {
     static instance = null;
     #sceneInfo
+    static finishedOnce = false;
 
     constructor() {
         super();
@@ -110,26 +111,16 @@ export default class Scene extends Entity {
     setAudio() {
         this.startAudio = document.querySelector(".start-audio.scene")
         this.audioHandler.initInput(this.startAudio)
-
-        AudioHandler.audio.on("end", () => {
-            gsap.to(
-                ".timeline", {
-                width: "0%",
-                duration: 1,
-                ease: "power4.out"
-            }
-            )
-        })
     }
 
-    setUi() {
+    setUi(isIn) {
         this.objectContainer = document.querySelector(".objects-description")
         this.objectTitle = document.querySelector(".object-title")
         this.objectContent = document.querySelector(".object-content")
 
 
 
-        if (MouseHandler.currentObj) {
+        if (isIn) {
             this.objectTitle.innerHTML = this.#sceneInfo.description[MouseHandler.currentObj.name].title
             this.objectContent.innerHTML = this.#sceneInfo.description[MouseHandler.currentObj.name].text
             gsap.to(
@@ -137,25 +128,21 @@ export default class Scene extends Entity {
                 {
                     x: "-140%",
                     opacity: 1,
-                    duration: 2,
-                    ease: "power4.out",
-                    delay: 1
+                    duration: 1,
+                    ease: "power4.easeInOut",
                 }
         
             )
         }else{
-           setTimeout(() => {
             gsap.to(
                 this.objectContainer,
                 {
                     x: "160%",
-                    opacity: 0,
-                    duration: 2,
-                    ease: "none",
+                    opacity: 1,
+                    duration: 1,
+                    ease: "power4.easeOut",
                 }
             )
-        
-           }, 500);
         }
 
        
@@ -163,60 +150,15 @@ export default class Scene extends Entity {
 
     }
 
-    manageClickHandler(destroy = false) {
-        if (!destroy) {
-            window.addEventListener("click", this.clickhandler)
-        }
-        else {
-            window.removeEventListener("click", this.clickhandler)
-        }
-
-    }
-
-    clickhandler() {
-        if (MouseHandler.intersects && MouseHandler.intersects.length > 0) {
-            this.experience.camera.controls.enabled = false;
-            this.mouseHandler.setCurrentObj();
-        }
-        else if (MouseHandler.currentObj && MouseHandler.intersects.length < 1) {
-            this.experience.camera.controls.enabled = true;
-            this.clearCurrentObj();
-        }
-    }
-
     #setCurrentScene() {
         this._mesh = this.model.scene
         this._mesh.position.set(this.#sceneInfo.position.x, this.#sceneInfo.position.y, this.#sceneInfo.position.z)
         if (this.sceneName == "laurencin") {
             this._mesh.rotation.y = 1.8
-           setTimeout(() => {
-            AudioHandler.audio.play()
-         
-            gsap.to(
-                ".bottomHover", {
-                width: "100%",
-                duration: AudioHandler.audio._duration,
-            }
-            )
-          
-           }, 1000);
         }
         else if (this.sceneName == "utrillo") {
             this._mesh.rotation.y = 5
             this._mesh.scale.set(2, 2, 2)
-            setTimeout(() => {
-                
-                AudioHandler.audio.play()
-             
-               
-                gsap.to(
-                    ".bottomHover", {
-                    width: "100%",
-                    duration: AudioHandler.audio._duration,
-                }
-                )
-              
-               }, 1000);
         }
         else if (this.sceneName == "garage") {
             gsap.to(
@@ -262,12 +204,11 @@ export default class Scene extends Entity {
     }
 
     update() {
-
-        if (this.mouseHandler) {
-            this.setUi()
-        }
         if (this.model && this.sceneName == "oranger") {
             this.orangerMixer.update(this.clock.getDelta() * 0.5)
+        }
+        if( AudioHandler.audio &&  AudioHandler.audio._duration){
+            console.log( AudioHandler.audio._duration)
         }
 
     }

@@ -111,12 +111,19 @@ export default class MouseHandler extends Entity {
                 if(this.#listKeyobject){
                     this.world.transitionTitle(MouseHandler.currentObj.name)
                 }
+                if(!this.inHome){
+                    this.world.scenePoi.setUi(true)
+                }
             }
             else if(MouseHandler.currentObj && this.#intersects.length < 1){
+                console.log(this.inHome)
                 if(this.inHome){
                     this.cameraObj.setParametersIsHome(true);
+                    this.experience.camera.controls.enabled = true;
                 }
-                this.experience.camera.controls.enabled = true;
+                else{
+                    this.world.scenePoi.setUi(false)
+                }
                 this.clearCurrentObj();
                 if(this.world.counter <= 3 && this.inHome){
                     this.world.transitionTitle("montmartre")

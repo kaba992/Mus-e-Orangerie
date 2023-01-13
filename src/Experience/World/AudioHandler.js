@@ -2,6 +2,7 @@ import Entity from './scenes/Entity';
 import { Howl } from 'Howler';
 import { WebVTTParser } from 'webvtt-parser';
 import gsap from 'gsap';
+import Scene from './scenes/Scene';
 
 export default class AudioHandler extends Entity {
     static instance = null;
@@ -11,6 +12,7 @@ export default class AudioHandler extends Entity {
     audioStoped
     static audio = null
     static subtitlesCues = null
+    anim
 
     constructor() {
         super();
@@ -23,16 +25,37 @@ export default class AudioHandler extends Entity {
         this.subtitles = null
 
 
+
     }
 
     setAudio(src, subtitleFile) {
         AudioHandler.audio = new Howl({ src: [src] });
+        AudioHandler.audio.on("end", () => {
+            gsap.to(
+                ".timeline", {
+                    width: "0%",
+                    duration: 1,
+                    ease: "power4.out"
+                }
+            )
+            Scene.finishedOnce = true;
+            AudioHandler.audio.stop()
+            AudioHandler.audio = null;
+        })
         this.currentSrc = subtitleFile;
     }
 
     resetAudio(){
         AudioHandler.audio.stop()
-        AudioHandler.audio._duration =0
+        Scene.finishedOnce = false;
+        AudioHandler.audio = null;
+        // AudioHandler.audio._duration =0
+        this.anim.kill();
+        gsap.to(
+            '.timeline', {
+                width: "100%",
+            })
+
     }
 
     initInput(input) {
@@ -45,6 +68,7 @@ export default class AudioHandler extends Entity {
                 console.log(this.subtitles.cues);
 
 
+
             })
             .catch(error => console.log(error));
 
@@ -55,15 +79,17 @@ export default class AudioHandler extends Entity {
                 .then(response => response.text())
                 .then(data => {
                     const subtitles = this.webVTTParser.parse(data);
-                    AudioHandler.subtitlesCues = subtitles.cues;
+                    this.anim = gsap.timeline()
                     AudioHandler.audio.play()
-
-                    gsap.to(
+                    AudioHandler.subtitlesCues = subtitles.cues;
+                    this.anim .to(".timeline", {
+                        width: "0%",
+                    })
+                        .to(
                         ".timeline", {
                         width: "100%",
                         duration: AudioHandler.audio._duration,
-                    }
-                    )
+                    })
          
                     gsap.to(
                         ".lettre-container",
@@ -96,9 +122,31 @@ export default class AudioHandler extends Entity {
                 }
                 this.subtitle.innerHTML = "";
             }
-        } else {
-          
-
+        }
+        else if (AudioHandler.audio
+            && !AudioHandler.audio.playing()
+            && !Scene.finishedOnce
+            && this.world.state != "map"
+            && AudioHandler.audio._duration > 3
+        ){
+            if(!["oranger","garage"].includes(this.world.state)){
+                if(this.anim){
+                    this.anim.kill();
+                }
+                AudioHandler.audio.play()
+                this.anim  = gsap.timeline()
+                this.anim .to(
+                    '.timeline', {
+                        width: "0%",
+                    })
+                    .to(
+                        ".timeline", {
+                            width: "100%",
+                            duration: AudioHandler.audio._duration,
+                        }
+                        ,'>0.5'
+                    )
+            }
         }
     }
 }
