@@ -158,10 +158,11 @@
           ],
           "description": {
           }
-        }
-      },
-      "title": "orangerie",
-      "subtitle": "Jardin des Tuilleries"
+
+        },
+        "title": "orangerie",
+        "subtitle": "Jardin des Tuilleries"
+      }
     },
     "title": "tuillerie",
     "subtitle": "quartier",

@@ -81,13 +81,16 @@ export default class AudioHandler extends Entity {
                 this.subtitle.innerHTML = "";
             }
         } else {
-            gsap.set(
-                ".soundAnim",
-                {
-                    width: "0%",
+            if(document.querySelector('.soundAnim')){
+                gsap.set(
+                    ".soundAnim",
+                    {
+                        width: "0%",
 
-                }
-            )
+                    }
+                )
+            }
+
         }
     }
 }

@@ -85,10 +85,9 @@ export default class Map extends Entity {
 
         for (const [key, value] of Object.entries(this.pois)) {
             this.mouseHandler.addKeyObject(key);
-            if (this.pois[key].poi) {
-                this.mouseHandler.addObject(this.pois[key].poi.getMesh())
+            this.mouseHandler.addObject(this.pois[key].poi.getMesh())
 
-            }
+
         }
     }
 
@@ -101,7 +100,6 @@ export default class Map extends Entity {
             if (this.pois[key].position) {
                 
                 this.pois[key].poi = new PointOfInterest(this, [position.xNormal, position.yNormal], key)
-            console.log(this.pois[key].poi);
 
                 this.pois[key].poi.getMesh().name = key
                 this.mouseHandler.addObject(this.pois[key].poi.getMesh())
@@ -133,7 +131,6 @@ export default class Map extends Entity {
 
     checkIsAvailable(key) {
         if (this.pois[key]) {
-            console.log(this.pois[key].index, this.world.counter)
             return this.pois[key].index == this.world.counter
         }
         return false;

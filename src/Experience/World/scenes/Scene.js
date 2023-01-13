@@ -35,19 +35,22 @@ export default class Scene extends Entity {
     }
 
     initScene(sceneName) {
-        console.log(sceneName)
         this.sceneName = sceneName
         this.mouseHandler = new MouseHandler();
         this.mouseHandler.inHome = false;
         this.mouseHandler.clearCurrentObj()
-        this.#sceneInfo = dataMap.montmartre.poi[sceneName].scene;
+        if(sceneName == "oranger"){
+            this.#sceneInfo = dataMap.orangerie.poi[sceneName].scene;
+        }
+        else{
+            this.#sceneInfo = dataMap.montmartre.poi[sceneName].scene;
+        }
         this.camera.position.set(this.#sceneInfo.cameraPos.x, this.#sceneInfo.cameraPos.y, this.#sceneInfo.cameraPos.z)
         this.cameraStart = new THREE.Vector3(this.#sceneInfo.cameraPos.x, this.#sceneInfo.cameraPos.y, this.#sceneInfo.cameraPos.z)
         this.experience.camera.initPosition = this.cameraStart.clone();
         this.experience.camera.lookAtPosition = new THREE.Vector3();
         this.experience.camera.controls.enabled = false;
         this.model = this.resources.items[sceneName]
-        console.log(this.model);
         this.audioHandler = new AudioHandler();
         this.audioHandler.setAudio(this.#sceneInfo.audio, this.#sceneInfo.subtitle)
         this.experience.camera.setParametersIsHome(false);
