@@ -8,6 +8,8 @@ import MouseHandler from "./MouseHandler";
 import * as THREE from 'three'
 import dataMap from '../Utils/dataMap.json'
 import gsap from 'gsap'
+import { Howl } from 'Howler';
+
 
 
 export default class World {
@@ -23,6 +25,17 @@ export default class World {
         this.scene = this.experience.scene
         this.resources = this.experience.resources
         this.camera = this.experience.camera
+        this.ambiance = new Howl({
+            src: ["sounds/Musique_ambiance_fond.mp3"]
+        })
+        const exp = document.querySelector(".startExp")
+        exp.addEventListener('click', () => {
+            console.log(this.ambiance);
+            this.ambiance.play()
+            this.ambiance.loop()
+            this.ambiance.volume(0.5)
+            console.log("looop");
+        })
 
         this.resources.on('ready', () => {
             this.environment = new Environment()
@@ -124,6 +137,7 @@ export default class World {
                     this.scenePoi.initScene(params.namePlace);
                     this.experience.composerEnable = true;
                     this.prevPlace = params.namePlace
+               
 
                 }
                 this.handleInfoChanges(params);

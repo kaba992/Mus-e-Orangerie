@@ -62,7 +62,7 @@ export default class Scene extends Entity {
         this.setAudio()
         this.setGui(sceneName)
         // this.setBottomBar()
-        // this.getObjectList()
+        this.getObjectList()
 
 
     }
@@ -78,7 +78,6 @@ export default class Scene extends Entity {
             div.classList.add("annotation")
             div.classList.add(objects[i])
             this.htmlElement.push(div)
-            document.body.appendChild(div)
 
 
 

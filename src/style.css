@@ -75,7 +75,7 @@ button {
 	bottom: 15%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	font-size: 1.5rem;
+	font-size: 1rem;
 	color: var(--bgColor);
 	background: transparent;
 	z-index: 50;
@@ -527,8 +527,10 @@ p.leftInfo {
 
 .startExp{
 	position: relative;
-	font-size: 1.5rem;
-	color:#BD2626;
+    font-size: 1.3rem;
+    color: #BD2626;
+    margin-top: 1rem;
+
 }
 
 .startExp:hover::after{
