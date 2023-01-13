@@ -4,8 +4,8 @@
 	box-sizing: border-box;
 }
 
-:root{
-	font-size:18px;
+:root {
+	font-size: 18px;
 }
 
 html,
@@ -13,31 +13,34 @@ body {
 	overflow: hidden;
 	height: 100%;
 	width: 100%;
-	background: #FDF9F0;
-	--bgColor: #FDF9F0;
+	background: #fdf9f0;
+	--bgColor: #fdf9f0;
 	--mainColor: #502432;
-
 }
 
-body p,button,span{
+body p,
+button,
+span {
 	font-family: "Pavanam";
 }
 
-body h1,h2,h3,h4{
+body h1,
+h2,
+h3,
+h4 {
 	font-family: "Abhaya Libre";
 }
 
-.hidden{
+.hidden {
 	display: none !important;
 }
 
-button{
-	padding:0;
-	background:none;
-	border:none;
+button {
+	padding: 0;
+	background: none;
+	border: none;
 	font-size: 1rem;
 }
-
 
 .webgl {
 	position: absolute;
@@ -47,11 +50,11 @@ button{
 	z-index: 0;
 }
 
-.textureImg{
+.textureImg {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%,-50%);
+	transform: translate(-50%, -50%);
 	opacity: 0.25;
 	z-index: 5;
 	pointer-events: none;
@@ -136,7 +139,7 @@ button{
 	z-index: 99;
 	cursor: pointer;
 }
-.start-audio p::after{
+.start-audio p::after {
 	position: absolute;
 	top: 106%;
 	left: 50%;
@@ -144,7 +147,7 @@ button{
 	content: "";
 	width: 80%;
 	height: 2px;
-	background: #CF3232;
+	background: #cf3232;
 
 	z-index: 99;
 }
@@ -165,31 +168,22 @@ button{
 	opacity: 0;
 	text-align: left;
 	padding: 2rem;
-	font-size: 1rem;
-	background-color: transparent;
+	background: #ffffff;
+	border: 1px solid #502432;
+	border-radius: 4px;
 	color: #000000;
-	border-radius: 8px;
+	
 	z-index: 99;
 }
-.objects-description:after {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	content: "";
-	width: 115%;
-	height: 115%;
-	background: rgba(255, 255, 255, 0.94);
-	filter: blur(18px);
-	z-index: -1;
-}
+
 .object-title {
-	text-align: center;
+	text-align: left;
 	font-style: normal;
 	font-weight: 700;
-	font-size: 3rem;
+	font-size: 2rem;
 	line-height: 83px;
 	text-transform: uppercase;
+	
 }
 
 .object-content {
@@ -201,7 +195,7 @@ button{
 
 .object-title::after {
 	position: absolute;
-	width: 100%;
+	width: 70%;
 	height: 100%;
 	top: 109px;
 	left: 50%;
@@ -213,70 +207,67 @@ button{
 	transform: translate(-50%, -50%);
 }
 
-
-.frame{
+.frame {
 	position: absolute;
 	top: 0;
-	left:0;
+	left: 0;
 	width: 100%;
 	height: 100%;
 	border: 20px solid var(--bgColor);
-	pointer-events:none;
+	pointer-events: none;
 	z-index: 5;
 }
 
-.frame:before{
+.frame:before {
 	position: absolute;
 	content: "";
 	top: 50%;
 	left: 50%;
-	transform:translate(-50%,-50%);
-	width:calc(100%);
+	transform: translate(-50%, -50%);
+	width: calc(100%);
 	height: calc(100%);
 	border: 2px solid var(--mainColor);
 	z-index: 2;
 }
 
-.frame2{
+.frame2 {
 	position: absolute;
 	content: "";
 	top: 50%;
 	left: 50%;
-	transform:translate(-50%,-50%);
-	width:calc(100%);
-	height: calc(100% );
+	transform: translate(-50%, -50%);
+	width: calc(100%);
+	height: calc(100%);
 	/*background:#FDF9F0;*/
 	border: 20px solid var(--bgColor);
 	z-index: 10;
 }
 
-
-
-.frame2:after{
+.frame2:after {
 	position: absolute;
 	content: "";
 	top: 50%;
 	left: 50%;
-	transform:translate(-50%,-50%);
-	width:calc(100% );
-	height: calc(100% );
+	transform: translate(-50%, -50%);
+	width: calc(100%);
+	height: calc(100%);
 	border: 2px solid var(--mainColor);
 	z-index: 2;
 }
 
-.frame2:before{
+.frame2:before {
 	position: absolute;
 	content: "";
 	top: 50%;
 	left: 50%;
-	transform:translate(-50%,-50%);
-	width:calc(100% + 15px );
-	height: calc(100% + 15px );
+	transform: translate(-50%, -50%);
+	width: calc(100% + 15px);
+	height: calc(100% + 15px);
 	border: 6px solid var(--mainColor);
 	z-index: 2;
 }
 
-.bottomBar{
+.bottomBar {
 	position: absolute;
 	display: flex;
 	flex-direction: row;
@@ -293,7 +284,9 @@ button{
 	z-index: 3;
 }
 
-.inputNav,.replayInput,.leftInfo{
+.inputNav,
+.replayInput,
+.leftInfo {
 	position: absolute;
 	top: 5em;
 	right: 5em;
@@ -304,69 +297,70 @@ button{
 	transition: all 0.15s;
 }
 
-.replayInput,.leftInfo{
+.replayInput,
+.leftInfo {
 	position: relative;
 	top: 0;
 	left: 0;
 	opacity: 0;
 	pointer-events: none;
 }
-p.leftInfo{
+p.leftInfo {
 	opacity: 1;
-	pointer-events:auto;
+	pointer-events: auto;
 }
 
-.inputNav img{
-	width:2em;
+.inputNav img {
+	width: 2em;
 }
 
-.back-map{
+.back-map {
 	display: none;
 }
 
-.infos{
-	text-align:center;
+.infos {
+	text-align: center;
 	min-width: 50vw;
 	max-width: 50vw;
 }
 
-.title{
+.title {
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	font-size:2.5em;
-	text-transform:uppercase;
-	font-weight:bold;
+	font-size: 2.5em;
+	text-transform: uppercase;
+	font-weight: bold;
 	height: 1.5em;
 	overflow: hidden;
 }
 
-.subTitle{
+.subTitle {
 	height: 1em;
 	position: relative;
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
-	text-transform: capitalize
+	text-transform: capitalize;
 }
 
-.active{
+.active {
 	position: absolute;
 	left: 50%;
 	transform: translateX(-50%);
 	white-space: nowrap;
 }
 
-.hubScene{
+.hubScene {
 	transition: opacity 0.15s;
 }
 
-.scene{
+.scene {
 	opacity: 1;
 	pointer-events: auto;
 }
 
-.transition{
+.transition {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -374,23 +368,21 @@ p.leftInfo{
 	height: 100%;
 	opacity: 0;
 	background: var(--bgColor);
-	z-index:1;
+	z-index: 1;
 	pointer-events: none;
 }
 
-
 .lettre-container {
-	position:absolute;
+	position: absolute;
 	width: 472px;
 	height: 356px;
 	bottom: -100%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	z-index: 2;
-
 }
 
-.lettre-container img{
+.lettre-container img {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -398,22 +390,19 @@ p.leftInfo{
 	height: 100%;
 	z-index: 99;
 }
-.lettre-container p{
-	color: #CF3232;
-
+.lettre-container p {
+	color: #cf3232;
 }
-.bottomHover{
+.bottomHover {
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 0%;
 	height: 3%;
-	background:#000;
-
-
+	background: #000;
 }
 
-.mask{
+.mask {
 	position: absolute;
 	bottom: -20em;
 	left: 0;
@@ -423,10 +412,9 @@ p.leftInfo{
 	background: url("/static/textures/mask.png");
 }
 
-.maskBtn{
+.maskBtn {
 	position: absolute;
 	top: 75%;
 	left: 50%;
-	transform: translate(-50%,-50%);
+	transform: translate(-50%, -50%);
 }
-

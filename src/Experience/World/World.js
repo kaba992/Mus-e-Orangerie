@@ -61,6 +61,16 @@ export default class World {
         let inMap = maps.includes(namePlace)
         if(inMap){
             this.state = "map";
+            this.audioHandler.resetAudio()
+            gsap.to(
+                ".lettre-container",
+                {
+                    bottom:"-100%",
+                    duration:1,
+                    ease:"power2.out"
+                }
+            )
+          
         }
         else{
             this.state = namePlace;
@@ -91,7 +101,8 @@ export default class World {
             })
             .add(() => {
                 if(params.inMap){
-                    this.experience.composerEnable = false;
+                    this.experience.composerEnable = false; 
+                  
                     if(!this.zoneEncounter.includes(this.prevPlace) ){
                         this.zoneEncounter.push(this.prevPlace)
                         this.montmartre.modifyPoisMaterial(this.prevPlace)

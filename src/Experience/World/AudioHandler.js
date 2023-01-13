@@ -8,6 +8,7 @@ export default class AudioHandler extends Entity {
     subtitle = document.querySelector('.subtitle')
     currentSrc = null;
     webVTTParser
+    audioStoped
     static audio = null
     static subtitlesCues = null
 
@@ -18,6 +19,7 @@ export default class AudioHandler extends Entity {
         this.webVTTParser = new WebVTTParser()
         AudioHandler.instance = this;
 
+
         this.subtitles = null
 
 
@@ -26,6 +28,11 @@ export default class AudioHandler extends Entity {
     setAudio(src, subtitleFile) {
         AudioHandler.audio = new Howl({ src: [src] });
         this.currentSrc = subtitleFile;
+    }
+
+    resetAudio(){
+        AudioHandler.audio.stop()
+        AudioHandler.audio._duration =0
     }
 
     initInput(input) {
@@ -41,11 +48,9 @@ export default class AudioHandler extends Entity {
             })
             .catch(error => console.log(error));
 
-         
-        
-
         input.addEventListener("click", () => {
-            if (AudioHandler.audio) {
+            if (AudioHandler.audio)  {
+               console.log("testttttt");
                 AudioHandler.audio.play()
                 gsap.to(
                     ".bottomHover", {
@@ -83,7 +88,9 @@ export default class AudioHandler extends Entity {
 
     update() {
 
+   
         if (AudioHandler.audio && AudioHandler.audio.playing()) {
+            AudioHandler.audioPlaying = true
             const time = AudioHandler.audio.seek()
 
             const cues = AudioHandler.subtitlesCues
@@ -95,15 +102,7 @@ export default class AudioHandler extends Entity {
                 this.subtitle.innerHTML = "";
             }
         } else {
-            if(document.querySelector('.soundAnim')){
-                gsap.set(
-                    ".soundAnim",
-                    {
-                        width: "0%",
-
-                    }
-                )
-            }
+          
 
         }
     }
