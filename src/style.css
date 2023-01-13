@@ -361,6 +361,8 @@ p.leftInfo {
 	white-space: nowrap;
 }
 
+
+
 .hubScene{
 	opacity: 0;
 	transition: opacity 0.15s;
@@ -401,6 +403,9 @@ p.leftInfo {
 	height: 100%;
 	z-index: 99;
 }
+
+
+
 
 .lettre-container p{
 	color: #CF3232;

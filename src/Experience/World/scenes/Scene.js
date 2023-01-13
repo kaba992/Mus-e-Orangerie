@@ -98,7 +98,6 @@ export default class Scene extends Entity {
         this.objectContainer = document.querySelector(".objects-description")
         this.objectTitle = document.querySelector(".object-title")
         this.objectContent = document.querySelector(".object-content")
-        
 
 
         if (MouseHandler.currentObj) {
@@ -129,6 +128,9 @@ export default class Scene extends Entity {
         
            }, 500);
         }
+
+       
+
 
     }
 
