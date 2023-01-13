@@ -52,7 +52,7 @@ export default class AudioHandler extends Entity {
     resetAudio(){
         AudioHandler.audio.stop()
         Scene.finishedOnce = false;
-        AudioHandler.audio = null;
+        if(AudioHandler.audio)
         // AudioHandler.audio._duration =0
         this.anim.kill();
         this.subtitle.innerHTML = "";
