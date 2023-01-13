@@ -62,7 +62,7 @@ export default class Scene extends Entity {
         this.setAudio()
         this.setGui(sceneName)
         // this.setBottomBar()
-        this.getObjectList()
+        // this.getObjectList()
 
 
     }

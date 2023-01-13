@@ -117,13 +117,13 @@ export default class Map extends Entity {
     modifyPoisMaterial(key) {
         // if(this.pois[key].index == this.world.counter) {
 
-        let elt = this.pois[key].poi.getMesh().children[0].children[0].children[0].children[0];
-        if (elt.material.color.r == this.pois[key].material.color.r && elt.material.color.g == this.pois[key].material.color.g && elt.material.color.b == this.pois[key].material.color.b) {
-            elt.material = new THREE.MeshStandardMaterial({ color: new THREE.Color("#000000") })
-
-        } else {
-            elt.material = this.pois[key].material
-        }
+        // let elt = this.pois[key].poi.getMesh().children[0].children[0].children[0].children[0];
+        // if (elt.material.color.r == this.pois[key].material.color.r && elt.material.color.g == this.pois[key].material.color.g && elt.material.color.b == this.pois[key].material.color.b) {
+        //     elt.material = new THREE.MeshStandardMaterial({ color: new THREE.Color("#000000") })
+        //
+        // } else {
+        //     elt.material = this.pois[key].material
+        // }
         // }
     }
 
