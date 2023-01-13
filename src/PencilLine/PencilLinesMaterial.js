@@ -21,7 +21,7 @@ export class PencilLinesMaterial extends THREE.ShaderMaterial {
                     value: texture
                 },
                 uColor: {
-                    value: new THREE.Color("#FDF9F0")
+                    value: new THREE.Color("#efe6d5")
                 },
                 uDepth: {
                     value: null

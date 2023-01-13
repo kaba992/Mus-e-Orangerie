@@ -311,7 +311,8 @@ export default class World {
         let anim = gsap.timeline()
 
         anim.to('.mask', {
-            bottom: "25%",
+            bottom: "20%",
+            duration: 1.25
         })
             .add(() => {
                 document.querySelector('.maskBtn').addEventListener("click", () => {
