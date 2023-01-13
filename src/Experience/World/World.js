@@ -61,7 +61,6 @@ export default class World {
         let inMap = maps.includes(namePlace)
         if(inMap){
             this.state = "map";
-            // console.log("in Map")
         }
         else{
             this.state = namePlace;
@@ -94,11 +93,9 @@ export default class World {
                 if(params.inMap){
                     this.experience.composerEnable = false;
                     if(!this.zoneEncounter.includes(this.prevPlace) ){
-                        console.log(this.zoneEncounter.includes(this.prevPlace),this.prevPlace)
                         this.zoneEncounter.push(this.prevPlace)
                         this.montmartre.modifyPoisMaterial(this.prevPlace)
                         this.counter += 1;
-                        console.log(this.counter)
                     }
 
                     if( this.counter == 1){
@@ -158,20 +155,12 @@ export default class World {
 
         if(this.state == "map" && this.counter <= 3 && path != "montmartre" ){
             data = dataMap.montmartre.poi[path]
+            if(path == "oranger"){
+                data = dataMap.orangerie.poi[path]
+            }
         }
         else if((this.state != "map" && this.counter <= 3 && back) || path == "montmartre"){
             data = dataMap.montmartre
-        }
-        else if((this.state == "map" && this.counter == 4) || path == "orangerie"){
-            data = dataMap.orangerie
-        }
-        else if(this.state == "map" && this.counter == 5){
-            data = dataMap.orangerie.poi.museum
-        }
-
-        if(path != "montmartre" || path != "orangerie"){
-            // console.log("NOT IN ORANGERIE OR MONTMARTRE")
-            // this.initSceneState(path)
         }
 
 

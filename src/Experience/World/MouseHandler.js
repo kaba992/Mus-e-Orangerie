@@ -18,7 +18,7 @@ export default class MouseHandler extends Entity {
     #listKeyobject = []
     #intersects
     inHome = true;
-    objNav = ["utrillo",'laurencin',"garage","museum"]
+    objNav = ["utrillo",'laurencin',"garage","oranger"]
 
 
     constructor() {
@@ -61,8 +61,6 @@ export default class MouseHandler extends Entity {
             this.#mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
             this.#mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
             this.#raycaster.setFromCamera(this.#mouse, this.camera);
-
-            // if(this.#intersects.length > 0) console.log(this.#intersects[0].object.name)
         })
     }
 
@@ -73,25 +71,16 @@ export default class MouseHandler extends Entity {
             if (MouseHandler.currentObj) {
                 if (this.camera.position.distanceTo(MouseHandler.currentObjPost) > 8){
                     this.camera.position.lerp(MouseHandler.currentObjPost, 0.01);
-                    console.log("hihi")
                 }
             }
             else{
                 this.camera.position.lerp(this.experience.camera.initPosition,0.1);
-                console.log("haha")
-
             }
-
         }
-        else if((this.camera.position.distanceTo(this.experience.camera.initPosition) > 2 && !MouseHandler.currentObj && !this.cameraObj.isHome)
-            // (this.camera.position.distanceTo(this.experience.camera.initPosition) < 18 && !MouseHandler.currentObj && this.cameraObj.isHome)
-        ) {
+        else if((this.camera.position.distanceTo(this.experience.camera.initPosition) > 2 && !MouseHandler.currentObj && !this.cameraObj.isHome)) {
             this.camera.position.lerp(this.experience.camera.initPosition,0.1);
-            console.log(this.camera.position.distanceTo(this.experience.camera.initPosition))
-
         }
         else{
-            // console.log(this.objNav.includes(MouseHandler.currentObj.name))
             if(MouseHandler.currentObj && this.objNav.includes(MouseHandler.currentObj.name) && !this.world.inTrans){
                     this.world.inTrans = true;
                     this.world.initSceneState(MouseHandler.currentObj.name);
