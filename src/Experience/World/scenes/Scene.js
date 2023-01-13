@@ -47,6 +47,7 @@ export default class Scene extends Entity {
         this.experience.camera.lookAtPosition = new THREE.Vector3();
         this.experience.camera.controls.enabled = false;
         this.model = this.resources.items[sceneName]
+        console.log(this.model);
         this.audioHandler = new AudioHandler();
         this.audioHandler.setAudio(this.#sceneInfo.audio, this.#sceneInfo.subtitle)
         this.experience.camera.setParametersIsHome(false);
@@ -98,6 +99,7 @@ export default class Scene extends Entity {
         }
         if (sceneName === "laurencin" && this.model) {
             this.model.scene.rotation.y = 1.8
+
         }
         if (sceneName === "utrillo" && this.model) {
             this.model.scene.rotation.y = 5
@@ -113,13 +115,14 @@ export default class Scene extends Entity {
                     ease: "power4.out"
                 }
             )
+        }
+        if (sceneName === "oranger" && this.model) {
             this.orangerMixer = new THREE.AnimationMixer(this.model.scene)
-            const clips =  this.model.animations
-            const clip = THREE.AnimationClip.findByName( clips, 'MorphBake');
+            const clips = this.model.animations
+            const clip = THREE.AnimationClip.findByName(clips, 'MorphBake');
             this.action = this.orangerMixer.clipAction(clip)
-           
+
             this.action.play()
-          
         }
 
         if (sceneName && sceneName != "garage") {
@@ -246,8 +249,8 @@ export default class Scene extends Entity {
         if (this.mouseHandler) {
             this.setUi()
         }
-        if (this.model && this.sceneName == "garage") {
-            this.orangerMixer.update(this.clock.getDelta() * 0.5)    
+        if (this.model && this.sceneName == "oranger") {
+            this.orangerMixer.update(this.clock.getDelta() * 0.5)
         }
 
     }

@@ -135,12 +135,30 @@
   },
   "orangerie": {
     "poi": {
-      "museum": {
+      "oranger": {
         "position": {
           "xNormal": 0.535,
           "yNormal": 0.261
         },
-        "scene": null
+        "scene": {
+          "cameraPos": {
+            "x": 20.5,
+            "y": 4.52,
+            "z": 10.66
+          },
+          "position": {
+            "x": -3.69,
+            "y": -5.22,
+            "z": -2.40
+          },
+          "audio": "sounds/Son_lettre_poeme.mp3",
+          "subtitle": "sounds/Son_lettre_poeme.mp3.vtt",
+          "objList": [
+            
+          ],
+          "description": {
+          }
+        }
       },
       "title": "orangerie",
       "subtitle": "Jardin des Tuilleries"

@@ -41,10 +41,6 @@ export default class World {
             this.scenePoi = new Scene()
             this.initUI()
 
-            this.experience.debugFolder.add(this.map.position,"x",-300,300,1)
-            this.experience.debugFolder.add(this.map.position,"y",-300,300,1)
-            this.experience.debugFolder.add(this.map.position,"z",-300,300,1)
-
         })
     }
 
@@ -105,7 +101,7 @@ export default class World {
                         console.log(this.counter)
                     }
 
-                    if( this.counter == 3){
+                    if( this.counter == 1){
                         this[params.namePlace].resetPos();
                         this.transitionBtnOrangerie()
                     }else{
@@ -215,6 +211,7 @@ export default class World {
         })
             .add(() =>
                 document.querySelector('.maskBtn').addEventListener("click",() => {
+                   
                     this.transitionOrangerie();
                     let anim2 = gsap.timeline()
                     anim2.to(".mask",{

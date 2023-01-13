@@ -12,11 +12,11 @@ export default [
             'textures/environmentMap/nz.jpg'
         ]
     },
-    // {
-    //     name: 'garage',
-    //     type: 'dracoLoader',
-    //     path: 'models/garage/garage.glb'
-    // },
+    {
+        name: 'garage',
+        type: 'dracoLoader',
+        path: 'models/garage/garage.glb'
+    },
     {
         name: 'laurencin',
         type: 'dracoLoader',
@@ -28,9 +28,9 @@ export default [
         path: 'models/Utrillo/utrillo.glb'
     },
     {
-        name: 'garage',
+        name: 'oranger',
         type: 'dracoLoader',
-        path: 'models/Oranger/garage.glb'
+        path: 'models/Oranger/oranger.glb'
     },
     {
         name: 'montmartre',
