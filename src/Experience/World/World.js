@@ -40,7 +40,7 @@ export default class World {
             this.orangerie.setPosition()
             this.scenePoi = new Scene()
             this.initUI()
-
+            this.initWeb()
         })
     }
 
@@ -105,12 +105,14 @@ export default class World {
                     this.experience.composerEnable = false;
 
                     if (!this.zoneEncounter.includes(this.prevPlace)) {
+
                         this.zoneEncounter.push(this.prevPlace)
                         this.montmartre.modifyPoisMaterial(this.prevPlace)
                         this.counter += 1;
                     }
 
-                    if (this.counter == 1) {
+
+                    if( this.counter == 3){
                         this[params.namePlace].resetPos();
                         this.transitionBtnOrangerie()
                     } else {
@@ -127,10 +129,10 @@ export default class World {
                 this.handleInfoChanges(params);
                 this.map.visible = params.maps.includes(params.namePlace);
                 this.scenePoi.getMesh().visible = !params.maps.includes(params.namePlace);
-            }, "<0.5")
-            .to(transition, {
-                opacity: 0,
-                duration: 0.5,
+            },"<1")
+            .to(transition,{
+                opacity:0,
+                duration:0.5,
                 ease: "power2.easeIn"
             })
             .add(() => {
@@ -183,7 +185,6 @@ export default class World {
                 .add(() => {
                     document.querySelector('.timeline').classList.remove('scene')
                     document.querySelector('.bottomBar').classList.remove('scene')
-                    document.querySelector('.bottomHover').classList.remove('scene')
                 })
                 .to(
                     ".annotation",
@@ -234,8 +235,11 @@ export default class World {
                 }, '<')
                 .add(() => {
                     document.querySelector('.timeline').classList.add('scene')
-                    document.querySelector('.bottomBar').classList.add('scene')
-                    document.querySelector('.bottomHover').classList.add('scene')
+                    if(this.state != "garage" && this.state != "oranger"){
+                        console.log("here",this.state)
+                        document.querySelector('.bottomBar').classList.add('scene');
+
+                    }
                 })
 
 
@@ -244,7 +248,22 @@ export default class World {
         }
     }
 
-    transitionTitle(path, back = false) {
+
+    initWeb(){
+        document.querySelector('.startExp').addEventListener("click",() => {
+            console.log("test")
+            let anim = gsap.timeline()
+            anim.to(".landingPage",{
+                opacity:0
+            }).to('.landingPage',{
+                display:"none"
+            }).add(() => {
+                document.querySelector('.content').classList.remove("disabled")
+            })
+        })
+    }
+
+    transitionTitle(path, back = false){
         let active = document.querySelectorAll('.active');
         let data = null;
 
@@ -290,16 +309,17 @@ export default class World {
 
     transitionBtnOrangerie() {
         let anim = gsap.timeline()
-        anim.to('.mask', {
-            bottom: "20%",
+
+        anim.to('.mask',{
+            bottom:"15%",
         })
             .add(() => {
                 document.querySelector('.maskBtn').addEventListener("click", () => {
-
-                    this.transitionOrangerie();
-                    let anim2 = gsap.timeline()
-                    anim2.to(".mask", {
-                        bottom: "-5em",
+                        this.transitionOrangerie();
+                        let anim2 = gsap.timeline()
+                        anim2.to(".mask", {
+                            bottom: "-10em",
+                        })
                     })
                 })
             }

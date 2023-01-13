@@ -77,9 +77,10 @@ button {
 	transform: translate(-50%, -50%);
 	font-size: 1.5rem;
 	color: var(--bgColor);
-	background: var(--mainColor);
+	background: transparent;
 	z-index: 50;
 	text-align: center;
+	padding: 0.25em 0.5em;
 }
 
 .scenes {
@@ -162,7 +163,7 @@ button {
 }
 .objects-description {
 	position: absolute;
-	bottom: 18%;
+	bottom: 40%;
 	right: -32%;
 	width: 450px;
 	opacity: 0;
@@ -188,8 +189,9 @@ button {
 .object-content {
 	font-style: normal;
 	font-weight: 400;
-	font-size: 26px;
+	font-size: 1rem;
 	line-height: 31px;
+	margin: 0.5em auto;
 }
 
 .object-title::after {
@@ -284,8 +286,8 @@ button {
 	transition: 0.5s all;
 }
 
-.bottomBar.scene {
-	transform: translateY(95%);
+.bottomBar.scene{
+	transform: translateY(85%);
 }
 
 .bottomBar.scene:hover {
@@ -448,8 +450,8 @@ p.leftInfo {
 	top: 0;
 	left: 50%;
 	transform: translateX(-50%);
-	width: 100%;
-	height: 2px;
+	width:100%;
+	height: 3px;
 	background: var(--mainColor);
 	/*transition: 0.25s width;*/
 }
@@ -489,4 +491,64 @@ p.leftInfo {
 	to {
 	  transform: scale(1.2)
 	}
-  }
+ }
+
+.landingPage{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width:100%;
+	height: 100%;
+	background: var(--bgColor);
+	z-index: 10;
+}
+
+.landingContent{
+	position: absolute;
+	top:50%;
+	left:50%;
+	transform: translate(-50%,-50%);
+	max-width: 50%;
+	text-align: center;
+}
+
+.logo{
+	font-size:5em;
+	font-family: "Nothing You Could Do";
+	color:#BD2626;
+}
+
+.contentLand{
+	font-family:"Abhaya Libre";
+	font-size: 1.25rem;
+	width: 70%;
+	margin: 1.5em auto;
+}
+
+.startExp{
+	position: relative;
+	font-size: 1.5rem;
+	color:#BD2626;
+}
+
+.startExp:hover::after{
+	width: 100%;
+
+}
+
+.startExp::after{
+	position: absolute;
+	content:"";
+	width: 75%;
+	height:2px;
+	left: 50%;
+	bottom:0%;
+	transform: translateX(-50%);
+	background:#BD2626;
+	transition: all 0.25s;
+}
+
+.disabled{
+	pointer-events: none;
+}
+

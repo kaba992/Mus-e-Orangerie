@@ -41,6 +41,10 @@ export default class AudioHandler extends Entity {
             Scene.finishedOnce = true;
             AudioHandler.audio.stop()
             AudioHandler.audio = null;
+            this.subtitle.innerHTML = "";
+            this.subtitle.style.backgroundColor = "transparent";
+
+
         })
         this.currentSrc = subtitleFile;
     }
@@ -48,9 +52,12 @@ export default class AudioHandler extends Entity {
     resetAudio(){
         AudioHandler.audio.stop()
         Scene.finishedOnce = false;
-        AudioHandler.audio = null;
+        if(AudioHandler.audio)
         // AudioHandler.audio._duration =0
         this.anim.kill();
+        this.subtitle.innerHTML = "";
+        this.subtitle.style.backgroundColor = "transparent";
+
         gsap.to(
             '.timeline', {
                 width: "100%",
@@ -99,6 +106,7 @@ export default class AudioHandler extends Entity {
                             ease: "power2.out"
                         }
                     )
+                    document.querySelector('.bottomBar').classList.add('scene');
                 })
                 .catch(error => console.log(error));
 
@@ -118,9 +126,11 @@ export default class AudioHandler extends Entity {
             for (let i = 0; i < cues.length; i++) {
                 if (time > cues[i].startTime && time < cues[i].endTime) {
                     this.subtitle.innerHTML = cues[i].text;
+                    this.subtitle.style.backgroundColor = "var(--mainColor)";
                     return
                 }
                 this.subtitle.innerHTML = "";
+                this.subtitle.style.backgroundColor = "transparent";
             }
         }
         else if (AudioHandler.audio
