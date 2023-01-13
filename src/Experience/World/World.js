@@ -44,8 +44,8 @@ export default class World {
         })
     }
 
-    initUI(){
-        document.querySelector('.backmap').addEventListener('click',() => {
+    initUI() {
+        document.querySelector('.backmap').addEventListener('click', () => {
             this.initSceneState("montmartre")
         })
     }
@@ -56,29 +56,29 @@ export default class World {
      *
      * @param namePlace
      */
-    initSceneState(namePlace){
-        const maps = ["montmartre","orangerie"]
+    initSceneState(namePlace) {
+        const maps = ["montmartre", "orangerie"]
         let inMap = maps.includes(namePlace)
-        if(inMap){
+        if (inMap) {
             this.state = "map";
             this.audioHandler.resetAudio()
             gsap.to(
                 ".lettre-container",
                 {
-                    bottom:"-100%",
-                    duration:1,
-                    ease:"power2.out"
+                    bottom: "-100%",
+                    duration: 1,
+                    ease: "power2.out"
                 }
             )
-          
+
         }
-        else{
+        else {
             this.state = namePlace;
 
 
         }
 
-        this.transitionAnimation({maps,inMap,namePlace})
+        this.transitionAnimation({ maps, inMap, namePlace })
     }
 
     /**
@@ -86,39 +86,39 @@ export default class World {
      *
      * @param params
      */
-    transitionAnimation(params){
+    transitionAnimation(params) {
 
 
         const transition = document.querySelector(".transition")
         let anim = gsap.timeline()
         anim
-            .from(transition,{
-            opacity:0
-        })
-            .to(transition,{
-                opacity:1,
-                duration:0.5,
+            .from(transition, {
+                opacity: 0
+            })
+            .to(transition, {
+                opacity: 1,
+                duration: 0.5,
                 ease: "power2.easeOut"
             })
             .add(() => {
-                if(params.inMap){
-                    this.experience.composerEnable = false; 
-                  
-                    if(!this.zoneEncounter.includes(this.prevPlace) ){
+                if (params.inMap) {
+                    this.experience.composerEnable = false;
+
+                    if (!this.zoneEncounter.includes(this.prevPlace)) {
                         this.zoneEncounter.push(this.prevPlace)
                         this.montmartre.modifyPoisMaterial(this.prevPlace)
                         this.counter += 1;
                     }
 
-                    if( this.counter == 1){
+                    if (this.counter == 1) {
                         this[params.namePlace].resetPos();
                         this.transitionBtnOrangerie()
-                    }else{
+                    } else {
                         this[params.namePlace].resetPos();
 
                     }
                 }
-                else{
+                else {
                     this.scenePoi.initScene(params.namePlace);
                     this.experience.composerEnable = true;
                     this.prevPlace = params.namePlace
@@ -127,10 +127,10 @@ export default class World {
                 this.handleInfoChanges(params);
                 this.map.visible = params.maps.includes(params.namePlace);
                 this.scenePoi.getMesh().visible = !params.maps.includes(params.namePlace);
-            },"<0.5")
-            .to(transition,{
-                opacity:0,
-                duration:0.5,
+            }, "<0.5")
+            .to(transition, {
+                opacity: 0,
+                duration: 0.5,
                 ease: "power2.easeIn"
             })
             .add(() => {
@@ -144,168 +144,185 @@ export default class World {
      *
      * @param params
      */
-    handleInfoChanges(params){
+    handleInfoChanges(params) {
         let anim = gsap.timeline()
         let isMap = this.state == "map";
         const duration = 0.5
 
-        if(isMap){
+        if (isMap) {
             anim
-                .to('.backmap',{
-                    opacity:0,
+                .to('.backmap', {
+                    opacity: 0,
                     pointerEvents: "none",
-                    duration:duration
+                    duration: duration
                 })
-                .to('button.replayInput',{
-                    opacity:0,
-                    pointerEvents:"none",
-                    duration:duration
-                },'<')
-                .to(".hubScene",{
-                    opacity:0,
+                .to('button.replayInput', {
+                    opacity: 0,
                     pointerEvents: "none",
-                    duration:duration
-                },'<')
+                    duration: duration
+                }, '<')
+                .to(".hubScene", {
+                    opacity: 0,
+                    pointerEvents: "none",
+                    duration: duration
+                }, '<')
                 .add(() => {
                     document.querySelector('p.leftInfo').classList.remove('hidden')
-                },'<')
+                }, '<')
                 .add(() => {
                     document.querySelector('.backmap').classList.add('hidden')
-                },'<')
+                }, '<')
                 .add(() => {
                     document.querySelector('.hubScene').classList.add('hidden')
-                },'<')
-                .to('p.leftInfo',{
-                    opacity:1,
+                }, '<')
+                .to('p.leftInfo', {
+                    opacity: 1,
                     pointerEvents: "auto",
-                    duration:duration
-                },"<")
+                    duration: duration
+                }, "<")
                 .add(() => {
                     document.querySelector('.timeline').classList.remove('scene')
                     document.querySelector('.bottomBar').classList.remove('scene')
                     document.querySelector('.bottomHover').classList.remove('scene')
                 })
+                .to(
+                    ".annotation",
+                    {
+                        opacity: 0,
+                    }
+                )
 
 
         }
-        else{
+        else {
+            gsap.set(
+                ".annotation",
+                {
+                    opacity: 1,
+                },
+            )
             anim
-                .to('p.leftInfo',{
-                    opacity:0,
+               
+                .to('p.leftInfo', {
+                    opacity: 0,
                     pointerEvents: "none",
-                    duration:duration
+                    duration: duration
                 })
                 .add(() => {
                     document.querySelector('p.leftInfo').classList.add('hidden')
-                },'<')
+                }, '<')
                 .add(() => {
-                    if(this.state != "oranger") document.querySelector('.backmap').classList.remove('hidden')
-                },'<')
+                    if (this.state != "oranger") document.querySelector('.backmap').classList.remove('hidden')
+                }, '<')
                 .add(() => {
                     document.querySelector('.hubScene').classList.remove('hidden')
-                },'<')
-                .to('button.replayInput',{
-                    opacity:1,
-                    pointerEvents:"auto",
-                    duration:duration
+                }, '<')
+                .to('button.replayInput', {
+                    opacity: 1,
+                    pointerEvents: "auto",
+                    duration: duration
                 })
-                .to('.backmap',{
-                    opacity:1,
+                .to('.backmap', {
+                    opacity: 1,
                     pointerEvents: "auto",
-                    duration:duration
-                },'<')
-                .to(".hubScene",{
-                    opacity:1,
+                    duration: duration
+                }, '<')
+                .to(".hubScene", {
+                    opacity: 1,
                     pointerEvents: "auto",
-                    duration:duration
-                },'<')
+                    duration: duration
+                }, '<')
                 .add(() => {
                     document.querySelector('.timeline').classList.add('scene')
                     document.querySelector('.bottomBar').classList.add('scene')
                     document.querySelector('.bottomHover').classList.add('scene')
                 })
+
+
+
+
         }
     }
 
-    transitionTitle(path, back = false){
+    transitionTitle(path, back = false) {
         let active = document.querySelectorAll('.active');
         let data = null;
 
-        if(this.state == "map" && this.counter <= 3 && path != "montmartre" ){
+        if (this.state == "map" && this.counter <= 3 && path != "montmartre") {
             data = dataMap.montmartre.poi[path]
-            if(path == "oranger"){
+            if (path == "oranger") {
                 data = dataMap.orangerie.poi[path]
             }
         }
-        else if((this.state != "map" && this.counter <= 3 && back) || path == "montmartre"){
+        else if ((this.state != "map" && this.counter <= 3 && back) || path == "montmartre") {
             data = dataMap.montmartre
         }
 
 
-        if(data && active[0].innerHTML != data.subtitle && active[1].innerHTML != data.title ){
+        if (data && active[0].innerHTML != data.subtitle && active[1].innerHTML != data.title) {
             let anim = gsap.timeline()
             anim
-                .from(active,{
-                    y:"0%"
+                .from(active, {
+                    y: "0%"
                 })
-                .to(active[0],{
-                    y:"-100%"
+                .to(active[0], {
+                    y: "-100%"
                 })
-                .to(active[1],{
-                    y:"-100%"
-                },'<0.1')
+                .to(active[1], {
+                    y: "-100%"
+                }, '<0.1')
                 .add(() => {
                     active[0].innerHTML = data.subtitle;
                     active[1].innerHTML = data.title;
 
-                },"<0.25")
-                .from(active,{
-                    y:"100%"
+                }, "<0.25")
+                .from(active, {
+                    y: "100%"
                 },)
-                .to(active[0],{
-                    y:"0%"
+                .to(active[0], {
+                    y: "0%"
                 })
-                .to(active[1],{
-                    y:"0%"
-                },'<0.1')
+                .to(active[1], {
+                    y: "0%"
+                }, '<0.1')
         }
     }
 
-    transitionBtnOrangerie(){
+    transitionBtnOrangerie() {
         let anim = gsap.timeline()
-        anim.to('.mask',{
-            bottom:"20%",
+        anim.to('.mask', {
+            bottom: "20%",
         })
             .add(() => {
-                    document.querySelector('.maskBtn').addEventListener("click", () => {
+                document.querySelector('.maskBtn').addEventListener("click", () => {
 
-                        this.transitionOrangerie();
-                        let anim2 = gsap.timeline()
-                        anim2.to(".mask", {
-                            bottom: "-5em",
-                        })
+                    this.transitionOrangerie();
+                    let anim2 = gsap.timeline()
+                    anim2.to(".mask", {
+                        bottom: "-5em",
                     })
-                }
+                })
+            }
             )
     }
 
-    transitionOrangerie(){
+    transitionOrangerie() {
         let anim = gsap.timeline()
         anim.add(() => {
             this.orangerie.resetPos();
         })
-            .to(this.map.position,{
-            x: 40,
-            y: 0,
-            z: -220,
-                duration:5,
+            .to(this.map.position, {
+                x: 40,
+                y: 0,
+                z: -220,
+                duration: 5,
                 ease: "Power4.easeInOut"
-        },"<")
+            }, "<")
     }
 
     update() {
-        if(this.audioHandler) this.audioHandler.update();
-        if(this.mouseHandler) this.mouseHandler.update();
-        if(this.scenePoi) this.scenePoi.update()
+        if (this.audioHandler) this.audioHandler.update();
+        if (this.mouseHandler) this.mouseHandler.update();
+        if (this.scenePoi) this.scenePoi.update()
     }
 }

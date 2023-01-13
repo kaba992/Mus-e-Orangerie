@@ -10,6 +10,7 @@ export default class Entity {
         this.experience = new Experience()
         this.scene = this.experience.scene
         this.resources = this.experience.resources
+        this.renderer = this.experience.renderer.instance
         this.time = this.experience.time
         this.world = this.experience.world
         this.debug = this.experience.debug
