@@ -174,8 +174,11 @@ export default class World {
                     document.querySelector('.timeline').classList.remove('scene')
                     document.querySelector('.bottomBar').classList.remove('scene')
                     document.querySelector('.bottomHover').classList.remove('scene')
-
                 })
+                .set(
+                    ".timeline", {
+                        width: "100%",
+                    })
 
         }
         else{
@@ -214,6 +217,10 @@ export default class World {
                     document.querySelector('.bottomBar').classList.add('scene')
                     document.querySelector('.bottomHover').classList.add('scene')
                 })
+                .set(
+                    ".timeline", {
+                        width: "0%",
+                    })
         }
     }
 
