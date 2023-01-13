@@ -36,21 +36,21 @@ export default class AudioHandler extends Entity {
                     AudioHandler.audio.play()
 
                     gsap.to(
-                        ".bottomHover", {
+                        ".timeline", {
                         width: "100%",
                         duration: AudioHandler.audio._duration,
                     }
                     )
-                    gsap.to(
-                        ".bottomBar",
-                        {
-                            duration: 1,
-                            y: "85%",
-                            transformOrigin: "center center",
-                            // background: "rgba(0,0,0,1)",
-                            ease: "power4.out"
-                        }
-                    )
+                    // gsap.to(
+                    //     ".bottomBar",
+                    //     {
+                    //         duration: 1,
+                    //         y: "85%",
+                    //         transformOrigin: "center center",
+                    //         // background: "rgba(0,0,0,1)",
+                    //         ease: "power4.out"
+                    //     }
+                    // )
 
                     gsap.to(
                         ".lettre-container",
