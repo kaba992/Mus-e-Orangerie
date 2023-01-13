@@ -112,7 +112,7 @@ export default class World {
                     }
 
 
-                    if( this.counter == 3){
+                    if (this.counter == 3) {
                         this[params.namePlace].resetPos();
                         this.transitionBtnOrangerie()
                     } else {
@@ -129,10 +129,10 @@ export default class World {
                 this.handleInfoChanges(params);
                 this.map.visible = params.maps.includes(params.namePlace);
                 this.scenePoi.getMesh().visible = !params.maps.includes(params.namePlace);
-            },"<1")
-            .to(transition,{
-                opacity:0,
-                duration:0.5,
+            }, "<1")
+            .to(transition, {
+                opacity: 0,
+                duration: 0.5,
                 ease: "power2.easeIn"
             })
             .add(() => {
@@ -203,7 +203,7 @@ export default class World {
                 },
             )
             anim
-               
+
                 .to('p.leftInfo', {
                     opacity: 0,
                     pointerEvents: "none",
@@ -235,8 +235,8 @@ export default class World {
                 }, '<')
                 .add(() => {
                     document.querySelector('.timeline').classList.add('scene')
-                    if(this.state != "garage" && this.state != "oranger"){
-                        console.log("here",this.state)
+                    if (this.state != "garage" && this.state != "oranger") {
+                        console.log("here", this.state)
                         document.querySelector('.bottomBar').classList.add('scene');
 
                     }
@@ -249,21 +249,21 @@ export default class World {
     }
 
 
-    initWeb(){
-        document.querySelector('.startExp').addEventListener("click",() => {
+    initWeb() {
+        document.querySelector('.startExp').addEventListener("click", () => {
             console.log("test")
             let anim = gsap.timeline()
-            anim.to(".landingPage",{
-                opacity:0
-            }).to('.landingPage',{
-                display:"none"
+            anim.to(".landingPage", {
+                opacity: 0
+            }).to('.landingPage', {
+                display: "none"
             }).add(() => {
                 document.querySelector('.content').classList.remove("disabled")
             })
         })
     }
 
-    transitionTitle(path, back = false){
+    transitionTitle(path, back = false) {
         let active = document.querySelectorAll('.active');
         let data = null;
 
@@ -310,20 +310,18 @@ export default class World {
     transitionBtnOrangerie() {
         let anim = gsap.timeline()
 
-        anim.to('.mask',{
-            bottom:"15%",
+        anim.to('.mask', {
+            bottom: "25%",
         })
             .add(() => {
                 document.querySelector('.maskBtn').addEventListener("click", () => {
-                        this.transitionOrangerie();
-                        let anim2 = gsap.timeline()
-                        anim2.to(".mask", {
-                            bottom: "-10em",
-                        })
+                    this.transitionOrangerie();
+                    let anim2 = gsap.timeline()
+                    anim2.to(".mask", {
+                        bottom: "-10em",
                     })
                 })
-            }
-            )
+            })
     }
 
     transitionOrangerie() {

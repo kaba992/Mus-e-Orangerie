@@ -168,7 +168,7 @@ export default class Scene extends Entity {
             gsap.to(
                 this.objectContainer,
                 {
-                    x: "-175%",
+                    x: "-135%",
                     opacity: 1,
                     duration: 1,
                     ease: "power4.easeInOut",
