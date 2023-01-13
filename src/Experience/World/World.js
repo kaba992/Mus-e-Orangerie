@@ -111,7 +111,7 @@ export default class World {
                         this.counter += 1;
                     }
 
-                    if( this.counter == 1){
+                    if( this.counter == 3){
                         this[params.namePlace].resetPos();
                         this.transitionBtnOrangerie()
                     }else{
