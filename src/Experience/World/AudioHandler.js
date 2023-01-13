@@ -59,7 +59,13 @@ export default class AudioHandler extends Entity {
                 }
                 )
 
-            }
+                    gsap.to(
+                        ".timeline", {
+                        width: "100%",
+                        duration: AudioHandler.audio._duration,
+                    }
+                    )
+            
 
 
             gsap.to(
