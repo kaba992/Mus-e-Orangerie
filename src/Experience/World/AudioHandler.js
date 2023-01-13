@@ -50,15 +50,10 @@ export default class AudioHandler extends Entity {
 
         input.addEventListener("click", () => {
             if (AudioHandler.audio)  {
-               console.log("testttttt");
+          
                 AudioHandler.audio.play()
-                gsap.to(
-                    ".bottomHover", {
-                    width: "100%",
-                    duration: AudioHandler.audio._duration,
-                }
-                )
-
+             
+            
                     gsap.to(
                         ".timeline", {
                         width: "100%",
@@ -66,18 +61,9 @@ export default class AudioHandler extends Entity {
                     }
                     )
             
-
-
-            gsap.to(
-                ".bottomBar",
-                {
-                    duration: 1,
-                    y: "85%",
-                    transformOrigin: "center center",
-                    // background: "rgba(0,0,0,1)",
-                    ease: "power4.out"
                 }
-            )
+
+         
 
             gsap.to(
                 ".lettre-container",

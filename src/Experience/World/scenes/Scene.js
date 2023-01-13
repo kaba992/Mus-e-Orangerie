@@ -57,40 +57,12 @@ export default class Scene extends Entity {
         this.#setCurrentScene()
         this.setAudio()
         this.setGui(sceneName)
-        // this.setBottomBar()
 
 
-    }
-
-    setBottomBar() {
-        if(this.sceneName){
-            const bottomBar = document.querySelector('.bottomBar')
-
-            bottomBar.addEventListener('mouseenter', (event) => {
-                gsap.to(
-                    bottomBar, {
-                        duration: 1,
-                        y: "0%",
-                        transformOrigin: "center center",
-                        background: "#FDF9F0",
-                        ease: "power4.out"
-                    }
-                )
-            });
-            bottomBar.addEventListener('mouseleave', (event) => {
-                gsap.to(
-                    bottomBar, {
-                        duration: 1,
-                        y: "85%",
-                        transformOrigin: "center center",
-                        // background: "rgba(0,0,0,1)",
-                        ease: "power4.out"
-                    }
-                )
-            })
-        }
 
     }
+
+    
 
     setGui(sceneName) {
         if (this.debug.active && this.model) {
@@ -188,13 +160,15 @@ export default class Scene extends Entity {
             this._mesh.rotation.y = 1.8
            setTimeout(() => {
             AudioHandler.audio.play()
-         
+         if(AudioHandler.audio){
             gsap.to(
-                ".bottomHover", {
+                ".timeline", {
                 width: "100%",
                 duration: AudioHandler.audio._duration,
             }
             )
+         }
+          
           
            }, 1000);
         }
@@ -206,12 +180,15 @@ export default class Scene extends Entity {
                 AudioHandler.audio.play()
              
                
-                gsap.to(
-                    ".bottomHover", {
-                    width: "100%",
-                    duration: AudioHandler.audio._duration,
-                }
-                )
+                if(AudioHandler.audio){
+                    gsap.to(
+                        ".timeline", {
+                        width: "100%",
+                        duration: AudioHandler.audio._duration,
+                    }
+                    )
+                 }
+                  
               
                }, 1000);
         }
