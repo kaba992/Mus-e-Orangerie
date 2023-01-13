@@ -20,10 +20,10 @@ export default class Scene extends Entity {
         this.debug = this.experience.debug
         this.orangerMixer = null
 
-        this.camBack = document.querySelector(".camera-back")
-        this.camBack.addEventListener("click", () => {
-            this.mouseHandler.clearCurrentObj(this.cameraStart)
-        })
+        // this.camBack = document.querySelector(".camera-back")
+        // this.camBack.addEventListener("click", () => {
+        //     this.mouseHandler.clearCurrentObj(this.cameraStart)
+        // })
 
         if (this.debug.active) {
             this.debugFolder = this.debug.ui.addFolder('camera')
@@ -57,36 +57,39 @@ export default class Scene extends Entity {
         this.#setCurrentScene()
         this.setAudio()
         this.setGui(sceneName)
-        this.setBottomBar()
+        // this.setBottomBar()
 
 
     }
 
     setBottomBar() {
-        const bottomBar = document.querySelector('.bottomBar')
+        if(this.sceneName){
+            const bottomBar = document.querySelector('.bottomBar')
 
-        bottomBar.addEventListener('mouseenter', (event) => {
-            gsap.to(
-                bottomBar, {
-                duration: 1,
-                y: "0%",
-                transformOrigin: "center center",
-                background: "#FDF9F0",
-                ease: "power4.out"
-            }
-            )
-        });
-        bottomBar.addEventListener('mouseleave', (event) => {
-            gsap.to(
-                bottomBar, {
-                duration: 1,
-                y: "85%",
-                transformOrigin: "center center",
-                // background: "rgba(0,0,0,1)",
-                ease: "power4.out"
-            }
-            )
-        })
+            bottomBar.addEventListener('mouseenter', (event) => {
+                gsap.to(
+                    bottomBar, {
+                        duration: 1,
+                        y: "0%",
+                        transformOrigin: "center center",
+                        background: "#FDF9F0",
+                        ease: "power4.out"
+                    }
+                )
+            });
+            bottomBar.addEventListener('mouseleave', (event) => {
+                gsap.to(
+                    bottomBar, {
+                        duration: 1,
+                        y: "85%",
+                        transformOrigin: "center center",
+                        // background: "rgba(0,0,0,1)",
+                        ease: "power4.out"
+                    }
+                )
+            })
+        }
+
     }
 
     setGui(sceneName) {
@@ -151,7 +154,7 @@ export default class Scene extends Entity {
 
         AudioHandler.audio.on("end", () => {
             gsap.to(
-                ".bottomHover", {
+                ".timeline", {
                 width: "0%",
                 duration: 1,
                 ease: "power4.out"
@@ -165,36 +168,6 @@ export default class Scene extends Entity {
         this.objectTitle = document.querySelector(".object-title")
         this.objectContent = document.querySelector(".object-content")
         this.object = this.mouseHandler.getCurrentObject()
-
-
-        // if (this.object) {
-        //     this.objectTitle.innerHTML = this.#sceneInfo.description[this.object.name].title
-        //     this.objectContent.innerHTML = this.#sceneInfo.description[this.object.name].text
-        //     gsap.to(
-        //         this.objectContainer,
-        //         {
-        //             x: "-140%",
-        //             opacity: 1,
-        //             duration: 2,
-        //             ease: "power4.out",
-        //             delay: 1
-        //         }
-        //
-        //     )
-        // }else{
-        //    setTimeout(() => {
-        //     gsap.to(
-        //         this.objectContainer,
-        //         {
-        //             x: "160%",
-        //             opacity: 0,
-        //             duration: 2,
-        //             ease: "none",
-        //         }
-        //     )
-        //
-        //    }, 500);
-        // }
 
     }
 
@@ -243,9 +216,6 @@ export default class Scene extends Entity {
         })
         mouseHandler.addObjects(tabObj)
     }
-
-
-
 
     update() {
 

@@ -291,6 +291,16 @@ button{
 	color: var(--mainColor);
 	/* border-top: 2px solid var(--mainColor); */
 	z-index: 3;
+	transition: 0.5s all;
+}
+
+.bottomBar.scene{
+	transform: translateY(95%);
+}
+
+.bottomBar.scene:hover{
+	transform: translateY(0%);
+
 }
 
 .inputNav,.replayInput,.leftInfo{
@@ -320,9 +330,9 @@ p.leftInfo{
 	width:2em;
 }
 
-.back-map{
-	display: none;
-}
+/*.backmap{*/
+/*	display: none;*/
+/*}*/
 
 .infos{
 	text-align:center;
@@ -334,7 +344,7 @@ p.leftInfo{
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	font-size:2.5em;
+	font-size:2.25em;
 	text-transform:uppercase;
 	font-weight:bold;
 	height: 1.5em;
@@ -358,6 +368,7 @@ p.leftInfo{
 }
 
 .hubScene{
+	opacity: 0;
 	transition: opacity 0.15s;
 }
 
@@ -398,19 +409,31 @@ p.leftInfo{
 	height: 100%;
 	z-index: 99;
 }
+
 .lettre-container p{
 	color: #CF3232;
 
 }
+
 .bottomHover{
 	position: absolute;
-	top: 0;
-	left: 0;
-	width: 0%;
-	height: 3%;
-	background:#000;
+	left: 50%;
+	top: -1em;
+	transform: translate(-50%,-50%);
+	background: var(--mainColor);
+	border-radius: 50% 50% 0 0;
+	padding: 0.5em 1em;
+	z-index: -1;
+	color: var(--bgColor);
+	opacity: 0;
+	pointer-events:none;
+	transition:0.25s all;
+}
 
-
+.bottomHover.scene {
+	display: inline-block;
+	opacity:1;
+	pointer-events:auto;
 }
 
 .mask{
@@ -430,3 +453,23 @@ p.leftInfo{
 	transform: translate(-50%,-50%);
 }
 
+.leftBlock{
+
+	width: 10em;
+}
+
+.timeline{
+	position: absolute;
+	display: inline-block;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width:100%;
+	height: 2px;
+	background: var(--mainColor);
+	transition: 0.25s width;
+}
+
+.timeline.scene{
+	width: 0%;
+}

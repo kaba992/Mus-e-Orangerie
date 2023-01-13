@@ -87,7 +87,8 @@ export default class World {
         })
             .to(transition,{
                 opacity:1,
-                duration:0.25
+                duration:0.5,
+                ease: "power2.easeOut"
             })
             .add(() => {
                 if(params.inMap){
@@ -98,7 +99,7 @@ export default class World {
                         this.counter += 1;
                     }
 
-                    if( this.counter == 1){
+                    if( this.counter == 3){
                         this[params.namePlace].resetPos();
                         this.transitionBtnOrangerie()
                     }else{
@@ -118,7 +119,8 @@ export default class World {
             },"<0.5")
             .to(transition,{
                 opacity:0,
-                duration:1
+                duration:0.5,
+                ease: "power2.easeIn"
             })
             .add(() => {
                 this.inTrans = false
@@ -133,19 +135,92 @@ export default class World {
      * @param params
      */
     handleInfoChanges(params){
-        if(this.state == "map"){
-            document.querySelector("p.leftInfo").classList.remove("hidden")
-            document.querySelector("button.leftInfo").classList.add("hidden")
-            document.querySelector("button.leftInfo").classList.remove("scene")
-            document.querySelector("button.replayInput").classList.remove("scene")
-            document.querySelector(".hubScene").classList.add("hidden")
+        let anim = gsap.timeline()
+        let isMap = this.state == "map";
+        const duration = 0.5
+
+        if(isMap){
+            anim
+                .to('.backmap',{
+                    opacity:0,
+                    pointerEvents: "none",
+                    duration:duration
+                })
+                .to('button.replayInput',{
+                    opacity:0,
+                    pointerEvents:"none",
+                    duration:duration
+                },'<')
+                .to(".hubScene",{
+                    opacity:0,
+                    pointerEvents: "none",
+                    duration:duration
+                },'<')
+                .add(() => {
+                    document.querySelector('p.leftInfo').classList.remove('hidden')
+                },'<')
+                .add(() => {
+                    document.querySelector('.backmap').classList.add('hidden')
+                },'<')
+                .add(() => {
+                    document.querySelector('.hubScene').classList.add('hidden')
+                },'<')
+                .to('p.leftInfo',{
+                    opacity:1,
+                    pointerEvents: "auto",
+                    duration:duration
+                },"<")
+                .add(() => {
+                    document.querySelector('.timeline').classList.remove('scene')
+                    document.querySelector('.bottomBar').classList.remove('scene')
+                    document.querySelector('.bottomHover').classList.remove('scene')
+                })
+                .set(
+                    ".timeline", {
+                        width: "100%",
+                    })
+
         }
         else{
-            document.querySelector("p.leftInfo").classList.add("hidden")
-            document.querySelector("button.leftInfo").classList.remove("hidden")
-            document.querySelector("button.leftInfo").classList.add("scene")
-            document.querySelector("button.replayInput").classList.add("scene")
-            document.querySelector(".hubScene").classList.remove("hidden")
+            anim
+                .to('p.leftInfo',{
+                    opacity:0,
+                    pointerEvents: "none",
+                    duration:duration
+                })
+                .add(() => {
+                    document.querySelector('p.leftInfo').classList.add('hidden')
+                },'<')
+                .add(() => {
+                    document.querySelector('.backmap').classList.remove('hidden')
+                },'<')
+                .add(() => {
+                    document.querySelector('.hubScene').classList.remove('hidden')
+                },'<')
+                .to('button.replayInput',{
+                    opacity:1,
+                    pointerEvents:"auto",
+                    duration:duration
+                })
+                .to('.backmap',{
+                    opacity:1,
+                    pointerEvents: "auto",
+                    duration:duration
+                },'<')
+                .to(".hubScene",{
+                    opacity:1,
+                    pointerEvents: "auto",
+                    duration:duration
+                },'<')
+                .add(() => {
+                    document.querySelector('.timeline').classList.add('scene')
+                    document.querySelector('.bottomBar').classList.add('scene')
+                    document.querySelector('.bottomHover').classList.add('scene')
+                })
+                .set(
+                    ".timeline", {
+                        width: "0%",
+                    })
         }
     }
 
