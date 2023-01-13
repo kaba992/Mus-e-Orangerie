@@ -8,6 +8,7 @@ export default class AudioHandler extends Entity {
     subtitle = document.querySelector('.subtitle')
     currentSrc = null;
     webVTTParser
+    audioStoped
     static audio = null
     static subtitlesCues = null
 
@@ -18,6 +19,10 @@ export default class AudioHandler extends Entity {
         this.webVTTParser = new WebVTTParser()
         AudioHandler.instance = this;
 
+
+        this.subtitles = null
+
+
     }
 
     setAudio(src, subtitleFile) {
@@ -25,9 +30,27 @@ export default class AudioHandler extends Entity {
         this.currentSrc = subtitleFile;
     }
 
+    resetAudio(){
+        AudioHandler.audio.stop()
+        AudioHandler.audio._duration =0
+    }
+
     initInput(input) {
+        window.fetch(this.currentSrc)
+            .then(response => response.text())
+            .then(data => {
+                this.subtitles = this.webVTTParser.parse(data);
+
+                AudioHandler.subtitlesCues = this.subtitles.cues;
+                console.log(this.subtitles.cues);
+
+
+            })
+            .catch(error => console.log(error));
 
         input.addEventListener("click", () => {
+
+
             window.fetch(this.currentSrc)
                 .then(response => response.text())
                 .then(data => {
@@ -41,17 +64,7 @@ export default class AudioHandler extends Entity {
                         duration: AudioHandler.audio._duration,
                     }
                     )
-                    // gsap.to(
-                    //     ".bottomBar",
-                    //     {
-                    //         duration: 1,
-                    //         y: "85%",
-                    //         transformOrigin: "center center",
-                    //         // background: "rgba(0,0,0,1)",
-                    //         ease: "power4.out"
-                    //     }
-                    // )
-
+         
                     gsap.to(
                         ".lettre-container",
                         {
@@ -63,13 +76,16 @@ export default class AudioHandler extends Entity {
                 })
                 .catch(error => console.log(error));
 
+
         })
 
     }
 
     update() {
 
+   
         if (AudioHandler.audio && AudioHandler.audio.playing()) {
+            AudioHandler.audioPlaying = true
             const time = AudioHandler.audio.seek()
 
             const cues = AudioHandler.subtitlesCues
@@ -81,15 +97,7 @@ export default class AudioHandler extends Entity {
                 this.subtitle.innerHTML = "";
             }
         } else {
-            if(document.querySelector('.soundAnim')){
-                gsap.set(
-                    ".soundAnim",
-                    {
-                        width: "0%",
-
-                    }
-                )
-            }
+          
 
         }
     }
