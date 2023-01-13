@@ -97,33 +97,33 @@ export default class Scene extends Entity {
             this.debugFolder.add(this.model.scene.rotation, 'y').min(0).max(Math.PI * 2).step(0.0001).name('rotationY')
             this.debugFolder.add(this.model.scene.rotation, 'z').min(0).max(Math.PI * 2).step(0.0001).name('rotationZ')
         }
-        if (sceneName === "laurencin" && this.model) {
-            this.model.scene.rotation.y = 1.8
+        // if (sceneName === "laurencin" && this.model) {
+        //     this.model.scene.rotation.y = 1.8
 
-        }
-        if (sceneName === "utrillo" && this.model) {
-            this.model.scene.rotation.y = 5
-            this.model.scene.scale.set(2, 2, 2)
+        // }
+        // if (sceneName === "utrillo" && this.model) {
+        //     this.model.scene.rotation.y = 5
+        //     this.model.scene.scale.set(2, 2, 2)
 
-        }
-        if (sceneName === "garage" && this.model) {
-            gsap.to(
-                ".lettre-container",
-                {
-                    bottom: '0%',
-                    duration: 1.5,
-                    ease: "power4.out"
-                }
-            )
-        }
-        if (sceneName === "oranger" && this.model) {
-            this.orangerMixer = new THREE.AnimationMixer(this.model.scene)
-            const clips = this.model.animations
-            const clip = THREE.AnimationClip.findByName(clips, 'MorphBake');
-            this.action = this.orangerMixer.clipAction(clip)
+        // }
+        // if (sceneName === "garage" && this.model) {
+        //     gsap.to(
+        //         ".lettre-container",
+        //         {
+        //             bottom: '0%',
+        //             duration: 1.5,
+        //             ease: "power4.out"
+        //         }
+        //     )
+        // }
+        // if (sceneName === "oranger" && this.model) {
+        //     this.orangerMixer = new THREE.AnimationMixer(this.model.scene)
+        //     const clips = this.model.animations
+        //     const clip = THREE.AnimationClip.findByName(clips, 'MorphBake');
+        //     this.action = this.orangerMixer.clipAction(clip)
 
-            this.action.play()
-        }
+        //     this.action.play()
+        // }
 
         if (sceneName && sceneName != "garage") {
             gsap.to(
@@ -221,10 +221,47 @@ export default class Scene extends Entity {
         this._mesh.position.set(this.#sceneInfo.position.x, this.#sceneInfo.position.y, this.#sceneInfo.position.z)
         if (this.sceneName == "laurencin") {
             this._mesh.rotation.y = 1.8
+           setTimeout(() => {
+            AudioHandler.audio.play()
+            gsap.to(
+                ".bottomHover", {
+                width: "100%",
+                duration: AudioHandler.audio._duration,
+            }
+            )
+           }, 1000);
         }
         else if (this.sceneName == "utrillo") {
             this._mesh.rotation.y = 5
             this._mesh.scale.set(2, 2, 2)
+            setTimeout(() => {
+                
+                AudioHandler.audio.play()
+                gsap.to(
+                    ".bottomHover", {
+                    width: "100%",
+                    duration: AudioHandler.audio._duration,
+                }
+                )
+               }, 1000);
+        }
+        else if (this.sceneName == "garage") {
+            gsap.to(
+                ".lettre-container",
+                {
+                    bottom: '0%',
+                    duration: 1.5,
+                    ease: "power4.out"
+                }
+            )
+        }
+        else if (this.sceneName == "oranger") {
+            this.orangerMixer = new THREE.AnimationMixer(this.model.scene)
+            const clips = this.model.animations
+            const clip = THREE.AnimationClip.findByName(clips, 'MorphBake');
+            this.action = this.orangerMixer.clipAction(clip)
+
+            this.action.play()
         }
         this.#addObjectList()
         this.scene.add(this._mesh)
