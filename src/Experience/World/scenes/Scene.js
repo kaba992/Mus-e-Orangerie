@@ -129,9 +129,6 @@ export default class Scene extends Entity {
            }, 500);
         }
 
-       
-
-
     }
 
     manageClickHandler(destroy = false) {
@@ -240,7 +237,7 @@ export default class Scene extends Entity {
     update() {
 
         if (this.mouseHandler) {
-            this.setUi()
+            // this.setUi()
         }
         if (this.model && this.sceneName == "oranger") {
             this.orangerMixer.update(this.clock.getDelta() * 0.5)
