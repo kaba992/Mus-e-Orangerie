@@ -83,7 +83,10 @@ export default class MouseHandler extends Entity {
         else{
             if(MouseHandler.currentObj && this.objNav.includes(MouseHandler.currentObj.name) && !this.world.inTrans){
                     this.world.inTrans = true;
-                    this.world.initSceneState(MouseHandler.currentObj.name);
+                    setTimeout(() => {
+                        this.world.initSceneState(MouseHandler.currentObj.name);
+
+                    },1000)
             }
         }
     }

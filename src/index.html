@@ -4,60 +4,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700&family=Pavanam&display=swap" rel="stylesheet">
-    <title>A deux mains</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700&family=Nothing+You+Could+Do&family=Pavanam&display=swap" rel="stylesheet">    <title>A deux mains</title>
 </head>
 
 <body>
-    <canvas class="webgl"></canvas>
-    <div class="transition"></div>
 
-
-    <img src="/static/textures/paper.png" alt="" class="textureImg">
-    <div class="frame">
-        <div class="frame2"></div>
+    <div class="landingPage">
+        <div class="landingContent">
+            <h1 class="logo">À deux mains,</h1>
+            <p class="contentLand">Découvrez les correspondances entre Guillaume Apollinaire et Paul Guillaume qui ont permis la naissance de la collection “Les Arts à Paris” au Musée de l’Orangerie.</p>
+            <button class="startExp">Commencer</button>
+        </div>
     </div>
-    <div class="mask">
-        <button class="maskBtn">
-            <img src="/static/icons/fleche.svg" alt="" class="maskArrow">
-        </button>
-    </div>
+    <div class="content disabled">
+        <canvas class="webgl"></canvas>
+        <div class="transition"></div>
 
 
-    <nav class="bottomBar">
-        <button class="bottomHover">Révéler</button>
-        <span class="timeline"></span>
-        <div class="leftBlock">
-            <p class="leftInfo">Première lettre</p>
-            <button class="leftInfo backmap hidden"><img src="/static/icons/arrow.svg" alt=""> Retour carte</button>
+        <img src="/static/textures/paper.png" alt="" class="textureImg">
+        <div class="frame">
+            <div class="frame2"></div>
         </div>
-        <div class="infos">
-            <div class="subTitle">
-                <h3 class="active">Quartier</h3>
+        <div class="mask">
+            <button class="maskBtn">
+                <img src="/static/icons/fleche.svg" alt="" class="maskArrow">
+            </button>
+        </div>
+
+
+        <nav class="bottomBar">
+            <span class="timeline"></span>
+            <div class="leftBlock">
+                <p class="leftInfo"></p>
+                <button class="leftInfo backmap hidden"><img src="/static/icons/arrow.svg" alt=""> Retour carte</button>
             </div>
-            <div class="title">
-                <h2 class="active">montmatre</h2>
+            <div class="infos">
+                <div class="subTitle">
+                    <h3 class="active">Quartier</h3>
+                </div>
+                <div class="title">
+                    <h2 class="active">montmartre</h2>
+                </div>
             </div>
-        </div>
-        <button class="replayInput">Réécouter l'audio<img src="/static/icons/replay.svg" alt=""></button>
-    </nav>
+            <button class="replayInput">Réécouter l'audio<img src="/static/icons/replay.svg" alt=""></button>
+        </nav>
 
 
-    <div class="hubScene">
-        <div class="objects-description">
-            <h3 class="object-title"></h3>
-            <p class="object-content">
+        <div class="hubScene">
+            <div class="objects-description">
+                <h3 class="object-title"></h3>
+                <p class="object-content">
 
-            </p>
-        </div>
-        <div class="subtitle"></div>
-        <div class="lettre-container">
-            <img src="/static/ui/lettre-garage.png" alt="lettre" class="lettreGarage">
-            <div class="start-audio scene">
-                <p>Écouter</p>
+                </p>
             </div>
+            <p class="subtitle"></p>
+            <div class="lettre-container">
+                <img src="/static/ui/lettre-garage.png" alt="lettre" class="lettreGarage">
+                <div class="start-audio scene">
+                    <p>Écouter</p>
+                </div>
+            </div>
+
         </div>
-     
     </div>
 
 </body>
