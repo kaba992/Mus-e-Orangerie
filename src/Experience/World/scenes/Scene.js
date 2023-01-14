@@ -64,6 +64,9 @@ export default class Scene extends Entity {
         // this.setBottomBar()
         // this.getObjectList()
 
+         
+            
+
 
     }
 
@@ -76,17 +79,8 @@ export default class Scene extends Entity {
             // create div dependint objects length
             const div = document.createElement("div")
             div.classList.add("annotation")
-            div.classList.add(objects[i])
+            document.body.appendChild(div)
             this.htmlElement.push(div)
-
-
-
-            // const htmlElement = document.createElement('div')
-            // htmlElement.classList.add('annotation')
-            // var position = this.setAnnotation(this.renderer, this.camera, object)
-            // htmlElement.style.position = "absolute"
-            // htmlElement.style.left = position.x + "px"
-            // htmlElement.style.top = position.y  + "px"
         }
 
     }
@@ -174,6 +168,13 @@ export default class Scene extends Entity {
                 }
 
             )
+            gsap.set(
+                '.annotation',
+                {
+                    display: "none",
+                    opacity: 0,
+                }
+            )
         } else {
             gsap.to(
                 this.objectContainer,
@@ -184,6 +185,14 @@ export default class Scene extends Entity {
                     ease: "power4.easeOut",
                 }
             )
+            gsap.set(
+                '.annotation',
+                {
+                    opacity: 1,
+                    display:"block",
+                    delay:0.5
+                }
+            )
         }
 
 
@@ -192,6 +201,14 @@ export default class Scene extends Entity {
     }
 
     #setCurrentScene() {
+        setTimeout(() => {
+            gsap.set(
+                ".annotation",{
+                    display:"block",
+                    
+                }
+            )
+           }, 2500);
         this._mesh = this.model.scene
         this._mesh.position.set(this.#sceneInfo.position.x, this.#sceneInfo.position.y, this.#sceneInfo.position.z)
         if (this.sceneName == "laurencin") {
@@ -251,20 +268,17 @@ export default class Scene extends Entity {
         if (AudioHandler.audio && AudioHandler.audio._duration) {
             console.log(AudioHandler.audio._duration)
         }
-        if (this.world.state != "map" && this.mouseHandler) {
-            // this.getObjectList()
-            // this.annotation = false
-            // console.log(this.objects, this.htmlElement);
-            // this.objects.forEach(obj => {
-            //     const position = this.setAnnotation(this.renderer, this.camera, obj)
-            //     this.htmlElement.forEach(element, () => {
-            //         element.style.left = position.x + "px";
-            //         element.style.top = position.y + "px";
 
 
-            //     })
-            // })
+        if (this.objects && this.htmlElement) {
+            const positions = []
+            for (let i = 0; i < this.objects.length; i++) {
+                positions.push(this.setAnnotation(this.renderer, this.camera, this.objects[i]))
+                this.htmlElement[i].style.position = "absolute"
+                this.htmlElement[i].style.left = positions[i].x + "px"
+                this.htmlElement[i].style.top = positions[i].y + "px"
+
+            }
         }
-
     }
 }

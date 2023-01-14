@@ -33,8 +33,7 @@ export default class World {
             console.log(this.ambiance);
             this.ambiance.play()
             this.ambiance.loop()
-            this.ambiance.volume(0.5)
-            console.log("looop");
+            this.ambiance.volume(0.08)
         })
 
         this.resources.on('ready', () => {
@@ -60,6 +59,10 @@ export default class World {
     initUI() {
         document.querySelector('.backmap').addEventListener('click', () => {
             this.initSceneState("montmartre")
+            console.log(this.scenePoi);
+            this.scenePoi.objects = []
+            const annotation = document.querySelector(".annotation")
+            document.body.removeChild(annotation)
         })
     }
 
@@ -136,8 +139,9 @@ export default class World {
                 else {
                     this.scenePoi.initScene(params.namePlace);
                     this.experience.composerEnable = true;
-                    this.prevPlace = params.namePlace
-               
+                    const newLocal = this;
+                    newLocal.prevPlace = params.namePlace
+
 
                 }
                 this.handleInfoChanges(params);
