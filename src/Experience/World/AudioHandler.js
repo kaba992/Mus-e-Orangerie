@@ -33,14 +33,13 @@ export default class AudioHandler extends Entity {
         AudioHandler.audio.on("end", () => {
             gsap.to(
                 ".timeline", {
-                    width: "0%",
-                    duration: 1,
-                    ease: "power4.out"
-                }
+                width: "0%",
+                duration: 1,
+                ease: "power4.out"
+            }
             )
             Scene.finishedOnce = true;
             AudioHandler.audio.stop()
-            AudioHandler.audio = null;
             this.subtitle.innerHTML = "";
             this.subtitle.style.backgroundColor = "transparent";
 
@@ -49,18 +48,18 @@ export default class AudioHandler extends Entity {
         this.currentSrc = subtitleFile;
     }
 
-    resetAudio(){
+    resetAudio() {
         AudioHandler.audio.stop()
         Scene.finishedOnce = false;
-        AudioHandler.audio._duration =0
+        AudioHandler.audio._duration = 0
         this.anim.kill();
         this.subtitle.innerHTML = "";
         this.subtitle.style.backgroundColor = "transparent";
 
         gsap.to(
             '.timeline', {
-                width: "100%",
-            })
+            width: "100%",
+        })
 
     }
 
@@ -88,15 +87,15 @@ export default class AudioHandler extends Entity {
                     this.anim = gsap.timeline()
                     AudioHandler.audio.play()
                     AudioHandler.subtitlesCues = subtitles.cues;
-                    this.anim .to(".timeline", {
+                    this.anim.to(".timeline", {
                         width: "0%",
                     })
                         .to(
-                        ".timeline", {
-                        width: "100%",
-                        duration: AudioHandler.audio._duration,
-                    })
-         
+                            ".timeline", {
+                            width: "100%",
+                            duration: AudioHandler.audio._duration,
+                        })
+
                     gsap.to(
                         ".lettre-container",
                         {
@@ -116,7 +115,7 @@ export default class AudioHandler extends Entity {
 
     update() {
 
-   
+
         if (AudioHandler.audio && AudioHandler.audio.playing()) {
             AudioHandler.audioPlaying = true
             const time = AudioHandler.audio.seek()
@@ -137,23 +136,23 @@ export default class AudioHandler extends Entity {
             && !Scene.finishedOnce
             && this.world.state != "map"
             && AudioHandler.audio._duration > 3
-        ){
-            if(!["oranger","garage"].includes(this.world.state)){
-                if(this.anim){
+        ) {
+            if (!["oranger", "garage"].includes(this.world.state)) {
+                if (this.anim) {
                     this.anim.kill();
                 }
                 AudioHandler.audio.play()
-                this.anim  = gsap.timeline()
-                this.anim .to(
+                this.anim = gsap.timeline()
+                this.anim.to(
                     '.timeline', {
-                        width: "0%",
-                    })
+                    width: "0%",
+                })
                     .to(
                         ".timeline", {
-                            width: "100%",
-                            duration: AudioHandler.audio._duration,
-                        }
-                        ,'>0.5'
+                        width: "100%",
+                        duration: AudioHandler.audio._duration,
+                    }
+                        , '>0.5'
                     )
             }
         }

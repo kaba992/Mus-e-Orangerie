@@ -168,7 +168,7 @@ button {
 	width: 450px;
 	opacity: 0;
 	text-align: left;
-	padding: 2rem;
+    padding: 1.5rem;
 	background: #ffffff;
 	border: 1px solid #502432;
 	border-radius: 4px;
@@ -386,7 +386,7 @@ p.leftInfo {
 	bottom: -100%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	z-index: 2;
+	z-index: 10;
 }
 
 .lettre-container img {
@@ -461,12 +461,12 @@ p.leftInfo {
 }
 
 .annotation {
-	position: absolute;
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
 	background: #cf3232;
 	transition: all 1s ease-in-out;
+	display: none;
 }
 
 .annotation::after {
