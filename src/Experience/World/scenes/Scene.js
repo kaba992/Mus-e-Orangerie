@@ -20,14 +20,6 @@ export default class Scene extends Entity {
 
         this.debug = this.experience.debug
         this.orangerMixer = null
-        this.annotation = true
-        this.objects = []
-        this.htmlElement = []
-
-        // this.camBack = document.querySelector(".camera-back")
-        // this.camBack.addEventListener("click", () => {
-        //     this.mouseHandler.clearCurrentObj(this.cameraStart)
-        // })
 
         if (this.debug.active) {
             this.debugFolder = this.debug.ui.addFolder('camera')
@@ -61,29 +53,9 @@ export default class Scene extends Entity {
         this.#setCurrentScene()
         this.setAudio()
         this.setGui(sceneName)
-        // this.setBottomBar()
-        // this.getObjectList()
-
-         
-            
-
 
     }
 
-    getObjectList() {
-        const objects = this.mouseHandler.getListObject()
-
-        // set html element on each object with setAnotation function
-        for (let i = 0; i < objects.length; i++) {
-            this.objects.push(objects[i])
-            // create div dependint objects length
-            const div = document.createElement("div")
-            div.classList.add("annotation")
-            document.body.appendChild(div)
-            this.htmlElement.push(div)
-        }
-
-    }
 
     setAnnotation(renderer, camera, object3d) {
         const vector = new THREE.Vector3();
@@ -96,36 +68,6 @@ export default class Scene extends Entity {
         vector.y = Math.round((1 - vector.y) / 2 * domRect.height) + domRect.top;
 
         return vector;
-    }
-
-    setBottomBar() {
-        if (this.sceneName) {
-            const bottomBar = document.querySelector('.bottomBar')
-
-            bottomBar.addEventListener('mouseenter', (event) => {
-                gsap.to(
-                    bottomBar, {
-                    duration: 1,
-                    y: "0%",
-                    transformOrigin: "center center",
-                    background: "#FDF9F0",
-                    ease: "power4.out"
-                }
-                )
-            });
-            bottomBar.addEventListener('mouseleave', (event) => {
-                gsap.to(
-                    bottomBar, {
-                    duration: 1,
-                    y: "85%",
-                    transformOrigin: "center center",
-                    // background: "rgba(0,0,0,1)",
-                    ease: "power4.out"
-                }
-                )
-            })
-        }
-
     }
 
     setGui(sceneName) {
@@ -153,12 +95,12 @@ export default class Scene extends Entity {
         this.objectTitle = document.querySelector(".object-title")
         this.objectContent = document.querySelector(".object-content")
 
-
+        const tl = gsap.timeline()
 
         if (isIn) {
             this.objectTitle.innerHTML = this.#sceneInfo.description[MouseHandler.currentObj.name].title
             this.objectContent.innerHTML = this.#sceneInfo.description[MouseHandler.currentObj.name].text
-            gsap.to(
+            tl.to(
                 this.objectContainer,
                 {
                     x: "-135%",
@@ -168,15 +110,14 @@ export default class Scene extends Entity {
                 }
 
             )
-            gsap.set(
+            .set(
                 '.annotation',
                 {
-                    display: "none",
                     opacity: 0,
-                }
+                },"<"
             )
         } else {
-            gsap.to(
+            tl.to(
                 this.objectContainer,
                 {
                     x: "160%",
@@ -185,13 +126,13 @@ export default class Scene extends Entity {
                     ease: "power4.easeOut",
                 }
             )
-            gsap.set(
+            .to(
                 '.annotation',
                 {
                     opacity: 1,
-                    display:"block",
-                    delay:0.5
-                }
+                    duration:1,
+                    delay: 1.5
+                },"<"
             )
         }
 
@@ -201,14 +142,6 @@ export default class Scene extends Entity {
     }
 
     #setCurrentScene() {
-        setTimeout(() => {
-            gsap.set(
-                ".annotation",{
-                    display:"block",
-                    
-                }
-            )
-           }, 2500);
         this._mesh = this.model.scene
         this._mesh.position.set(this.#sceneInfo.position.x, this.#sceneInfo.position.y, this.#sceneInfo.position.z)
         if (this.sceneName == "laurencin") {
@@ -251,14 +184,17 @@ export default class Scene extends Entity {
     }
 
     #addObjectList() {
+        document.querySelectorAll('.annotation').forEach(elt => elt.classList.add("hidden"))
         const mouseHandler = new MouseHandler();
         mouseHandler.clearListObjects()
         const tabObj = [];
-        this.#sceneInfo.objList.forEach(obj => {
+        this.#sceneInfo.objList.forEach((obj,i) => {
+            document.querySelectorAll('.annotation')[i].classList.remove("hidden")
             let objCurrent = this._mesh.getObjectByName(obj);
             if (objCurrent) tabObj.push(objCurrent);
         })
         mouseHandler.addObjects(tabObj)
+        this.objects = mouseHandler.getListObject()
     }
 
     update() {
@@ -268,15 +204,11 @@ export default class Scene extends Entity {
         if (AudioHandler.audio && AudioHandler.audio._duration) {
             console.log(AudioHandler.audio._duration)
         }
-
-
-        if (this.objects && this.htmlElement) {
-            const positions = []
+        if (this.objects && this.objects.length > 0) {
             for (let i = 0; i < this.objects.length; i++) {
-                positions.push(this.setAnnotation(this.renderer, this.camera, this.objects[i]))
-                this.htmlElement[i].style.position = "absolute"
-                this.htmlElement[i].style.left = positions[i].x + "px"
-                this.htmlElement[i].style.top = positions[i].y + "px"
+                const annotation = document.querySelectorAll(".annotation")[i]
+                const pos = this.setAnnotation(this.renderer, this.camera, this.objects[i])
+                annotation.style.transform = `translate(${pos.x}px,${pos.y}px)`;
 
             }
         }

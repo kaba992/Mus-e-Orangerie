@@ -61,8 +61,6 @@ export default class World {
             this.initSceneState("montmartre")
             console.log(this.scenePoi);
             this.scenePoi.objects = []
-            const annotation = document.querySelector(".annotation")
-            document.body.removeChild(annotation)
         })
     }
 
@@ -90,10 +88,9 @@ export default class World {
         }
         else {
             this.state = namePlace;
-
-
         }
 
+        this.scenePoi.objects = [];
         this.transitionAnimation({ maps, inMap, namePlace })
     }
 
