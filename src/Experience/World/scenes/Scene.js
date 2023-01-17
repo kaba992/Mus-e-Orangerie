@@ -102,16 +102,8 @@ export default class Scene extends Entity {
         })
         const toggleAudio = document.querySelector(".toggle-audio")
         toggleAudio.addEventListener("click", () => {
-            if (this.muted) {
-                AudioHandler.audio.mute(false)
-                this.muted = false
-            }
-            else {
-                AudioHandler.audio.mute(true)
-                this.muted = true
-                console.log("muted");
-            }
-            
+            AudioHandler.audio.mute(!AudioHandler.audio.mute())
+
         })
 
         this.audioHandler.initInput(this.startAudio)

@@ -1,0 +1,584 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+:root {
+	font-size: 18px;
+}
+
+html,
+body {
+	overflow: hidden;
+	height: 100%;
+	width: 100%;
+	background: #fdf9f0;
+	--bgColor: #fdf9f0;
+	--mainColor: #502432;
+}
+
+body p,
+button,
+span {
+	font-family: "Pavanam";
+}
+
+body h1,
+h2,
+h3,
+h4 {
+	font-family: "Abhaya Libre";
+}
+
+.hidden {
+	display: none !important;
+}
+
+button {
+	padding: 0;
+	background: none;
+	border: none;
+	font-size: 1rem;
+}
+
+.webgl {
+	position: absolute;
+	top: 0;
+	left: 0;
+	outline: none;
+	z-index: 0;
+}
+
+.textureImg {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	opacity: 0.25;
+	z-index: 5;
+	pointer-events: none;
+}
+
+.camera-back {
+	position: absolute;
+	top: 3%;
+	left: 20%;
+	height: 50px;
+	width: 50px;
+	background-color: #c3ff00;
+	z-index: 999;
+}
+
+.subtitle {
+	position: absolute;
+	bottom: 15%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 1rem;
+	color: var(--bgColor);
+	background: transparent;
+	z-index: 50;
+	text-align: center;
+	padding: 0.25em 0.5em;
+}
+
+.scenes {
+	position: relative;
+}
+.header {
+	position: absolute;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 80px;
+	background-color: transparent;
+	z-index: 99;
+}
+
+.back {
+	padding-left: 1rem;
+	margin-bottom: 1.2rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.back p {
+	font-family: "Abhaya Libre";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 24px;
+	line-height: 28px;
+
+	color: #000000;
+}
+.back img {
+	width: 95px;
+	justify-content: center;
+}
+
+.scene-name {
+	font-family: "Abhaya Libre";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 36px;
+	line-height: 42px;
+	text-transform: uppercase;
+	color: #000000;
+}
+.start-audio {
+	position: absolute;
+	bottom: 18%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 99;
+	cursor: pointer;
+}
+.start-audio p::after {
+	position: absolute;
+	top: 106%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	content: "";
+	width: 80%;
+	height: 2px;
+	background: #cf3232;
+
+	z-index: 99;
+}
+.start-audio p {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 1rem;
+	color: #fff;
+	z-index: 99;
+}
+.objects-description {
+	position: absolute;
+	bottom: 40%;
+	right: -32%;
+	width: 450px;
+	opacity: 0;
+	text-align: left;
+    padding: 1.5rem;
+	background: #ffffff;
+	border: 1px solid #502432;
+	border-radius: 4px;
+	color: #000000;
+
+	z-index: 2;
+}
+
+.object-title {
+	text-align: left;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 2rem;
+	line-height: 83px;
+	text-transform: uppercase;
+}
+
+.object-content {
+	font-style: normal;
+	font-weight: 400;
+	font-size: 1rem;
+	line-height: 31px;
+	margin: 0.5em auto;
+}
+
+.object-title::after {
+	position: absolute;
+	width: 70%;
+	height: 100%;
+	top: 109px;
+	left: 50%;
+	content: "";
+	width: 85%;
+	height: 1px;
+	background-color: #000;
+	bottom: 20px;
+	transform: translate(-50%, -50%);
+}
+
+.frame {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border: 20px solid var(--bgColor);
+	pointer-events: none;
+	z-index: 5;
+}
+
+.frame:before {
+	position: absolute;
+	content: "";
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: calc(100%);
+	height: calc(100%);
+	border: 2px solid var(--mainColor);
+	z-index: 2;
+}
+
+.frame2 {
+	position: absolute;
+	content: "";
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: calc(100%);
+	height: calc(100%);
+	/*background:#FDF9F0;*/
+	border: 20px solid var(--bgColor);
+	z-index: 10;
+}
+
+.frame2:after {
+	position: absolute;
+	content: "";
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: calc(100%);
+	height: calc(100%);
+	border: 2px solid var(--mainColor);
+	z-index: 2;
+}
+
+.frame2:before {
+	position: absolute;
+	content: "";
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: calc(100% + 15px);
+	height: calc(100% + 15px);
+	border: 6px solid var(--mainColor);
+	z-index: 2;
+}
+
+.bottomBar {
+	position: absolute;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
+	bottom: 40px;
+	background: var(--bgColor);
+	min-height: 8rem;
+	width: 100%;
+	margin-top: 80vh;
+	padding: 0 40px;
+	color: var(--mainColor);
+	/* border-top: 2px solid var(--mainColor); */
+	z-index: 3;
+	transition: 0.5s all;
+}
+
+.bottomBar.scene{
+	transform: translateY(85%);
+}
+
+.bottomBar.scene:hover {
+	transform: translateY(0%);
+}
+
+.replayInput{
+	display: none;
+}
+
+.inputNav,
+.replayInput,
+.leftInfo {
+	position: absolute;
+	top: 5em;
+	right: 5em;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 0.75em;
+	transition: all 0.15s;
+}
+
+
+
+.replayInput,
+.leftInfo {
+	position: relative;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	pointer-events: none;
+}
+p.leftInfo {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.inputNav img {
+	width: 2em;
+}
+
+.infos {
+	text-align: center;
+	min-width: 50vw;
+	max-width: 50vw;
+}
+
+.title {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	font-size: 2.25em;
+	text-transform: uppercase;
+	font-weight: bold;
+	height: 1.5em;
+	overflow: hidden;
+}
+
+.subTitle {
+	height: 1em;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	text-transform: capitalize;
+}
+
+.active {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	white-space: nowrap;
+}
+
+.hubScene {
+	opacity: 0;
+	transition: opacity 0.15s;
+}
+
+.scene {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.transition {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	background: #efe6d5;
+	z-index: 1;
+	pointer-events: none;
+}
+
+.lettre-container {
+	position: absolute;
+	width: 472px;
+	height: 356px;
+	bottom: -100%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 10;
+}
+
+.lettre-container img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 99;
+}
+
+.lettre-container p {
+	color: #cf3232;
+}
+
+.bottomHover {
+	position: absolute;
+	left: 50%;
+	top: -1em;
+	transform: translate(-50%, -50%);
+	background: var(--mainColor);
+	border-radius: 50% 50% 0 0;
+	padding: 0.5em 1em;
+	z-index: -1;
+	color: var(--bgColor);
+	opacity: 0;
+	pointer-events: none;
+	transition: 0.25s all;
+}
+
+.bottomHover.scene {
+	display: inline-block;
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.mask {
+	position: absolute;
+	bottom: -20em;
+	left: 0;
+	width: 100%;
+	height: 300px;
+	z-index: 1;
+	background: url(assets/images/00c7ea068c29afae.png);
+}
+
+.maskBtn {
+	position: absolute;
+	top: 75%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.leftBlock {
+	width: 10em;
+}
+
+.timeline {
+	position: absolute;
+	display: inline-block;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width:100%;
+	height: 3px;
+	background: var(--mainColor);
+	/*transition: 0.25s width;*/
+}
+
+.timeline.scene {
+	width: 0%;
+}
+
+.annotation {
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background: #BD2626;
+	opacity: 1;
+	top: 0;
+	left: 0;
+	transform: translate(0px,0px);
+}
+
+.annotation::after {
+	content: "";
+	position: absolute;
+	top: -19%;
+	left: -23%;
+	transform: translate(-50%, -50%);
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background: transparent;
+	border: 2px solid #BD2626;
+	animation: annotation 1s ease-in-out infinite alternate;
+}
+
+@keyframes annotation {
+	from {
+	  transform: scale(1)
+	}
+  
+	to {
+	  transform: scale(1.2)
+	}
+ }
+
+.landingPage{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width:100%;
+	height: 100%;
+	background: var(--bgColor);
+	z-index: 10;
+}
+
+.landingContent{
+	position: absolute;
+	top:50%;
+	left:50%;
+	transform: translate(-50%,-50%);
+	max-width: 50%;
+	text-align: center;
+}
+
+.logo{
+	font-size:5em;
+	font-family: "Nothing You Could Do";
+	color:#BD2626;
+}
+
+.contentLand{
+	font-family:"Abhaya Libre";
+	font-size: 1.25rem;
+	width: 70%;
+	margin: 1.5em auto;
+}
+
+.startExp{
+	position: relative;
+    font-size: 1.3rem;
+    color: #BD2626;
+    margin-top: 1rem;
+
+}
+
+.startExp:hover::after{
+	width: 100%;
+
+}
+
+.startExp::after{
+	position: absolute;
+	content:"";
+	width: 75%;
+	height:2px;
+	left: 50%;
+	bottom:0%;
+	transform: translateX(-50%);
+	background:#BD2626;
+	transition: all 0.25s;
+}
+
+.disabled{
+	pointer-events: none;
+}
+
+.toggle-audio {
+	position: absolute;
+	top: 4em;
+	right: 4em;
+	width: 2.5em;
+	background: var(--bgColor);
+	border: 2px solid var(--mainColor);
+	border-radius: 50%;
+	height: 2.5em;
+}
+
+.toggle-audio img{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}
+
+
+
+/*# sourceMappingURL=main.css.map*/

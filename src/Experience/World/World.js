@@ -8,7 +8,7 @@ import MouseHandler from "./MouseHandler";
 import * as THREE from 'three'
 import dataMap from '../Utils/dataMap.json'
 import gsap from 'gsap'
-import { Howl } from 'Howler';
+import Howler from 'howler';
 
 
 
@@ -25,7 +25,7 @@ export default class World {
         this.scene = this.experience.scene
         this.resources = this.experience.resources
         this.camera = this.experience.camera
-        this.ambiance = new Howl({
+        this.ambiance = new Howler.Howl({
             src: ["sounds/Musique_ambiance_fond.mp3"]
         })
         const exp = document.querySelector(".startExp")
