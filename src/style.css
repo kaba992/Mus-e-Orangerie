@@ -292,6 +292,10 @@ button {
 	transform: translateY(0%);
 }
 
+.replayInput{
+	display: none;
+}
+
 .inputNav,
 .replayInput,
 .leftInfo {
@@ -304,6 +308,8 @@ button {
 	gap: 0.75em;
 	transition: all 0.15s;
 }
+
+
 
 .replayInput,
 .leftInfo {

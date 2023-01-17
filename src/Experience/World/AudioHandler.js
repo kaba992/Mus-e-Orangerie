@@ -40,6 +40,13 @@ export default class AudioHandler extends Entity {
             )
             Scene.finishedOnce = true;
             AudioHandler.audio.stop()
+            gsap.to(
+                ".replayInput",
+                {
+                    opacity: 1,
+                    duration: 1,
+                }
+            )
             this.subtitle.innerHTML = "";
             this.subtitle.style.backgroundColor = "transparent";
 
@@ -87,6 +94,12 @@ export default class AudioHandler extends Entity {
                     this.anim = gsap.timeline()
                     AudioHandler.audio.play()
                     AudioHandler.subtitlesCues = subtitles.cues;
+                    gsap.to(
+                        ".replayInput",
+                        {
+                            opacity: 0,
+                            duration: 1,
+                        })
                     this.anim.to(".timeline", {
                         width: "0%",
                     })
@@ -143,6 +156,13 @@ export default class AudioHandler extends Entity {
                 }
                 AudioHandler.audio.play()
                 this.anim = gsap.timeline()
+                gsap.to(
+                    ".replayInput",
+                    {
+                        opacity: 0,
+                        duration: 1,
+                    }
+                )
                 this.anim.to(
                     '.timeline', {
                     width: "0%",
