@@ -20,6 +20,7 @@ export default class Scene extends Entity {
 
         this.debug = this.experience.debug
         this.orangerMixer = null
+        this.muted = false
 
         if (this.debug.active) {
             this.debugFolder = this.debug.ui.addFolder('camera')
@@ -87,7 +88,34 @@ export default class Scene extends Entity {
 
     setAudio() {
         this.startAudio = document.querySelector(".start-audio.scene")
+        const replayAudio = document.querySelector(".replayInput")
+        replayAudio.addEventListener("click", () => {
+            AudioHandler.audio.play()
+            gsap.to(
+                ".replayInput",
+                {
+                    opacity: 0,
+                    duration: 1,
+                    pointerEvents: "none"
+                }
+            )
+        })
+        const toggleAudio = document.querySelector(".toggle-audio")
+        toggleAudio.addEventListener("click", () => {
+            if (this.muted) {
+                AudioHandler.audio.mute(false)
+                this.muted = false
+            }
+            else {
+                AudioHandler.audio.mute(true)
+                this.muted = true
+                console.log("muted");
+            }
+            
+        })
+
         this.audioHandler.initInput(this.startAudio)
+        console.log("set audio");
     }
 
     setUi(isIn) {
@@ -110,12 +138,12 @@ export default class Scene extends Entity {
                 }
 
             )
-            .set(
-                '.annotation',
-                {
-                    opacity: 0,
-                },"<"
-            )
+                .set(
+                    '.annotation',
+                    {
+                        opacity: 0,
+                    }, "<"
+                )
         } else {
             tl.to(
                 this.objectContainer,
@@ -126,14 +154,14 @@ export default class Scene extends Entity {
                     ease: "power4.easeOut",
                 }
             )
-            .to(
-                '.annotation',
-                {
-                    opacity: 1,
-                    duration:1,
-                    delay: 1.5
-                },"<"
-            )
+                .to(
+                    '.annotation',
+                    {
+                        opacity: 1,
+                        duration: 1,
+                        delay: 1.5
+                    }, "<"
+                )
         }
 
 
@@ -150,8 +178,10 @@ export default class Scene extends Entity {
         else if (this.sceneName == "utrillo") {
             this._mesh.rotation.y = 5
             this._mesh.scale.set(2, 2, 2)
+
         }
         else if (this.sceneName == "garage") {
+
             gsap.to(
                 ".lettre-container",
                 {
@@ -162,6 +192,7 @@ export default class Scene extends Entity {
             )
         }
         else if (this.sceneName == "oranger") {
+
             this.orangerMixer = new THREE.AnimationMixer(this.model.scene)
             const clips = this.model.animations
             const clip = THREE.AnimationClip.findByName(clips, 'MorphBake');
@@ -188,7 +219,7 @@ export default class Scene extends Entity {
         const mouseHandler = new MouseHandler();
         mouseHandler.clearListObjects()
         const tabObj = [];
-        this.#sceneInfo.objList.forEach((obj,i) => {
+        this.#sceneInfo.objList.forEach((obj, i) => {
             document.querySelectorAll('.annotation')[i].classList.remove("hidden")
             let objCurrent = this._mesh.getObjectByName(obj);
             if (objCurrent) tabObj.push(objCurrent);
@@ -201,9 +232,8 @@ export default class Scene extends Entity {
         if (this.model && this.sceneName == "oranger") {
             this.orangerMixer.update(this.clock.getDelta() * 0.5)
         }
-        if (AudioHandler.audio && AudioHandler.audio._duration) {
-            console.log(AudioHandler.audio._duration)
-        }
+        console.log(this.muted);
+
         if (this.objects && this.objects.length > 0) {
             for (let i = 0; i < this.objects.length; i++) {
                 const annotation = document.querySelectorAll(".annotation")[i]
