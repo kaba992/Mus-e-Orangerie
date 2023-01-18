@@ -162,7 +162,7 @@ button {
 .objects-description {
 	position: absolute;
 	bottom: 40%;
-	right: -32%;
+	right: -100%;
 	width: 450px;
 	opacity: 0;
 	text-align: left;

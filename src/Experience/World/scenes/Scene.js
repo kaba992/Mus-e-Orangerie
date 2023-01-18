@@ -131,7 +131,7 @@ export default class Scene extends Entity {
             tl.to(
                 this.objectContainer,
                 {
-                    x: "-135%",
+                    right: "10%",
                     opacity: 1,
                     duration: 1,
                     ease: "power4.easeInOut",
@@ -148,7 +148,7 @@ export default class Scene extends Entity {
             tl.to(
                 this.objectContainer,
                 {
-                    x: "160%",
+                    right: "-100%",
                     opacity: 1,
                     duration: 1,
                     ease: "power4.easeOut",
