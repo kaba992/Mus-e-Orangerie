@@ -1,5 +1,6 @@
 import Entity from './scenes/Entity';
-import { Howl } from 'Howler';
+import Howler from 'howler';
+
 import { WebVTTParser } from 'webvtt-parser';
 import gsap from 'gsap';
 import Scene from './scenes/Scene';
@@ -29,7 +30,7 @@ export default class AudioHandler extends Entity {
     }
 
     setAudio(src, subtitleFile) {
-        AudioHandler.audio = new Howl({ src: [src] });
+        AudioHandler.audio = new Howler.Howl({ src: [src] });
         AudioHandler.audio.on("end", () => {
             gsap.to(
                 ".timeline", {
